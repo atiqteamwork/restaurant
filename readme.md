@@ -1,4 +1,4 @@
-# PMS (Projects Management Solution)
+# RESTAURANT (Restaurant Order Management Solution)
 
 Please follow the [PSR-2](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md) coding standard and the [PSR-4](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-4-autoloader.md) autoloading standard. In addition to these standards, the following coding standards should be followed:
 
