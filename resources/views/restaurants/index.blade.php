@@ -30,7 +30,7 @@
                     <tr id="{{$restaurant->id}}">
                         <td>{{$restaurant->title}}</td>
                         <td>{{$restaurant->address}}</td>
-                        <td>{{$restaurant->city_id}}</td>
+                        <td>{{$restaurant->City->city_name}}</td>
                         <td> @if($restaurant->status=='Active') <span class="label label-primary">{{$restaurant->status}}</span> @else <span class="label label-danger"> {{$restaurant->status}}</span> @endif </td>
                         <td><input type="hidden" name="_token" value="{{ csrf_token() }}">
                             <a href="#" class="btn btn-success btn-sm view_Restaurant_button" data-id="{{$restaurant->id}}"><i class="fa fa-info" aria-hidden="true"></i></a>
@@ -62,7 +62,7 @@
                     <div class="form-group"> {{Form::label('title', 'Restaurant Name/Title')}}
                         {{Form::Text('title','', ['class' => 'form-control', 'placeholder'=>'Enter Restaurant Name/Title', 'required'=>'required'])}} </div>
                     <div class="form-group"> {{Form::label('city_id', 'City')}}
-                        {{Form::select('city_id', ['1' => 'Faisalabad'],null ,['class' => 'form-control'])}} </div>
+                        {{Form::select('city_id', $cities,null ,['class' => 'form-control'])}} </div>
                     <div class="form-group"> {{Form::label('description', 'description')}}
                         {{Form::Text('description','', ['class' => 'form-control', 'placeholder'=>'Enter Description'])}} </div>
                     <div class="form-group"> {{Form::label('address', 'Address')}}

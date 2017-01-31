@@ -31,7 +31,17 @@ class RestaurantController extends Controller
 	public function index()
 	{
 		$restaurant_list = Restaurant::all();
-		return view("restaurants.index")->with("restaurants", $restaurant_list);
+		
+		$cities = City::all();
+		$cities_data = [""=> "Select City"];
+		foreach( $cities as $city ) {
+			$cities_data[$city->id] = $city->city_name;
+		}
+		
+		return view("restaurants.index")->with([
+				"restaurants" => $restaurant_list,
+				"cities"	=> $cities_data,
+				]);
 	}
 	
 	
@@ -225,6 +235,14 @@ class RestaurantController extends Controller
 		
 		
 		} else {
+			$cities = City::all();
+		
+			$city_option = "";
+			foreach( $cities as $city ) {
+				$city_option .= "<option value='".$city->id."' ".($restaurant->city_id == $city->id ? 'selected' :'').">".$city->city_name."</option>";
+			}
+			
+			
 			$returndata = '<div class="box-body">
           <input  type="hidden" name="id" id="id" value="' . $restaurant->id . '"/>
 		  <input type="hidden" name="old_title" id="old_title" value="' . $restaurant->title . '"/>
@@ -232,7 +250,7 @@ class RestaurantController extends Controller
 		  <div class="form-group">
             <label>City</label>
             <select name="city_id" class="form-control">
-              <option value="1">Faisalabad</option>
+              '.$city_option.'
             </select>
           </div>
 

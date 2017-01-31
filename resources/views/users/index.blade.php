@@ -195,7 +195,7 @@
 
                 $.ajax({
                     type: "POST",
-                    url: "{{ url('/users/get_user_byid')}}",
+                    url: "{{ url('admin/users/get_user_byid')}}",
                     data: dataString,
                     cache: false,
                     success: function (data) {

@@ -58,7 +58,7 @@
                     <div class="form-group"> {{Form::label('area_name', 'Area Name')}}
                         {{Form::Text('area_name','', ['class' => 'form-control', 'placeholder'=>'Enter Area Name', 'required'=>'required'])}} </div>
                     <div class="form-group"> {{Form::label('city_id', 'City')}}
-                        {{Form::select('city_id', ['1' => 'Faisalabad'],null ,['class' => 'form-control'])}} </div>
+                        {{Form::select('city_id', $cities,null ,['class' => 'form-control'])}} </div>
                 </div>
             </div>
             <div class="modal-footer">
