@@ -1,0 +1,128 @@
+/* line 4, ../sass/doc.scss */
+.doc-content {
+  padding: 30px 0px;
+}
+/* line 7, ../sass/doc.scss */
+.doc-content .doc-sidebar {
+  background-color: #FFF;
+  padding: 10px;
+  border-radius: 2px;
+}
+/* line 12, ../sass/doc.scss */
+.doc-content .doc-sidebar .navbar {
+  border-radius: 0px;
+}
+/* line 14, ../sass/doc.scss */
+.doc-content .doc-sidebar .navbar ul {
+  width: 100%;
+  list-style-type: none;
+  padding: 0px;
+  margin: 0px;
+}
+/* line 19, ../sass/doc.scss */
+.doc-content .doc-sidebar .navbar ul li {
+  width: 100%;
+}
+/* line 21, ../sass/doc.scss */
+.doc-content .doc-sidebar .navbar ul li a {
+  color: #1B2431;
+  font-size: 14px;
+  padding: 8px 5px;
+  display: block;
+  text-decoration: none;
+  outline: none;
+}
+/* line 29, ../sass/doc.scss */
+.doc-content .doc-sidebar .navbar ul li a:hover {
+  color: #0F9DEA;
+  background-color: transparent;
+}
+/* line 36, ../sass/doc.scss */
+.doc-content .doc-sidebar .navbar ul li.tag-header {
+  font-size: 15px;
+  font-weight: 600;
+  margin: 7px 0px;
+}
+/* line 42, ../sass/doc.scss */
+.doc-content .doc-sidebar .navbar ul li.active a {
+  border-color: #1B93E1;
+  color: #1B93E1;
+}
+
+/* line 54, ../sass/doc.scss */
+.doc-sections {
+  background-color: #FFF;
+  border-radius: 2px;
+  padding: 0px 15px;
+}
+/* line 58, ../sass/doc.scss */
+.doc-sections .section-cont {
+  padding-bottom: 30px;
+  padding-top: 5px;
+}
+/* line 61, ../sass/doc.scss */
+.doc-sections .section-cont h3 {
+  font-size: 24px;
+  font-weight: 600;
+}
+/* line 65, ../sass/doc.scss */
+.doc-sections .section-cont h4 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #444;
+}
+/* line 70, ../sass/doc.scss */
+.doc-sections .section-cont p {
+  color: #1B2431;
+  font-size: 14px;
+  line-height: 24px;
+}
+/* line 76, ../sass/doc.scss */
+.doc-sections .section-cont a {
+  color: #1B93E1;
+}
+
+/* line 83, ../sass/doc.scss */
+.code-structure {
+  background-color: #272822;
+  margin: 20px 0px;
+  padding: 20px;
+  color: #FFF;
+  border-radius: 2px;
+}
+/* line 90, ../sass/doc.scss */
+.code-structure p {
+  margin: 5px 0px;
+  font-size: 15px;
+  color: #FFF !important;
+}
+/* line 94, ../sass/doc.scss */
+.code-structure p span {
+  margin-left: 15px;
+}
+/* line 97, ../sass/doc.scss */
+.code-structure p code {
+  padding: 2px 10px;
+}
+/* line 105, ../sass/doc.scss */
+.code-structure code {
+  font-size: 18px;
+  line-height: 28px;
+}
+
+/* line 115, ../sass/doc.scss */
+.doc-sections .white-color a {
+  color: #FFF;
+}
+
+/* line 120, ../sass/doc.scss */
+.credits-list {
+  margin: 30px 0px;
+}
+
+/* line 124, ../sass/doc.scss */
+.doc-code {
+  font-size: 18px;
+  line-height: 28px;
+  color: #c7254e;
+}

@@ -1,0 +1,29 @@
+@import "../css/font-awesome.min.css";
+
+@import "../plugins/bootstrap/css/bootstrap.min.css";
+
+@import "../plugins/perfect-scrollbar/css/perfect-scrollbar.min.css";
+
+@import "../plugins/dataTables/dataTables.bootstrap.min.css";
+
+@import "../plugins/jqwidgets/styles/jqx.base.css";
+
+@import "../node_modules/lightbox2/dist/css/lightbox.min.css";
+
+@import "../plugins/morris/morris.css";
+
+@import "../plugins/fullcalendar/fullcalendar.css";
+
+@import "../plugins/calendario/css/calendario.css";
+
+@import "../plugins/formvalidation/dist/css/formValidation.min.css";
+
+@import "../node_modules/select2/dist/css/select2.min.css";
+
+@import "../plugins/bootstrap-switch-master/dist/css/bootstrap-switch.css";
+
+@import "../css/dropupload.css";
+
+@import "../plugins/angular-mappy/build/angular-mappy.css";
+
+@import "../node_modules/angular-loading-bar/build/loading-bar.min.css";

@@ -1,0 +1,185 @@
+@extends('layouts.layout')
+@section('title', 'Add New Restaurant')
+
+@section('content')
+<div class="box">
+    <div class="box-header">
+        <h3 class="box-title">Add New Restaurant</h3>
+    </div>
+    <!-- Areas-header -->
+    
+    <div class="box-body">
+        <div class="panel panel-default">
+            <div class="panel-heading">New Restaurant</div>
+            <div class="panel-body">
+                <div class="alert alert-danger" id="alertdanger" style="display:none"><strong>Alert!</strong> <span></span></div>
+                <div class="alert alert-success" style="display:none"><strong>Success!</strong> <span></span></div>
+                {{ Form::open(array('url' => 'admin/restaurant/add_new','id'=>'new_restaurant')) }}
+                <div class="row">
+                    <div class="col-sm-offset-1 col-sm-2"> {{Form::label('city_id', 'City', ["class" => "text-right"])}} </div>
+                    <div class="col-sm-8">
+                        <div class="form-group"> {{Form::select('city_id', $cities,null ,['class' => 'form-control'])}} </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-offset-1 col-sm-2"> {{Form::label('title', 'Restaurant Name:', ["class" => "text-right"])}} </div>
+                    <div class="col-sm-8">
+                        <div class="form-group"> {{Form::Text('title','', ['class' => 'form-control', 'placeholder'=>'Enter Restaurant Name/Title', 'required'=>'required'])}} </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-offset-1 col-sm-2"> {{Form::label('description', 'Description:', ["class" => "text-right"])}} </div>
+                    <div class="col-sm-8">
+                        <div class="form-group"> {{Form::Text('description','', ['class' => 'form-control', 'placeholder'=>'Description'])}} </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-offset-1 col-sm-2"> {{Form::label('email', 'Email Address', ["class" => "text-right"])}} </div>
+                    <div class="col-sm-8">
+                        <div class="form-group"> {{Form::Email('email','', ['class' => 'form-control', 'placeholder'=>'Email Address', 'required'=>'required'])}} </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-offset-1 col-sm-2"> {{Form::label('address', 'Address', ["class" => "text-right"])}} </div>
+                    <div class="col-sm-8">
+                        <div class="form-group"> {{Form::Text('address','', ['class' => 'form-control', 'placeholder'=>'Enter Address', 'required'=>'required'])}} </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-offset-1 col-sm-2"> {{Form::label('phone_primary', 'Primary Phone', ["class" => "text-right"])}} </div>
+                    <div class="col-sm-8">
+                        <div class="form-group"> {{Form::Text('phone_primary','', ['class' => 'form-control', 'placeholder'=>'Primary Phone', 'required'=>'required'])}} </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-offset-1 col-sm-2"> {{Form::label('phone_secondary', 'Secondary Phone', ["class" => "text-right"])}} </div>
+                    <div class="col-sm-8">
+                        <div class="form-group"> {{Form::Text('phone_secondary','', ['class' => 'form-control', 'placeholder'=>'Secondary Phone'])}} </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-offset-1 col-sm-2"> {{Form::label('cell', 'Cell Phone', ["class" => "text-right"])}} </div>
+                    <div class="col-sm-8">
+                        <div class="form-group"> {{Form::Text('cell','', ['class' => 'form-control', 'placeholder'=>'Cell Phone'])}} </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-offset-1 col-sm-2"> {{Form::label('contact_person', 'Contact Person', ["class" => "text-right"])}} </div>
+                    <div class="col-sm-8">
+                        <div class="form-group"> {{Form::text('contact_person','', ['class' => 'form-control', 'placeholder'=>'Contact Person'])}} </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-offset-1 col-sm-2"> {{Form::label('contact_phone', 'Contact Phone', ["class" => "text-right"])}} </div>
+                    <div class="col-sm-8">
+                        <div class="form-group"> {{Form::number('contact_phone','', ['class' => 'form-control', 'placeholder'=>'Contact Phone'])}} </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-offset-1 col-sm-2"> {{Form::label('contact_email', 'Contact Email', ["class" => "text-right"])}} </div>
+                    <div class="col-sm-8">
+                        <div class="form-group"> {{Form::email('contact_email','', ['class' => 'form-control', 'placeholder'=>'Contact Email'])}} </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-offset-1 col-sm-2"> {{Form::label('open_time', 'Opening Time', ["class" => "text-right"])}} </div>
+                    <div class="col-sm-6">
+                        <div class="form-group"> {{Form::time('open_time','', ['class' => 'form-control', 'placeholder'=>'12:00 pm', 'required'=>'required'])}} </div>
+                    </div>
+                    
+                    <div class="col-sm-3">
+                        <div class="form-group"> <em> i.e 12:00 pm</em> </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-offset-1 col-sm-2"> {{Form::label('close_time', 'Closing Time', ["class" => "text-right"])}} </div>
+                    <div class="col-sm-6">
+                        <div class="form-group"> {{Form::time('close_time','', ['class' => 'form-control', 'placeholder'=>'12:00 am', 'required'=>'required'])}} </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group"> <em>i.e 12:00 am</em> </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-offset-1 col-sm-2"> {{Form::label('is_takeaway_only', 'Restaurant Type', ["class" => "text-right"])}} </div>
+                    <div class="col-sm-8">
+                        <div class="form-group"> {{Form::select('is_takeaway_only', ['true' =>'Takeaway Only', "false"=>'Delivery and Takeaway'],null ,['class' => 'form-control'])}} </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-offset-1 col-sm-2">
+                        <label class="text-right">Areas</label>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="form-group"> {{Form::select('area_ids[]', $areas,null ,['class' => 'basic-select2 form-control', 'data-select1', "multiple" => "multiple"])}} </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-offset-1 col-sm-2"> {{Form::label('outof_area_charges', 'Outside Area Charges', ["class" => "text-right"])}} </div>
+                    <div class="col-sm-8">
+                        <div class="form-group"> {{Form::number('outof_area_charges','', ['class' => 'form-control', 'placeholder'=>'Outside Area Charges'])}} </div>
+                    </div>
+                </div>
+                <hr>
+                {{Form::submit('Save Restaurant',['class' => 'btn btn-primary'])}}
+                <hr>
+                {{ Form::close() }} </div>
+        </div>
+    </div>
+</div>
+@stop
+
+
+@section('script') 
+<!-- jQuery 2.2.3 --> 
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script> 
+<!-- Bootstrape --> 
+<script src='assets/plugins/bootstrap/js/bootstrap.min.js'></script> 
+<script src='assets/plugins/angularjs/angular.js'></script> 
+<script src='assets/plugins/angularjs/angular-route.min.js'></script> 
+<script src='assets/plugins/angularjs/ng-map.min.js'></script> 
+<script src='assets/plugins/angularjs/angular-animate.min.js'></script> 
+<script src='assets/node_modules/select2/dist/js/select2.js'></script>"); 
+<script src='assets/node_modules/angular-chart.js/dist/Chart.min.js'></script>"); 
+<script src='assets/node_modules/angular-chart.js/dist/angular-chart.js'></script>"); 
+<script src='assets/plugins/angularjs/ng-google-chart.js'></script>"); 
+<script src='assets/plugins/angular-mappy/build/angular-mappy.js'></script> 
+<script src='assets/node_modules/angular-loading-bar/build/loading-bar.js'></script> 
+<script src='assets/js/angularScript.js'></script> 
+<script src='assets/js/custom.js'></script> 
+<script src="assets/plugins/datetimepicker/jquery.datetimepicker.min.js"></script>
+<script>
+	$(document).ready(function () {	
+		
+		$("#new_restaurant").on("submit", function(){			
+			$.ajax({
+				type: "POST",
+				url: "{{ url('admin/restaurant/add_new')}}",
+				data: $(this).serialize(),
+				success: function (response) {
+					if (response == 'Success') {
+						$(".alert-success").html("New Restaurant Created!");
+						
+						var imover = setInterval(function(){
+							location.href = "{{ url('admin/restaurants')}}";
+						}, 2500);
+						
+					} else {
+						$('html, body').animate({
+							scrollTop: $( "#alertdanger" ).offset().top
+						}, 500);
+						$(".alert-danger span").html( response );
+						$(".alert-danger").fadeIn(400);
+					}
+				}
+			});
+			
+			return false;
+		});
+	});
+</script> 
+@stop

@@ -1,0 +1,253 @@
+@media (max-width: 1200px) {
+  /* line 3, ../sass/screen.scss */
+  .main-sidebar {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    height: auto;
+    padding-bottom: 0px;
+  }
+  /* line 9, ../sass/screen.scss */
+  .main-sidebar .logo {
+    padding: 5px 20px;
+    margin-bottom: 0px;
+    border: 0px;
+  }
+  /* line 13, ../sass/screen.scss */
+  .main-sidebar .logo a {
+    float: left;
+  }
+
+  /* line 18, ../sass/screen.scss */
+  .flight-widget .flight-content .flight-info .pull-left {
+    border: none;
+  }
+
+  /* line 21, ../sass/screen.scss */
+  .sidebar-menu {
+    height: 0px;
+    overflow: hidden;
+    transition: opacity 0.5s ease-out;
+    opacity: 0;
+  }
+
+  /* line 29, ../sass/screen.scss */
+  .sidebar-menu.display-menu {
+    height: auto;
+    opacity: 1;
+    border-top: #333 solid 1px;
+  }
+
+  /* line 34, ../sass/screen.scss */
+  .main-content {
+    width: 100%;
+    margin-left: 0px;
+  }
+
+  /* line 38, ../sass/screen.scss */
+  .info-box .info-box-head {
+    left: 34%;
+  }
+
+  /* line 42, ../sass/screen.scss */
+  .main-sidebar .logo a img {
+    max-height: 40px;
+  }
+}
+@media (max-width: 992px) {
+  /* line 50, ../sass/screen.scss */
+  .info-box .info-box-head {
+    left: 40%;
+  }
+
+  /* line 53, ../sass/screen.scss */
+  .search-top-widget input {
+    padding: 5px 10px;
+  }
+
+  /* line 56, ../sass/screen.scss */
+  #Dtable_wrapper {
+    overflow-x: scroll;
+  }
+
+  /* line 59, ../sass/screen.scss */
+  .dataTables_info {
+    float: none;
+    text-align: center;
+    padding: 10px 0px;
+  }
+
+  /* line 64, ../sass/screen.scss */
+  .dataTables_paginate {
+    float: none;
+    text-align: center !important;
+    margin-bottom: 20px !Important;
+  }
+
+  /* line 70, ../sass/screen.scss */
+  #unseen table td:nth-child(2),
+  #unseen table th:nth-child(2) {
+    display: none;
+  }
+
+  /* line 72, ../sass/screen.scss */
+  .map-widget {
+    margin-bottom: 30px;
+  }
+}
+@media (max-width: 768px) {
+  /* line 80, ../sass/screen.scss */
+  .blog-box .card {
+    text-align: center;
+  }
+  /* line 82, ../sass/screen.scss */
+  .blog-box .card img {
+    display: inline-block;
+  }
+
+  /* line 88, ../sass/screen.scss */
+  .e-visitor-stats {
+    margin: 30px 0px;
+  }
+
+  /* line 91, ../sass/screen.scss */
+  .navigation-style {
+    text-align: center;
+  }
+  /* line 93, ../sass/screen.scss */
+  .navigation-style .nav-logo {
+    float: none !important;
+    display: inline-block;
+  }
+
+  /* line 100, ../sass/screen.scss */
+  .animation-box .media {
+    text-align: center;
+  }
+  /* line 102, ../sass/screen.scss */
+  .animation-box .media .media-left {
+    display: block;
+    text-align: center;
+  }
+  /* line 106, ../sass/screen.scss */
+  .animation-box .media .media-right {
+    display: block;
+    text-align: center;
+    width: 100%;
+  }
+
+  /* line 115, ../sass/screen.scss */
+  .email-action-btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  /* line 119, ../sass/screen.scss */
+  .email-style-2 .email-action-list {
+    padding: 2px 10px;
+  }
+
+  /* line 122, ../sass/screen.scss */
+  .email-action-list .email-action-btn li {
+    float: none;
+    margin: 10px 10px;
+  }
+
+  /* line 126, ../sass/screen.scss */
+  .compose-btn {
+    margin-bottom: 8px;
+  }
+
+  /* line 129, ../sass/screen.scss */
+  .info-box .info-box-head {
+    display: none;
+  }
+
+  /* line 132, ../sass/screen.scss */
+  .info-box {
+    margin-top: 30px;
+  }
+
+  /* line 135, ../sass/screen.scss */
+  .distance-graph {
+    margin-bottom: 30px;
+  }
+
+  /* line 138, ../sass/screen.scss */
+  .clients-widget {
+    margin: 0px 0px;
+  }
+
+  /* line 141, ../sass/screen.scss */
+  .calendar-widget {
+    margin: 0px 0px;
+  }
+
+  /* line 144, ../sass/screen.scss */
+  .admin-widgets {
+    margin: 15px 0px;
+  }
+
+  /* line 147, ../sass/screen.scss */
+  .social-links {
+    margin-top: 30px;
+  }
+
+  /* line 150, ../sass/screen.scss */
+  .advance-form label {
+    text-align: left;
+  }
+
+  /* line 153, ../sass/screen.scss */
+  .contact-action {
+    display: none;
+  }
+
+  /* line 156, ../sass/screen.scss */
+  .basic-form label {
+    text-align: left;
+  }
+
+  /* line 159, ../sass/screen.scss */
+  #unseen table td:nth-child(4),
+  #unseen table th:nth-child(4),
+  #unseen table td:nth-child(7),
+  #unseen table th:nth-child(7),
+  #unseen table td:nth-child(8),
+  #unseen table th:nth-child(8) {
+    display: none;
+  }
+
+  /* line 166, ../sass/screen.scss */
+  .xs-m-0 {
+    margin: 0px;
+  }
+
+  /* line 170, ../sass/screen.scss */
+  .xs-m-30 {
+    margin: 30px 0px;
+  }
+
+  /* line 173, ../sass/screen.scss */
+  .admin-widgets .detail-list ul li.project-member {
+    text-align: right;
+  }
+}
+@media (max-width: 500px) {
+  /* line 183, ../sass/screen.scss */
+  .cs-footer {
+    position: relative;
+  }
+
+  /* line 186, ../sass/screen.scss */
+  .email-btn {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  /* line 194, ../sass/screen.scss */
+  .get-email form input {
+    margin: 10px 0px;
+  }
+}

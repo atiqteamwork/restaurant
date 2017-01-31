@@ -1,0 +1,202 @@
+@media (max-width: 1200px){
+
+  .main-sidebar{
+    width:100%;
+    overflow: hidden;
+    position: relative;
+    height: auto;
+    padding-bottom: 0px;
+    .logo{
+      padding: 5px 20px;
+      margin-bottom: 0px;
+      border: 0px;
+      a{
+       float: left;
+      }
+    }
+  }
+  .flight-widget .flight-content .flight-info .pull-left{
+    border: none;
+  }
+.sidebar-menu{
+  height:0px;
+  overflow: hidden;
+  transition: opacity 0.5s ease-out;
+  opacity: 0;
+
+}
+
+  .sidebar-menu.display-menu{
+    height: auto;
+    opacity: 1;
+    border-top: #333 solid 1px;
+  }
+  .main-content{
+    width:100%;
+    margin-left: 0px;
+  }
+  .info-box .info-box-head{
+    left: 34%;
+  }
+
+  .main-sidebar .logo a img{
+    max-height: 40px;
+  }
+
+
+}
+
+@media (max-width: 992px){
+  .info-box .info-box-head{
+    left: 40%;
+  }
+  .search-top-widget input{
+    padding: 5px 10px;
+  }
+  #Dtable_wrapper{
+    overflow-x: scroll;
+  }
+  .dataTables_info{
+    float: none;
+    text-align: center;
+    padding: 10px 0px;
+  }
+  .dataTables_paginate{
+    float: none;
+    text-align: center !important;
+    margin-bottom: 20px !Important;
+
+  }
+  #unseen table td:nth-child(2),
+  #unseen table th:nth-child(2) {display: none;}
+  .map-widget{
+    margin-bottom: 30px;
+  }
+}
+@media (max-width: 768px){
+
+
+  .blog-box{
+    .card{
+             text-align: center;
+      img{
+        display: inline-block;
+      }
+    }
+  }
+
+  .e-visitor-stats{
+    margin: 30px 0px;
+  }
+  .navigation-style{
+    text-align: center;
+    .nav-logo{
+      float:none !important;
+      display: inline-block;
+
+    }
+  }
+  .animation-box{
+    .media{
+      text-align: center;
+      .media-left{
+            display: block;
+        text-align: center;
+      }
+      .media-right{
+        display: block;
+        text-align: center;
+        width:100%;
+
+      }
+    }
+
+  }
+  .email-action-btn{
+    width:100%;
+    text-align: center;
+  }
+  .email-style-2 .email-action-list{
+    padding: 2px 10px;
+  }
+  .email-action-list .email-action-btn li{
+    float: none;
+    margin:10px 10px;
+  }
+  .compose-btn{
+    margin-bottom: 8px;
+  }
+  .info-box .info-box-head{
+    display: none;
+  }
+  .info-box{
+    margin-top: 30px;
+  }
+  .distance-graph{
+    margin-bottom: 30px;
+  }
+  .clients-widget{
+    margin: 0px 0px;
+  }
+  .calendar-widget{
+    margin: 0px 0px;
+  }
+  .admin-widgets{
+    margin: 15px 0px;
+  }
+  .social-links{
+    margin-top: 30px;
+  }
+  .advance-form label{
+     text-align: left;
+  }
+  .contact-action{
+    display: none;
+  }
+  .basic-form label{
+    text-align: left;
+  }
+  #unseen table td:nth-child(4),
+  #unseen table th:nth-child(4),
+  #unseen table td:nth-child(7),
+  #unseen table th:nth-child(7),
+  #unseen table td:nth-child(8),
+  #unseen table th:nth-child(8){display: none;}
+
+  .xs-m-0{
+    margin: 0px;
+
+  }
+  .xs-m-30{
+    margin: 30px 0px;
+  }
+  .admin-widgets .detail-list ul li.project-member{
+    text-align: right;
+  }
+
+}
+
+
+
+@media (max-width: 500px){
+
+  .cs-footer{
+    position: relative;
+  }
+  .email-btn{
+    display: block;
+    width:100%;
+    margin-bottom: 10px;
+
+  }
+  .get-email{
+    form{
+      input{
+        margin: 10px 0px;
+      }
+
+    }
+  }
+}
+
+
