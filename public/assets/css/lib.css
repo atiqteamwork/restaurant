@@ -8,7 +8,7 @@
 
 @import "../plugins/jqwidgets/styles/jqx.base.css";
 
-@import "../node_modules/lightbox2/dist/css/lightbox.min.css";
+@import "../plugins/lightbox2/dist/css/lightbox.min.css";
 
 @import "../plugins/morris/morris.css";
 
@@ -18,7 +18,7 @@
 
 @import "../plugins/formvalidation/dist/css/formValidation.min.css";
 
-@import "../node_modules/select2/dist/css/select2.min.css";
+@import "../plugins/select2/dist/css/select2.min.css";
 
 @import "../plugins/bootstrap-switch-master/dist/css/bootstrap-switch.css";
 
@@ -26,4 +26,4 @@
 
 @import "../plugins/angular-mappy/build/angular-mappy.css";
 
-@import "../node_modules/angular-loading-bar/build/loading-bar.min.css";
+@import "../plugins/angular-loading-bar/build/loading-bar.min.css";

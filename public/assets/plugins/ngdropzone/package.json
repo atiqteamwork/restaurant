@@ -1,0 +1,61 @@
+{
+  "name": "ngdropzone",
+  "version": "1.0.7",
+  "description": "AngularJS directive for Dropzone, an easy to use drag'n'drop file upload library. http://www.dropzonejs.com",
+  "main": "dist/ngDropzone.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "angular": "^1.4.9",
+    "dropzone": "^4.3.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thatisuday/ngDropzone.git"
+  },
+  "keywords": [
+    "dropzone",
+    "ngDropzone",
+    "ngdropzone"
+  ],
+  "author": {
+    "name": "Uday Hiwarale",
+    "email": "uhiwarale@gmail.com",
+    "url": "https://github.com/thatisuday"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thatisuday/ngDropzone/issues"
+  },
+  "homepage": "https://github.com/thatisuday/ngDropzone#readme",
+  "gitHead": "44862741461c95c8d94d099dde0144b55af78806",
+  "_id": "ngdropzone@1.0.7",
+  "_shasum": "504b2d85322147b9261ed728b8af5eb110025084",
+  "_from": "ngdropzone@latest",
+  "_npmVersion": "2.15.1",
+  "_nodeVersion": "4.4.3",
+  "_npmUser": {
+    "name": "thatisuday",
+    "email": "uhiwarale@gmail.com"
+  },
+  "dist": {
+    "shasum": "504b2d85322147b9261ed728b8af5eb110025084",
+    "tarball": "https://registry.npmjs.org/ngdropzone/-/ngdropzone-1.0.7.tgz"
+  },
+  "maintainers": [
+    {
+      "name": "thatisuday",
+      "email": "uhiwarale@gmail.com"
+    }
+  ],
+  "_npmOperationalInternal": {
+    "host": "packages-12-west.internal.npmjs.com",
+    "tmp": "tmp/ngdropzone-1.0.7.tgz_1463408457917_0.13423361419700086"
+  },
+  "_resolved": "https://registry.npmjs.org/ngdropzone/-/ngdropzone-1.0.7.tgz"
+}

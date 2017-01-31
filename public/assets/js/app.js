@@ -263,7 +263,7 @@ $(document).ready(function(){
 
 // end
 $(document).ready(function () {
-   //$('[data-toggle="tooltip"]').tooltip();
+   $('[data-toggle="tooltip"]').tooltip();
 
    $(".sidebar-menu li .drop-link").on('click', function () {
       $(this).toggleClass("active");
@@ -312,7 +312,7 @@ $(document).ready(function () {
 
 
 
-   /*full calendar*
+   /*full calendar*/
    $('#calendar').fullCalendar({
       defaultDate: '2016-06-12',
       editable: true,
@@ -373,7 +373,7 @@ $(document).ready(function () {
             start: '2016-06-28'
          }
       ]
-   });*/
+   });
 
 
 

@@ -58,7 +58,8 @@
 </div>
 
 <!-- New dishs Modal Start -->
-<div id="addnewDish" class="modal fade" role="dialog"> {{ Form::open(array('url' => 'admin/restaurant-menus/add_new', 'files'=> true, 'id'=>'new_dish')) }}
+<div id="addnewDish" class="modal fade" role="dialog">
+    {{ Form::open(array('url' => 'admin/restaurant-menus/add_new', 'files'=> true, 'id'=>'new_dish')) }}
 <input type="hidden" name="_token" id="_token" value="{{ csrf_token() }}">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -273,7 +274,6 @@
 				} else {
 					$("#new_dish #category_id").focus();
 					return false;
-					
 				}
 				
 				
