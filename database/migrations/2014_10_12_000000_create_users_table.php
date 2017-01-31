@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('username', 30)->unique();
             $table->string('password');
 			$table->string('address')->nullable();
+			$table->integer('city_id');
 			$table->string('phone')->nullable();
 			$table->string('cell')->nullable();
 			$table->integer('restaurant_id')->default("0");

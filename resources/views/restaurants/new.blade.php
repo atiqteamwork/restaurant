@@ -18,7 +18,7 @@
                 <div class="row">
                     <div class="col-sm-offset-1 col-sm-2"> {{Form::label('city_id', 'City', ["class" => "text-right"])}} </div>
                     <div class="col-sm-8">
-                        <div class="form-group"> {{Form::select('city_id', $cities,null ,['class' => 'form-control'])}} </div>
+                        <div class="form-group"> {{Form::select('city_id', $cities, null ,['class' => 'form-control'])}} </div>
                     </div>
                 </div>
                 <div class="row">
@@ -94,6 +94,8 @@
                         <div class="form-group"> <em> i.e 12:00 pm</em> </div>
                     </div>
                 </div>
+                
+                
                 <div class="row">
                     <div class="col-sm-offset-1 col-sm-2"> {{Form::label('close_time', 'Closing Time', ["class" => "text-right"])}} </div>
                     <div class="col-sm-6">

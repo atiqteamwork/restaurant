@@ -225,7 +225,7 @@
     </div>
 </div>
 
-<form id="edit_order_form" action="orders/edit" method="post">
+<form id="edit_order_form" action="admin/orders/edit" method="post">
 	<input type="hidden" value="" name="order_id" id="__order_id" />
     <input type="hidden" name="_token" value="{{ csrf_token() }}">
 </form>

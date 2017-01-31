@@ -49,7 +49,7 @@
                 <input type="text" name="address1" id="address1" placeholder="Street Address" class="form-control" value="{{Auth::check() ? Auth::user()->address : ''}}" required="required" />
                 
                 City: *
-                <input type="text" name="city" id="city" placeholder="City" class="form-control" required="required" />
+                <input type="text" name="city" id="city" placeholder="City" class="form-control" required="required" value="{{Auth::check() ? Auth::user()->City->city_name : ''}}" />
              
              Email Address: *   
                 <input type="text" name="email" id="email" placeholder="Email Address" class="form-control" value="{{Auth::check() ? Auth::user()->email : ''}}" required="required" />

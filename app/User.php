@@ -25,7 +25,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $dates = ['deleted_at'];
-	protected $with = ['Restaurant'];
+	protected $with = ['Restaurant', "City"];
 
     /**
      * The attributes that are mass assignable.
@@ -52,6 +52,8 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\Role');
     }
+	
+	
 
 
     /**
@@ -63,9 +65,21 @@ class User extends Authenticatable
     }
 	
 	
-	 public function restaurant()
+	/**
+	 * Relation with Restaurant Table
+	 **/
+	public function restaurant()
     {
         return $this->belongsTo('App\Restaurant', "restaurant_id");
+    }
+	
+	
+	/**
+	 * Relation with City Table
+	 **/
+	public function city()
+    {
+        return $this->belongsTo('App\City', "city_id");
     }
 
 

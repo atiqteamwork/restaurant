@@ -194,6 +194,7 @@ Route::get('session/del','SessionController@destroy_session');
 Route::resource('/restaurants/find', 'CommonController@get_restaurants_insearch');
 Route::get('/search/{id}/{title}/{area_id}', 'FrontendController@search_dishes_page');
 
+
 /**
  *   Cart Routes
  */
