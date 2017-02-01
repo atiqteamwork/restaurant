@@ -12,8 +12,8 @@
         <div class="panel panel-default table-panel">
             <div class="panel-heading">Menu Categories</div>
             <div class="panel-body">
-            	<button type="button" class="btn btn-primary new-category-click" style="float:right" data-toggle="modal" data-target="#addnewcate">Add New</button>
-                <table id="catelistdatatable" data-dtable class="table table-bordered table-striped">
+                <button type="button" class="btn btn-primary new-category-click" style="float:right" data-toggle="modal" data-target="#addnewcate">Add New</button>
+                <table id="dataTable" data-dtable class="table table-bordered table-striped data-table">
                     <thead>
                         <tr>
                             <th>Category Name / Title</th>
@@ -29,8 +29,7 @@
                         <td> @if($cate->status=='Active') <span class="label label-primary">{{$cate->status}}</span> @else <span class="label label-danger"> {{$cate->status}}</span> @endif </td>
                         <td><input type="hidden" name="_token" value="{{ csrf_token() }}">
                             <button class="btn btn-primary btn-sm edit_cate_btn" type="submit" name="id" value="{{$cate->id}}"><i class="fa fa-edit " aria-hidden="true"></i></button>
-                            	<a href="#" class="btn btn-danger del_btn" data-id="{{$cate->id}}"><i class="fa fa-trash"></i></a>
-                            </td>
+                            <a href="#" class="btn btn-danger btn-sm del_btn" data-id="{{$cate->id}}"><i class="fa fa-trash"></i></a></td>
                     </tr>
                     @endforeach
                         </tbody>
@@ -56,7 +55,6 @@
                 <div class="box-body">
                     <div class="form-group"> {{Form::label('category_title', 'Categry Name/Title')}}
                         {{Form::Text('category_title','', ['class' => 'form-control', 'placeholder'=>'Enter Category Name', 'required'=>'required'])}} </div>
-                        
                 </div>
             </div>
             <div class="modal-footer">
@@ -86,52 +84,35 @@
         </div>
         {{ Form::close() }} </div>
 </div>
-<!--  New Category Modal end--> 
-
+<!--  New Category Modal end-->
 
 <div id="del_modal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Delete Category</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="box-body">
-                        <button type="button" name="del_id" id="_category_id" class="hidden"></button>
-                        Are you sure you want to delete this category?
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-danger" id="delete_category" data-dismiss="modal">Delete</button>
-                </div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Delete Category</h4>
+            </div>
+            <div class="modal-body">
+                <div class="box-body">
+                    <button type="button" name="del_id" id="_category_id" class="hidden"></button>
+                    Are you sure you want to delete this category? </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-danger" id="delete_category" data-dismiss="modal">Delete</button>
             </div>
         </div>
     </div>
-
-
+</div>
 @stop
 
 
 @section('script') 
 <!-- jQuery 2.2.3 --> 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script> 
-<!-- Bootstrape --> 
-<script src='assets/plugins/bootstrap/js/bootstrap.min.js'></script> 
-<!-- DataTables --> 
-<script src='assets/plugins/dataTables/dataTables.min.js'></script> 
-<script src='assets/plugins/dataTables/dataTables.bootstrap.min.js'></script> 
 <script>
         $(document).ready(function () {
-            $('#catelistdatatable').DataTable({
-                "paging": true,
-                "lengthChange": false,
-                "searching": false,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false
-            });
 
 			$(".new-category-click").click(function() {
                 $(".alert").fadeOut(1);
@@ -195,15 +176,12 @@
             *	Trigger when update Category is pressed.
             */
             $("#update_cate").on('submit', function (e) {
-				
 				var old_title = $("#old_title").val();
 				var new_title = $("#update_cate #category_title").val();
 				
 				var old_status = $("#old_status").val();
 				var new_status = $("#update_cate #status").val();
-				
-				/*alert( new_title + " | " +  old_title + " A " + old_status + " | "  +  new_status );*/
-				
+								
 				if( new_title == old_title && old_status == new_status ) {
 					$(".alert span").text( "You have'nt changed anything." );
 					$(".alert").fadeIn(400);
@@ -251,8 +229,7 @@
              */
             $('#delete_category').on('click',function () {
                 var id = $('#_category_id').val();
-				//alert( id );
-
+				
                 $.ajax({
                     type: 'POST',
                     url: "{{url('admin/category/del')}}",
@@ -265,16 +242,12 @@
 							$(".alert-success span").html( "Category Delete Successfully." );
 							$(".alert-success").fadeIn(400);
 							
-							$('#catelistdatatable tr').each(function() {
+							$('#dataTable tr').each(function() {
 								if ($(this).attr('id') == id) {
 									$(this).remove();
 								}else{}
 							});
 							
-							/*var mover = setInterval( function(){
-								window.location.reload();
-								clearInterval( mover );		
-							}, 3000);*/
 						} else {
 							$(".alert-danger span").html( response );
 							$(".alert-danger").fadeIn(400);

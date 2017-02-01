@@ -300,22 +300,8 @@
                 <li><a href="javascript:;"  data-toggle="tooltip" title="Pink" id="nav-8" class="nav-chang-color pink-sidebar"></a></li>
             </ul>
         </div>
-        <hr class="line-1">
-        <div class="skin-clr">
-            <p class="heading-set">Sidebar Color</p>
-            <ul class="sel-color">
-                <li><a href="javascript:;" data-toggle="tooltip" title="Night rider " id="sidebar-0" class="active clr-hvr Def-sidebar"></a></li>
-                <li><a href="javascript:;" data-toggle="tooltip" title="Atomic" id="sidebar-5" class="clr-hvr bleachedcedar-sidebar"></a></li>
-                <li><a href="javascript:;" data-toggle="tooltip" title="Blue gray" id="sidebar-6" class="clr-hvr bluegray-sidebar"></a></li>
-                <li><a href="javascript:;" data-toggle="tooltip" title="Light gray" id="sidebar-3" class="clr-hvr light-gray-sidebar"></a></li>
-                <li><a href="javascript:;" data-toggle="tooltip" title="White" id="sidebar-1" class="clr-hvr White-sidebar"></a></li>
-                <li><a href="javascript:;" data-toggle="tooltip" title="Brown"  id="sidebar-7" class="clr-hvr lbrown-sidebar"></a></li>
-                <li><a href="javascript:;" data-toggle="tooltip" title="Dark red" id="sidebar-9" class="clr-hvr darkenred-sidebar"></a></li>
-                <li><a href="javascript:;" data-toggle="tooltip" title="Teal" id="sidebar-2" class="clr-hvr teal-sidebar"></a></li>
-                <li><a href="javascript:;" data-toggle="tooltip" title="moderate blue" id="sidebar-8" class="clr-hvr mblue-sidebar"></a></li>
-                <li><a href="javascript:;" data-toggle="tooltip" title="Pink" id="sidebar-4" class="clr-hvr pink-sidebar"></a></li>
-            </ul>
-        </div>
+        
+        
         <hr class="line-1">
         <div class="reset-btn">
             <button class="btn btn-reset" id="reset-changes">RESET</button>

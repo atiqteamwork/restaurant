@@ -19,7 +19,7 @@
                 <li><a href="#">Careers</a></li>
                 <li><a href="#">Press</a></li>
                 <li><a href="#">Contact</a></li>
-                <li class="visible-lg visible-md"><a href="#" class="btn btn_order_now">ORDER NOW</a></li>
+                <li class="visible-lg visible-md"><a href="{{url('/')}}" class="btn btn_order_now">ORDER NOW</a></li>
             </ul>
         </div>
     </div>

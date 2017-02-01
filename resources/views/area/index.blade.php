@@ -13,7 +13,7 @@
             <div class="panel-heading">Menu Categories</div>
             <div class="panel-body">
                 <button type="button" class="btn btn-primary new-category-click" style="float:right" data-toggle="modal" data-target="#addnewarea">Add New</button>
-                <table id="arealistdatatable" class="table table-bordered table-striped">
+                <table id="dataTable" class="table table-bordered table-striped data-table">
                     <thead>
                         <tr>
                             <th>Area Name</th>
@@ -113,23 +113,10 @@
 
 
 @section('script') 
-<!-- jQuery 2.2.3 --> 
+<!-- jQuery 2.2.3 -->
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script> 
-<!-- Bootstrape --> 
-<script src='assets/plugins/bootstrap/js/bootstrap.min.js'></script> 
-<!-- DataTables --> 
-<script src='assets/plugins/dataTables/dataTables.min.js'></script> 
-<script src='assets/plugins/dataTables/dataTables.bootstrap.min.js'></script> 
 <script>
         $(document).ready(function () {
-            $('#arealistdatatable').DataTable({
-                "paging": true,
-                "lengthChange": false,
-                "searching": false,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false
-            });
 
 			$(".new-category-click").click(function() {
                 $(".alert").fadeOut(1);
@@ -257,7 +244,7 @@
 							$(".alert-success span").html( "Area Delete Successfully." );
 							$(".alert-success").fadeIn(400);
 							
-							$('#arealistdatatable tr').each(function() {
+							$('#dataTable tr').each(function() {
 								if ($(this).attr('id') == area_id) {
 									$(this).remove();
 								}else{}

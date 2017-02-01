@@ -89,13 +89,10 @@
                     <div class="col-sm-6">
                         <div class="form-group"> {{Form::time('open_time','', ['class' => 'form-control', 'placeholder'=>'12:00 pm', 'required'=>'required'])}} </div>
                     </div>
-                    
                     <div class="col-sm-3">
                         <div class="form-group"> <em> i.e 12:00 pm</em> </div>
                     </div>
                 </div>
-                
-                
                 <div class="row">
                     <div class="col-sm-offset-1 col-sm-2"> {{Form::label('close_time', 'Closing Time', ["class" => "text-right"])}} </div>
                     <div class="col-sm-6">
@@ -111,6 +108,16 @@
                         <div class="form-group"> {{Form::select('is_takeaway_only', ['true' =>'Takeaway Only', "false"=>'Delivery and Takeaway'],null ,['class' => 'form-control'])}} </div>
                     </div>
                 </div>
+                
+                <div class="row">
+                    <div class="col-sm-offset-1 col-sm-2">
+                        <label class="text-right">Menu/Cuisine</label>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="form-group"> {{Form::select('menu_categories[]', $categories,null ,['class' => 'select2 form-control', 'data-select1', "multiple" => "multiple"])}} </div>
+                    </div>
+                </div>
+                
                 <div class="row">
                     <div class="col-sm-offset-1 col-sm-2">
                         <label class="text-right">Areas</label>
@@ -119,6 +126,7 @@
                         <div class="form-group"> {{Form::select('area_ids[]', $areas,null ,['class' => 'select2 form-control', 'data-select1', "multiple" => "multiple"])}} </div>
                     </div>
                 </div>
+                
                 <hr>
                 <div class="row">
                     <div class="col-sm-offset-1 col-sm-2"> {{Form::label('outof_area_charges', 'Outside Area Charges', ["class" => "text-right"])}} </div>
@@ -137,6 +145,7 @@
 
 
 @section('script') 
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script> 
 
 <script>
 	$(document).ready(function () {	

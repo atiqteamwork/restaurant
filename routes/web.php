@@ -79,10 +79,12 @@ Route::resource('admin/area/update_restaurant_areas', 'AreaController@update_res
 *	Cities Routes
 */
 Route::get('admin/cities', 'CityController@index');
+Route::resource('admin/city/new', 'CityController@new_city');
+Route::resource('admin/city/fetch_by_id', 'CityController@fetch_by_id');
 Route::resource('admin/city/del', 'CityController@delete_city');
-/*Route::resource('admin/areas/new', 'AreaController@new_area');
-Route::resource('admin/areas/update', 'AreaController@update_area');
-Route::resource('admin/areas/fetch_by_id', 'AreaController@fetch_by_id');
+Route::resource('admin/city/update', 'CityController@update_city');
+
+/*
 
 Route::resource('admin/area/update_restaurant_areas', 'AreaController@update_restaurant_areas');
 
@@ -210,6 +212,8 @@ Route::resource('/checkout/proceed', 'CartController@proceed_checkout');
 	'as' => 'checkout/login', 
 	'uses' => 'UsersController@login'
 ]);*/
+Route::resource('chat', 'ChatController');
+
 
 Route::post('checkout/login', '\App\Http\Controllers\Auth\LoginController@login');
 

@@ -8,13 +8,11 @@
     </div>
     <!-- Restaurants-header -->
     
-    <div class="box-body"> 
+    <div class="box-body">
         <div class="panel panel-default table-panel">
             <div class="panel-heading">Menu Restaurants</div>
-            <div class="panel-body">
-            	<a href="{{url('admin/restaurant/new')}}" class="btn btn-primary" style="float:right; display:block; clear:both;">Add New</a>
-                
-                <table id="Restaurantslistdatatable" data-dtable class="table table-bordered table-striped">
+            <div class="panel-body"> <a href="{{url('admin/restaurant/new')}}" class="btn btn-primary" style="float:right; display:block; clear:both;">Add New</a>
+                <table id="dataTable" data-dtable class="table table-bordered table-striped data-table">
                     <thead>
                         <tr>
                             <th>Restaurant Name/Title</th>
@@ -35,8 +33,7 @@
                         <td><input type="hidden" name="_token" value="{{ csrf_token() }}">
                             <a href="#" class="btn btn-success btn-sm view_Restaurant_button" data-id="{{$restaurant->id}}"><i class="fa fa-info" aria-hidden="true"></i></a>
                             <button class="btn btn-primary btn-sm edit_Restaurants_btn" type="submit" name="id" value="{{$restaurant->id}}"><i class="fa fa-edit" aria-hidden="true"></i></button>
-                           <a href="#" class="btn btn-danger del_restaurant_btn" data-id="{{$restaurant->id}}"><i class="fa fa-trash"></i></a> 
-                            </td>
+                            <a href="#" class="btn btn-danger btn-sm del_restaurant_btn" data-id="{{$restaurant->id}}"><i class="fa fa-trash"></i></a></td>
                     </tr>
                     @endforeach
                         </tbody>
@@ -107,11 +104,6 @@
 </div>
 <!--  New Restaurants Modal end--> 
 
-
-
-
-
-
 <!-- View Restaurants Modal Start -->
 <div id="viewRestaurants" class="modal fade" role="dialog">
     <div class="modal-dialog">
@@ -124,63 +116,41 @@
             <div class="modal-body" id="viewRestaurantsdata"></div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                <!--<button type="submit" class="btn btn-primary">Save</button>-->
+                <!--<button type="submit" class="btn btn-primary">Save</button>--> 
             </div>
         </div>
         {{ Form::close() }} </div>
 </div>
-<!--./ View Restaurants Modal end--> 
-
-
-
-
+<!--./ View Restaurants Modal end-->
 
 <div id="del_restaurant" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Delete Restaurant</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="box-body">
-                        <button type="button" name="del_id" id="_restaurant_id" class="hidden"></button>
-                        Are you sure you want to delete this restaurant?
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-danger" id="delete_restaurant" data-dismiss="modal">Delete</button>
-                </div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Delete Restaurant</h4>
+            </div>
+            <div class="modal-body">
+                <div class="box-body">
+                    <button type="button" name="del_id" id="_restaurant_id" class="hidden"></button>
+                    Are you sure you want to delete this restaurant? </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-danger" id="delete_restaurant" data-dismiss="modal">Delete</button>
             </div>
         </div>
     </div>
-
-
+</div>
 @stop
 
 
 @section('script') 
 <!-- jQuery 2.2.3 --> 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script> 
-<!-- Bootstrape --> 
-<script src='assets/plugins/bootstrap/js/bootstrap.min.js'></script> 
-<!-- DataTables --> 
-<script src='assets/plugins/dataTables/dataTables.min.js'></script> 
-<script src='assets/plugins/dataTables/dataTables.bootstrap.min.js'></script> 
-
-<script src="assets/plugins/datetimepicker/jquery.datetimepicker.min.js"></script> 
 <script>
         $(document).ready(function () {
-            $('#Restaurantslistdatatable').DataTable({
-                "paging": true,
-                "lengthChange": false,
-                "searching": false,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false
-            });
-
+			
 			$(".new-Restaurants-click").click(function() {
                 $(".alert").fadeOut(1);
             });
@@ -205,8 +175,6 @@
 				return false;
 				
             });
-			
-			
 			
 			
 			/**
@@ -235,7 +203,6 @@
             });
 			
 
-
             /**
             * Trigger when Add new Restaurants button pressed.
             */
@@ -263,33 +230,19 @@
             *	Trigger when update Restaurants is pressed.
             */
             $("#update_Restaurants").on('submit', function (e) {
-				
-				/*var old_title = $("#old_title").val();
-				var new_title = $("#update_Restaurants #title").val();
-				
-				var old_status = $("#old_status").val();
-				var new_status = $("#update_Restaurants #status").val();
-				
-				/*alert( new_title + " | " +  old_title + " A " + old_status + " | "  +  new_status );*/
-				
-				/*if( new_title == old_title && old_status == new_status ) {
-					$(".alert span").text( "You have'nt changed anything." );
-					$(".alert").fadeIn(400);
-				} else {*/
-					$.ajax({
-						type: "POST",
-						url: "{{ url('admin/restaurants/update')}}",
-						data: $(this).serialize(),
-						success: function (response) {
-							if (response == 'Success') {
-								window.location.reload();
-							} else {
-								$(".alert span").text( response );
-								$(".alert").fadeIn(400);
-							}
+				$.ajax({
+					type: "POST",
+					url: "{{ url('admin/restaurants/update')}}",
+					data: $(this).serialize(),
+					success: function (response) {
+						if (response == 'Success') {
+							window.location.reload();
+						} else {
+							$(".alert span").text( response );
+							$(".alert").fadeIn(400);
 						}
-					});
-				/*}*/
+					}
+				});
 				
                 return false;
             });
@@ -312,8 +265,6 @@
              */
             $('#delete_restaurant').on('click',function () {
                 var restaurant_id = $('#_restaurant_id').val();
-
-				//alert( restaurant_id );
 				
                 $.ajax({
                     type: 'POST',
@@ -327,7 +278,7 @@
 							$(".alert-success span").html( "Restaurant Delete Successfully." );
 							$(".alert-success").fadeIn(400);
 							
-							$('#Restaurantslistdatatable tr').each(function() {
+							$('#dataTable tr').each(function() {
 								if ($(this).attr('id') == restaurant_id) {
 									$(this).remove();
 								}else{}

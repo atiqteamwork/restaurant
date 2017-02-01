@@ -8,21 +8,13 @@
     </div>
     <!-- Deal-header -->
     
-    
-    
     <div class="box-body">
-        
         <div class="panel panel-default table-panel">
-        
-        	
-        
             <div class="panel-heading">Deals</div>
             <div class="panel-body">
-            	
                 <button type="button" class="btn btn-primary new-deal-click" style="float:right" data-toggle="modal" data-target="#addnewDeal">Add New</button>
-            
                 <div class="form-group"> {{Form::select('restaurants_list', $restaurants,null ,['class' => 'form-control', 'id'=> 'restaurants_list'])}} </div>
-                <table id="DealListTable" data-dtable class="table table-bordered table-striped">
+                <table id="DealListTable" data-dtable class="table table-bordered table-striped data-table">
                     <thead>
                         <tr>
                             <th>Deal Title</th>
@@ -44,8 +36,7 @@
                         <td>{{$deal->price}}</td>
                         <td> @if($deal->status=='Active') <span class="label label-primary">{{$deal->status}}</span> @else <span class="label label-danger"> {{$deal->status}}</span> @endif </td>
                         <td><input type="hidden" name="_token" value="{{ csrf_token() }}">
-                            <a href="#" class="btn btn-success btn-sm view_deal_button" data-id="{{$deal->id}}"><i class="fa fa-info" aria-hidden="true"></i></a>
-                            <a class="btn btn-primary btn-sm edit_deal_btn" data-id="{{$deal->id}}"><i class="fa fa-edit" aria-hidden="true"></i></a></td>
+                            <a href="#" class="btn btn-success btn-sm view_deal_button" data-id="{{$deal->id}}"><i class="fa fa-info" aria-hidden="true"></i></a> <a class="btn btn-primary btn-sm edit_deal_btn" data-id="{{$deal->id}}"><i class="fa fa-edit" aria-hidden="true"></i></a></td>
                     </tr>
                     @endforeach
                     @endif
@@ -73,26 +64,20 @@
                 <div class="box-body">
                     <div class="form-group"> {{Form::label('deal_title', 'Deal Name/Title')}}
                         {{Form::Text('deal_title','', ['class' => 'form-control', 'placeholder'=>'Enter Deal Name/Title', 'required'=>'required'])}} </div>
-
                     <div class="form-group"> {{Form::label('category_id', 'Deal Category')}}
                         {{Form::select('category_id',$categories,null ,['class' => 'form-control'])}}</div>
-
                     <div class="form-group"> {{Form::label('restaurant_id', 'Restaurant')}}
                         {{Form::select('restaurant_id',$restaurants,null, ['class' => 'form-control'])}}</div>
-
                     <div class="form-group"> {{Form::label('description', 'description')}}
                         {{Form::Text('description','', ['class' => 'form-control', 'placeholder'=>'Enter Description'])}} </div>
-
                     <div class="form-group"> {{Form::label('price', 'Price')}}
                         {{Form::number('price','', ['class' => 'form-control', 'placeholder'=>'0', 'required'=>'required'])}} </div>
-
+                    
                     <!--<div class="form-group"> {{Form::label('serve_quantity', 'Serve Quantity')}}
                         {{Form::Text('serve_quantity','', ['class' => 'form-control', 'placeholder'=>'Serve Quantity', 'required'=>'required'])}} </div>-->
-                        
+                    
                     <div class="form-group"> {{Form::label('picture', 'Picture')}}<br />
-                        {{Form::file('picture')}}
-                        
-                        </div>
+                        {{Form::file('picture')}} </div>
                 </div>
             </div>
             <div class="modal-footer">
@@ -106,7 +91,7 @@
 
 <!-- Edit Restaurants Modal Start -->
 <div id="editRestaurants" class="modal fade" role="dialog"> {{ Form::open(array('url' => 'admin/restaurant-deal/update', 'id'=>'update_Deal')) }}
-	<input type="hidden" name="_token" value="{{{ csrf_token() }}}" />
+    <input type="hidden" name="_token" value="{{{ csrf_token() }}}" />
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -136,65 +121,43 @@
             <div class="modal-body" id="viewRestaurantsdata"></div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                <!--<button type="submit" class="btn btn-primary">Save</button>-->
+                <!--<button type="submit" class="btn btn-primary">Save</button>--> 
             </div>
         </div>
         {{ Form::close() }} </div>
 </div>
-<!--./ View Deal Modal end--> 
-
-
-
+<!--./ View Deal Modal end-->
 
 <div id="del_modal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Delete Deal</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="box-body">
-                        <button type="button" name="del_id" id="_deal_id" class="hidden"></button>
-                        Are you sure you want to delete this Deal?
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-danger delete_deal" id="delete_deal" data-dismiss="modal">Delete</button>
-                </div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Delete Deal</h4>
+            </div>
+            <div class="modal-body">
+                <div class="box-body">
+                    <button type="button" name="del_id" id="_deal_id" class="hidden"></button>
+                    Are you sure you want to delete this Deal? </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-danger delete_deal" id="delete_deal" data-dismiss="modal">Delete</button>
             </div>
         </div>
     </div>
-
-
+</div>
 @stop
 
 
 @section('script') 
 <!-- jQuery 2.2.3 --> 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script> 
-<!-- Bootstrape --> 
-<script src='assets/plugins/bootstrap/js/bootstrap.min.js'></script> 
-<!-- DataTables --> 
-<script src='assets/plugins/dataTables/dataTables.min.js'></script> 
-<script src='assets/plugins/dataTables/dataTables.bootstrap.min.js'></script> 
 <script>
 		$(document).ready(function () {
-            $('#DealListTable').DataTable({
-                "paging": true,
-                "lengthChange": false,
-                "searching": false,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false
-            });
-			
-			
 			var r_default_id = $("#restaurants_list").val();
 			
-			if( r_default_id > 0 )
-			{
+			if( r_default_id > 0 ) {
 				var dataString = {'id': r_default_id, '_token': $('input[name="_token"]').val()};
 				
 				$.ajax({
@@ -207,12 +170,6 @@
                 });		
 			}
 			
-			
-			/*
-			
-			
-				
-				*/
 
 
 			$("#restaurants_list").on("change", function () {			
@@ -361,11 +318,9 @@
 			
 			
 			
-			
 			/**
             * Trigger when Delete Button is pressed. Will show Del Model
             */
-            //$(".del_btn").on('click',function () {
 			$( '#DealListTable' ).on( 'click', '.del_btn', function () {
                 var id = $(this).attr('data-id');
 				$('#_deal_id').val(id);
@@ -376,40 +331,9 @@
 			
 			
 			
-
-			
-			/**
-            *	Fetch Restaurants Data and VIEW
-            *
-            $(".view_Restaurant_button").click( function () {
-                var dataString = {
-					'id': $(this).attr("data-id"), 
-					'_token': $('input[name="_token"]').val(),
-					'is_view':"1",
-				};
-				
-                $.ajax({
-                    type: "POST",
-                    url: "{{ url('admin/restaurant-deal/fetch_deal_byid')}}",
-                    data: dataString,
-                    success: function (data) {
-						$(".alert").fadeOut(1);
-                        $('#viewRestaurantsdata').html(data);
-                        $('#viewRestaurants').modal("show");
-                    }
-                });
-				
-				return false;
-				
-            });*/
-
-			
-			
-			
 			/**
              * Trigger when Delete button from model is pressed
              */
-            //$('#delete_deal').on('click',function () {
 			$( '#del_modal' ).on( 'click', '#delete_deal', function () {
                 var id = $('#_deal_id').val();
 								
@@ -431,10 +355,6 @@
 								}else{}
 							});
 							
-							/*var mover = setInterval( function(){
-								window.location.reload();
-								clearInterval( mover );		
-							}, 3000);*/
 						} else {
 							$(".alert-danger span").html( response );
 							$(".alert-danger").fadeIn(400);
@@ -447,54 +367,6 @@
                 });
             });
 			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			/**
-            *	Fetch Restaurants Data and VIEW
-            *
-            $(".view_Deal_button").click( function () {
-                var dataString = {
-					'id': $(this).attr("data-id"), 
-					'_token': $('input[name="_token"]').val(),
-					'is_view':"1",
-				};
-				
-                $.ajax({
-                    type: "POST",
-                    url: "{{ url('admin/restaurants/view_deal_byid')}}",
-                    data: dataString,
-                    success: function (data) {
-						$(".alert").fadeOut(1);
-                        $('#viewRestaurantsdata').html(data);
-                        $('#viewRestaurants').modal("show");
-                    }
-                });
-				
-				return false;
-				
-            });*/
-			
-
         });
     </script> 
 @stop

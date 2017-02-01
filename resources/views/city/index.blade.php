@@ -13,7 +13,7 @@
             <div class="panel-heading">Menu Categories</div>
             <div class="panel-body">
                 <button type="button" class="btn btn-primary new-category-click" style="float:right" data-toggle="modal" data-target="#addnewcity">Add New</button>
-                <table id="citylistdatatable" class="table table-bordered table-striped">
+                <table id="citylistdatatable" class="table table-bordered table-striped data-table">
                     <thead>
                         <tr>
                             <th>City Name</th>
@@ -28,8 +28,7 @@
                         <td>{{$city->city_name}}</td>
                         <td> @if($city->status=='Active') <span class="label label-primary">{{$city->status}}</span> @else <span class="label label-danger"> {{$city->status}}</span> @endif </td>
                         <td><input type="hidden" name="_token" value="{{ csrf_token() }}">
-                            <button class="btn btn-primary btn-sm edit_city_btn" type="submit" name="id" value="{{$city->id}}"><i class="fa fa-edit " aria-hidden="true"></i></button>
-                            <!-- <a href="#" class="btn btn-danger btn-sm del_city_btn" data-id="{{$city->id}}"><i class="fa fa-trash"></i></a> --></td>
+                            <button class="btn btn-primary btn-sm edit_city_btn" type="submit" name="id" value="{{$city->id}}"><i class="fa fa-edit " aria-hidden="true"></i></button></td>
                     </tr>
                     @endforeach
                         </tbody>
@@ -55,8 +54,6 @@
                 <div class="box-body">
                     <div class="form-group"> {{Form::label('city_name', 'City Name')}}
                         {{Form::Text('city_name','', ['class' => 'form-control', 'placeholder'=>'Enter City Name', 'required'=>'required'])}} </div>
-                    <div class="form-group"> {{Form::label('city_id', 'City')}}
-                        {{Form::select('city_id', ['1' => 'Faisalabad'],null ,['class' => 'form-control'])}} </div>
                 </div>
             </div>
             <div class="modal-footer">
@@ -111,24 +108,8 @@
 
 
 @section('script') 
-<!-- jQuery 2.2.3 --> 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script> 
-<!-- Bootstrape --> 
-<script src='assets/plugins/bootstrap/js/bootstrap.min.js'></script> 
-<!-- DataTables --> 
-<script src='assets/plugins/dataTables/dataTables.min.js'></script> 
-<script src='assets/plugins/dataTables/dataTables.bootstrap.min.js'></script> 
 <script>
         $(document).ready(function () {
-            $('#citylistdatatable').DataTable({
-                "paging": true,
-                "lengthChange": false,
-                "searching": false,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false
-            });
-
 			$(".new-category-click").click(function() {
                 $(".alert").fadeOut(1);
             });
@@ -221,60 +202,8 @@
 					});
 				}
 
-                //$(this).ajaxSubmit(options);
                 return false;
             });
-
-			
-			/**
-            * Trigger when Delete Button is pressed. Will show Del Model
-            */
-            $(".del_city_btn").on('click',function () {
-                var city_id = $(this).attr('data-id');
-				$('#_city_id').val(city_id);
-				$('#del_city').modal('show');
-				return false;
-            });
-
-			
-			/**
-             * Trigger when Delete button from model is pressed
-             */
-            $('#delete_city').on('click',function () {
-				
-                var city_id = $('#_city_id').val();
-				
-
-                $.ajax({
-                    type: 'POST',
-                    url: "{{url('admin/city/del')}}",
-                    data:{
-                        'city_id':city_id,
-                        '_token': '{{csrf_token()}}'
-                    },
-                    success: function (response) {
-						if (response == 'Success') {
-							$(".alert-success span").html( "City Delete Successfully." );
-							$(".alert-success").fadeIn(400);
-							
-							$('#citylistdatatable tr').each(function() {
-								if ($(this).attr('id') == city_id) {
-									$(this).remove();
-								}else{}
-							});
-
-						} else {
-							$(".alert-danger span").html( response );
-							$(".alert-danger").fadeIn(400);
-						}
-						
-                    },
-                    error:function () {
-                        
-                    }
-                });
-            });
-
 
         });
     </script> 

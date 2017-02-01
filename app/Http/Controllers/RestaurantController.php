@@ -6,6 +6,9 @@ use Auth;
 use App\Restaurant;
 use App\City;
 use App\Area;
+use App\MenuCategory;
+use App\RestaurantMenu;
+
 use Validator;
 
 use Illuminate\Http\Request;
@@ -30,7 +33,9 @@ class RestaurantController extends Controller
     */
     public function index()
     {
-        $restaurant_list = Restaurant::all();
+        $restaurant_list = Restaurant::all()->where("id", 5);
+		
+		//dd( $restaurant_list );
 
         $cities = City::all();
         $cities_data = [""=> "Select City"];
@@ -55,8 +60,11 @@ class RestaurantController extends Controller
         $area_list = new Area();
         $areas = $area_list->get_all_area($request);
 
+		$categories = MenuCategory::all();
+		
         $cities_data = [];
         $areas_data = [];
+		$categories_data = [];
 
         foreach( $cities as $city ) {
             $cities_data[$city->id] = $city->city_name;
@@ -65,8 +73,16 @@ class RestaurantController extends Controller
         foreach( $areas as $area ) {
             $areas_data[$area->id] = $area->area_name;
         }
+		
+		foreach( $categories as $category ) {
+            $categories_data[$category->id] = $category->category_title;
+        }
 
-        return view("restaurants.new")->with("cities", $cities_data)->with("areas", $areas_data);
+        return view("restaurants.new")->with([
+				"cities" => $cities_data,
+				"areas"  => $areas_data,
+				"categories" => $categories_data,
+				]);
     }
 
 
@@ -109,6 +125,8 @@ class RestaurantController extends Controller
 
         if($validate->passes())
         {
+			//dd( $request );
+			
             $areas = implode(",", $request->area_ids);
             $restaurant = new Restaurant;
 
@@ -131,8 +149,24 @@ class RestaurantController extends Controller
 
             $result = $restaurant->save();
 
-            if( $result == 1 ) {
-                return "Success";
+            if( $result == 1 ) 
+			{	
+				foreach( $request->menu_categories as $category )
+				{
+					$menu = new RestaurantMenu();
+					
+					$menu->restaurant_id = $restaurant->id;
+					$menu->menu_id		= $category;
+					$response =  $menu->save();
+					
+					if( $response != 1 )
+						return $response;
+				}
+				
+				
+				return "Success";
+			
+				
             } else {
                 return $result;
             }
@@ -200,7 +234,7 @@ class RestaurantController extends Controller
         if( $result == 1 ) {
             return "Success";
         } else {
-            return $category_result;
+            return $result;
         }
     }
 

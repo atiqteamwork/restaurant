@@ -9,8 +9,21 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 
+
 class Dish extends Model
 {
+	
+//	protected $with = ["Restaurant"];
+	
+	/**
+	 *
+	 **/
+	public function restaurant()
+    {
+        return $this->belongsTo('App\Restaurant', 'restaurant_id');
+    }
+	
+	
 	/**
 	*
 	*/

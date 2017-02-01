@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title', 'Index Page Hello Food')
+@section('title', 'Hello Food')
 
 @section('content')
 <div class="wrapper_bg">

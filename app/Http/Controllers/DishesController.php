@@ -44,13 +44,19 @@ class DishesController extends Controller
             return ($this->index_restaurant());
     }
     
+	
+	
     
     /*
     *	Dishes Page for Administrator
     */
     public function index_admin()
     {
+
         $restaurants = Restaurant::get(['id', 'title']);
+		//dd( $restaurants );
+				
+		
         $categories  = MenuCategory::get(['id', 'category_title']);
         
         $restaurants_data = [""=> "Select Restaurant"];
@@ -130,38 +136,40 @@ class DishesController extends Controller
     */
     public function fetch_dish_byid(Request $request)
     {
-        $dishes = new Dish;
-        
-        $dishes_data = $dishes->fetch_dish_byid( $request );	//	Fetch Dishes
+        $dishes_data = Dish::find($request->id);// $dishes->fetch_dish_byid( $request );	//	Fetch Dishes
         $restaurant_data = Restaurant::all("id", "title");		//	Fetch Restaurants for Select box
-        $category_data = MenuCategory::all("id", "category_title");	//Fetch Categories for Select box
+		$category_data = MenuCategory::all("id", "category_title");	//Fetch Categories for Select box
         
+		
+		dd( $dishes_data );
+		
         $restaurant_options = "";
         $category_options = "";
         
-        
+        $returndata = "";
         if( isset( $_POST['is_view'] ) ) {
                 
         } else {
+			
             foreach( $restaurant_data as $restaruant) {
-                $restaurant_options .= "<option value='".$restaruant->id."' ".($restaruant->id==$dishes_data[0]->restaurant_id?'selected':'').">".$restaruant->title."</option>";	
+                $restaurant_options .= "<option value='".$restaruant->id."' ".($restaruant->id==$dishes_data->restaurant_id?'selected':'').">".$restaruant->title."</option>";	
             }
             
             
             foreach( $category_data as $category) {
-                $category_options .= "<option value='".$category->id."' ".($category->id==$dishes_data[0]->category_id?'selected':'').">".$category->category_title."</option>";	
+                $category_options .= "<option value='".$category->id."' ".($category->id==$dishes_data->category_id?'selected':'').">".$category->category_title."</option>";	
             }
             
             
             // Prepare Html to send back for Edit Model
             $returndata = '<div class="box-body">
-          <input type="hidden" name="id" id="id" value="' . $dishes_data[0]->id . '"/>
-          <input type="hidden" name="old_title" id="old_title" value="' . $dishes_data[0]->dish_title . '"/>
-          <input type="hidden" name="old_status" id="old_status" value="' . $dishes_data[0]->status . '"/>
+          <input type="hidden" name="id" id="id" value="' . $dishes_data->id . '"/>
+          <input type="hidden" name="old_title" id="old_title" value="' . $dishes_data->dish_title . '"/>
+          <input type="hidden" name="old_status" id="old_status" value="' . $dishes_data->status . '"/>
           
           <div class="form-group">
             <label>Dish Title</label>
-            <input class="form-control" type="text" name="dish_title" id="dish_title" value="'.$dishes_data[0]->dish_title . '"/>
+            <input class="form-control" type="text" name="dish_title" id="dish_title" value="'.$dishes_data->dish_title . '"/>
           </div>
           <div class="form-group">
             <label>Category</label>
@@ -178,22 +186,22 @@ class DishesController extends Controller
           }
           
           $returndata .='<label>Description</label>
-            <input class="form-control" type="text" name="description" id="description" value="'.$dishes_data[0]->description . '"/>
+            <input class="form-control" type="text" name="description" id="description" value="'.$dishes_data->description . '"/>
           </div>
           
           <div class="form-group">
             <label>Price</label>
-            <input class="form-control" type="text" name="price" id="price" value="'.$dishes_data[0]->price . '"/>
+            <input class="form-control" type="text" name="price" id="price" value="'.$dishes_data->price . '"/>
           </div>
           
           <div class="form-group">
             <label>Serve Quantity</label>
-            <input class="form-control" type="text" name="serve_quantity" id="serve_quantity" value="'.$dishes_data[0]->serve_quantity . '"/>
+            <input class="form-control" type="text" name="serve_quantity" id="serve_quantity" value="'.$dishes_data->serve_quantity . '"/>
           </div>
           
           <div class="form-group">
             <label>Dish Picture</label>
-            <img src="assets/images/dishes/'.$dishes_data[0]->picture.'" alt="No Picture" width="200">
+            <img src="assets/images/dishes/'.$dishes_data->picture.'" alt="No Picture" width="200">
         </div>
           
           <div class="form-group">
@@ -205,8 +213,8 @@ class DishesController extends Controller
           <div class="form-group">
             <label>Status</label>
             <select name="status" class="form-control" id="status">
-              <option value="Active" '.($dishes_data[0]->status == "Active"?"selected=selected":"").'>Active</option>
-              <option value="Inactive" '.($dishes_data[0]->status == "Inactive"?"selected=selected":"").'>Inactive</option>
+              <option value="Active" '.($dishes_data->status == "Active"?"selected=selected":"").'>Active</option>
+              <option value="Inactive" '.($dishes_data->status == "Inactive"?"selected=selected":"").'>Inactive</option>
             </select>
           </div>		  
         </div>';

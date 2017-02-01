@@ -30,6 +30,7 @@ class CreateRestaurantTable extends Migration
 			$table->enum('is_takeaway_only', ["true", "false"])->default("false");
 			$table->integer('city_id')->default("0");
 			$table->string('area_ids')->nullable();
+			$table->string('menu_categories')->nullable();
 			$table->string('outof_area_charges')->nullable();
 			$table->integer('gst')->default('16');
             $table->string('logo')->default('no-image.png');

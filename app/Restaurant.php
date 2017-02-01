@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Model;
 class Restaurant extends Model
 {
 	
-	protected $with = ["Dishes", "Deals", "City"];
+	protected $with = ["Dishes", "Deals", "City", "Menus"];
 	
     /**
 	*	It will Load Restaurants Names with ID.
@@ -51,5 +51,13 @@ class Restaurant extends Model
 	public function city()
     {
         return $this->hasOne('App\City', "id", "city_id");
+    }
+	
+	/**
+	 *
+	 **/
+	public function menus()
+    {
+        return $this->hasManyThrough('App\MenuCategory', 'App\RestaurantMenu', "restaurant_id", "id");
     }
 }

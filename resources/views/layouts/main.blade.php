@@ -33,5 +33,58 @@
 <!--app.js-->
 <script src="assets_front/dist/app.js"></script>
 @yield('script')
+
+
+
+
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script");
+var s0=document.getElementsByTagName("script")[0];
+
+s1.async=true;
+s1.src='https://embed.tawk.to/58917f5fcbbbd10a6560b862/default';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+
+s0.parentNode.insertBefore(s1,s0);
+
+
+})();
+
+
+$(document).ready(function() {
+	var mover = setInterval(function(){
+		
+		$("iframe").each(function(index, element) {
+			var obj = $(this);
+			$(obj).contents().find("body").find("#popoutChat").hide(1);
+			var html = $(obj).contents().find("body").find(".thin").next("b").text();
+			
+			if( html == "tawk.to" )
+			{
+				html = "Teamwork";
+			}
+			
+			$(obj).contents().find("body").find(".thin").next("b").text(html);
+
+			
+		});	
+	}, 10);
+	
+    
+});
+
+</script>
+<!--End of Tawk.to Script-->
+
+
+
+
+
+
 </body>
 </html>
