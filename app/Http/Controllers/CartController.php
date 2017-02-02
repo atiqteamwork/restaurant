@@ -217,7 +217,6 @@ class CartController extends Controller
                         })->get();
 
         $restaurant = Restaurant::where("id", $request->restaurant_id)->get();
-        //dd( $restaurant[0]->gst );
 
         $gst = round($request->net_amount * ($restaurant[0]->gst / 100));
         $extra_charges = 0;
@@ -225,14 +224,29 @@ class CartController extends Controller
         $order = new Order();
         $order->user_id 		= Auth::check() ? Auth::user()->id : 0;
         $order->restaurant_id   = $request->restaurant_id;
+		
         $order->first_name      = $request->first_name;
         $order->last_name       = $request->last_name;
         $order->company			= $request->company;
-        $order->address        	= $request->address1;
+        $order->address1        = $request->address1;
+		$order->address2        = $request->address2;
         $order->city			= $request->city;
         $order->email           = $request->email;
         $order->phone          	= $request->phone;
         $order->cell			= $request->cell;
+		
+		$order->shipping_first_name     = $request->shipping_first_name;
+        $order->shipping_last_name      = $request->shipping_last_name;
+        $order->shipping_company		= $request->shipping_company;
+        $order->shipping_address1        = $request->shipping_address1;
+		$order->shipping_address2        = $request->shipping_address2;
+        $order->shipping_city			= $request->shipping_city;
+        $order->shipping_email          = $request->shipping_email;
+        $order->shipping_phone          = $request->shipping_phone;
+        $order->shipping_cell			= $request->shipping_cell;
+		
+		
+		$order->notes			= $request->notes;
         $order->dated			= Carbon::now();
         $order->net_amount		= $request->net_amount;
         $order->gst				= $gst;
@@ -305,7 +319,7 @@ class CartController extends Controller
 				echo "No errors, all sent successfully!";
 			}*/
 			
-			Mail::to("atiq@teamwork.com.pk","atiq@teamwork.com.pk")->send( new OrderSaved( $order ) );
+			Mail::to("atiq@teamwork.com.pk")->send( new OrderSaved( $order ) );
 			
 			if( count( Mail::failures() ) <= 0 )
 			{
@@ -317,7 +331,6 @@ class CartController extends Controller
 			}
 			
         }
-
 
     }
 

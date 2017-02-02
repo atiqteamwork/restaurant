@@ -34,6 +34,7 @@ class CreateRestaurantTable extends Migration
 			$table->string('outof_area_charges')->nullable();
 			$table->integer('gst')->default('16');
             $table->string('logo')->default('no-image.png');
+			$table->string('banner')->default('no-image.png');
 			$table->string('ip', '16')->nullable();
 			$table->enum('status', ["Active", "Inactive"])->default("Active");
 			$table->integer('created_by')->nullable();

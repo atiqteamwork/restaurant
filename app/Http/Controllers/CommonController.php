@@ -231,7 +231,6 @@ class CommonController extends Controller
                                 ->get();
         }
         
-        
         return view("frontend.restaurants")->with([
                 "restaurants" 	=> $restaurants,
                 'area_id'		=> $request->area,

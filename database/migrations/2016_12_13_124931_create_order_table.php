@@ -38,7 +38,7 @@ class CreateOrderTable extends Migration
 			$table->string('shipping_cell')->nullable();
 			$table->string('shipping_city', 128)->nullable();
 			
-			
+			$table->string('notes')->nullable();
 			$table->datetime('dated');
 			$table->integer('net_amount')->default(0);
 			$table->integer('gst')->default(0);

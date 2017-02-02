@@ -53,23 +53,14 @@ class DishesController extends Controller
     */
     public function index_admin()
     {
-
         $restaurants = Restaurant::get(['id', 'title']);
-		//dd( $restaurants );
-				
-		
         $categories  = MenuCategory::get(['id', 'category_title']);
         
         $restaurants_data = [""=> "Select Restaurant"];
         $categories_data = [""=> "Select Dish Category"];
         
-        foreach( $restaurants as $restaurant ) {
-            $restaurants_data[$restaurant->id] = $restaurant->title;
-        }
-        
-        foreach( $categories as $category ) {
-            $categories_data[$category->id] = $category->category_title;
-        }
+        foreach( $restaurants as $restaurant ) { $restaurants_data[$restaurant->id] = $restaurant->title; }
+        foreach( $categories as $category ) {$categories_data[$category->id] = $category->category_title;}
         
         return view("restaurants.dishes")
             ->with("restaurants", $restaurants_data)

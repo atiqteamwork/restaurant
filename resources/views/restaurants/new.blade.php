@@ -14,13 +14,32 @@
             <div class="panel-body">
                 <div class="alert alert-danger" id="alertdanger" style="display:none"><strong>Alert!</strong> <span></span></div>
                 <div class="alert alert-success" style="display:none"><strong>Success!</strong> <span></span></div>
-                {{ Form::open(array('url' => 'admin/restaurant/add_new','id'=>'new_restaurant')) }}
+                {{ Form::open( ['url' => 'admin/restaurant/add_new', 'files'=> true, 'id'=>'new_restaurant'] ) }}
+                <input type="hidden" name="_token" id="_token" value="{{ csrf_token() }}">
                 <div class="row">
                     <div class="col-sm-offset-1 col-sm-2"> {{Form::label('city_id', 'City', ["class" => "text-right"])}} </div>
                     <div class="col-sm-8">
-                        <div class="form-group"> {{Form::select('city_id', $cities, null ,['class' => 'form-control'])}} </div>
+                        <div class="form-group"> {{Form::Select('city_id', $cities, null ,['class' => 'form-control select2'])}} </div>
                     </div>
                 </div>
+                
+                
+                <div class="row">
+                    <div class="col-sm-offset-1 col-sm-2"> {{Form::label('logo', 'Logo')}} </div>
+                    <div class="col-sm-8">
+                        <div class="form-group"> {{Form::File('logo')}} </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-sm-offset-1 col-sm-2"> {{Form::label('banner', 'Banner')}} </div>
+                    <div class="col-sm-8">
+                        <div class="form-group"> {{Form::File('banner')}} </div>
+                    </div>
+                </div>
+                
+                
+                
                 <div class="row">
                     <div class="col-sm-offset-1 col-sm-2"> {{Form::label('title', 'Restaurant Name:', ["class" => "text-right"])}} </div>
                     <div class="col-sm-8">
@@ -108,7 +127,6 @@
                         <div class="form-group"> {{Form::select('is_takeaway_only', ['true' =>'Takeaway Only', "false"=>'Delivery and Takeaway'],null ,['class' => 'form-control'])}} </div>
                     </div>
                 </div>
-                
                 <div class="row">
                     <div class="col-sm-offset-1 col-sm-2">
                         <label class="text-right">Menu/Cuisine</label>
@@ -117,7 +135,6 @@
                         <div class="form-group"> {{Form::select('menu_categories[]', $categories,null ,['class' => 'select2 form-control', 'data-select1', "multiple" => "multiple"])}} </div>
                     </div>
                 </div>
-                
                 <div class="row">
                     <div class="col-sm-offset-1 col-sm-2">
                         <label class="text-right">Areas</label>
@@ -126,7 +143,6 @@
                         <div class="form-group"> {{Form::select('area_ids[]', $areas,null ,['class' => 'select2 form-control', 'data-select1', "multiple" => "multiple"])}} </div>
                     </div>
                 </div>
-                
                 <hr>
                 <div class="row">
                     <div class="col-sm-offset-1 col-sm-2"> {{Form::label('outof_area_charges', 'Outside Area Charges', ["class" => "text-right"])}} </div>
@@ -144,15 +160,24 @@
 @stop
 
 
-@section('script')
+@section('script') 
+<!--jquery--> 
+<script src="assets/plugins/jquery/jquery-2.2.4.min.js"></script> 
 <script>
 	$(document).ready(function () {	
 		
-		$("#new_restaurant").on("submit", function(){			
+		/*$("#new_restaurant").on("submit", function(){
+			var formData = new FormData( $("#new_dish")[0] );
+			
 			$.ajax({
 				type: "POST",
 				url: "{{ url('admin/restaurant/add_new')}}",
-				data: $(this).serialize(),
+				data: formData,
+				contentType: false,
+				processData: false,
+				headers: {
+							'X-CSRF-Token': $('input[name="_token"]').val(),
+						},
 				success: function (response) {
 					if (response == 'Success') {
 						$(".alert-success").html("New Restaurant Created!");
@@ -172,7 +197,7 @@
 			});
 			
 			return false;
-		});
+		});*/
 	});
 </script> 
 @stop

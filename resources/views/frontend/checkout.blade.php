@@ -38,25 +38,22 @@
     
     <!--form fill-->
     <div class="container">
-        <div class="row">
+        <div class="row"> {{ Form::open( ['url' => 'checkout/login','id'=>'checkout_login'] ) }}
             <div class="col-md-offset-4 col-md-4 col-sm-12 col-md-offset-4">
                 <div class="checkout-form"> @if( !Auth::check() )
-                    {{ Form::open(array('url' => 'checkout/login','id'=>'checkout_login')) }}
                     <div class="form-group">
                         <label for="email">Email <span>*</span></label>
                         {{Form::Text('username','', ['class' => 'form-control', 'placeholder'=>'Your Registered Email ID', 'required'=>'required', 'id'=> 'username'])}} </div>
                     <div class="form-group">
                         <label for="password">Password <span>*</span></label>
-                        {{Form::Password('password', ['class' => 'form-control', 'placeholder'=>'Password', 'required'=>'required', 'id' => 'password'])}} </div>
+                        {{Form::Password('password', ['class' => 'form-control', 'placeholder'=>'Password', 'required'=>'required', 'id' => 'password']) }} </div>
                     <!--<div class="checkbox">
                                 <input type="checkbox" id="c1" name="cc" checked />
                                 <label for="c1"><span></span>Remeber Me</label>
                             </div>-->
                     <input type="submit" value="Login Now" class="btn btn-submit">
-                    <!--<a href="#" class="btn btn-submit">LOGIN NOW</a>--> 
-                    {{ Form::close() }}
                     @else
-                    <h2>{{Auth::user()->name}}</h2>
+                    <h2>{{Auth::user()->full_name}}</h2>
                     @endif </div>
                 <hr class="check-border">
                 <div class="row">
@@ -68,15 +65,17 @@
                     </div>
                 </div>
             </div>
+            {{ Form::close() }}
             <hr class="check-border">
-            
-            <!-- Form Started Here -->
-            {{ Form::open(array('url' => 'checkout/proceed','id'=>'checkout_proceed')) }}
-            
+        </div>
+        <div class="row"> 
+            <!-- Form Started Here --> 
+            {{ Form::open( ['url' => 'checkout/proceed','id'=>'checkout_proceed']) }}
+            <input type="hidden" name="user_id" value="{{Auth::check() ? Auth::user()->id : 0}}" />
+            <input type="hidden" name="restaurant_id" value="{{$cart[0]->Cart[0]->restaurant_id}}" />
             <div class="col-md-6">
                 <div class="checkout-form">
                     <h2>billing details</h2>
-                    
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
@@ -104,7 +103,7 @@
                                 <label for="address1">Address <span>*</span></label>
                                 {{Form::Text('address1', Auth::check() ? Auth::user()->address : '', ['class' => 'form-control margin-btm', 'placeholder'=>'', 'required'=>'required', 'id'=> 'address1'])}}
                                 
-                                {{Form::Text('address2', '', ['class' => 'form-control', 'placeholder'=>'', 'required'=>'required', 'id'=> 'address2'])}} </div>
+                                {{Form::Text('address2', '', ['class' => 'form-control', 'placeholder'=>'', 'id'=> 'address2'])}} </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
@@ -133,7 +132,6 @@
                             </div>
                         </div>
                     </div>
-                    
                 </div>
             </div>
             <div class="col-md-6">
@@ -143,72 +141,66 @@
                             <input type="checkbox">
                         </label>
                     </h2>
-                    
-                        <div class="row shipping-addresss">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="shipping_first_name">First name<span>*</span></label>
-                                    {{Form::Text('shipping_first_name',(Auth::check() ? Auth::user()->first_name : ''), ['class' => 'form-control', 'placeholder'=>'', 'required'=>'required', 'id'=> 'shipping_first_name'])}} </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="shipping_last_name">Last name <span>*</span></label>
-                                    {{Form::Text('shipping_last_name', Auth::check() ? Auth::user()->last_name : '', ['class' => 'form-control', 'placeholder'=>'', 'required'=>'required', 'id'=> 'shipping_last_name'])}} </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label for="shipping_company">Company Name <span>*</span></label>
-                                    {{Form::Text('shipping_company', '', ['class' => 'form-control', 'placeholder'=>'', 'id'=> 'shipping_company'])}} </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label for="4">Area <span>*</span></label>
-                                    <input type="text" class="form-control" id="4">
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label for="shipping_address1">Address <span>*</span></label>
-                                    {{Form::Text('shipping_address1', Auth::check() ? Auth::user()->address : '', ['class' => 'form-control margin-btm', 'placeholder'=>'', 'required'=>'required', 'id'=> 'shipping_address1'])}}
-                                    
-                                    {{Form::Text('shipping_address2', '', ['class' => 'form-control', 'placeholder'=>'', 'required'=>'required', 'id'=> 'shipping_address2'])}} </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label for="shipping_city">City <span>*</span></label>
-                                    {{Form::Select('shipping_city', $cities, Auth::check() ? Auth::user()->City->id : 0, ['class' => 'search-res form-control', 'id' => 'shipping_city', 'required' => 'required'])}} </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="shipping_country">Country <span>*</span></label>
-                                    {{Form::Text('shipping_country', 'Pakistan', ['class' => 'form-control', 'readonly'=>'readonly', 'id'=> 'shipping_country'])}} </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group"> </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label for="shipping_email">Contact Info <span>*</span></label>
-                                    {{Form::Email('shipping_email', Auth::check() ? Auth::user()->email : '', ['class' => 'form-control margin-btm', 'placeholder'=>'Email Address', 'required'=>'required', 'id'=> 'shipping_email'])}}
-                                    {{Form::Text('shipping_phone', Auth::check() ? Auth::user()->phone : '', ['class' => 'form-control margin-btm', 'placeholder'=>'Phone Number', 'required'=>'required', 'id'=> 'shipping_phone'])}}
-                                    {{Form::Text('shipping_cell', Auth::check() ? Auth::user()->cell : '', ['class' => 'form-control', 'placeholder'=>'Cell Number (Optional)', 'id'=> 'shipping_cell'])}} </div>
+                    <div class="row shipping-addresss">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="shipping_first_name">First name<span>*</span></label>
+                                {{Form::Text('shipping_first_name',(Auth::check() ? Auth::user()->first_name : ''), ['class' => 'form-control', 'placeholder'=>'', 'required'=>'required', 'id'=> 'shipping_first_name'])}} </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="shipping_last_name">Last name <span>*</span></label>
+                                {{Form::Text('shipping_last_name', Auth::check() ? Auth::user()->last_name : '', ['class' => 'form-control', 'placeholder'=>'', 'required'=>'required', 'id'=> 'shipping_last_name'])}} </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="shipping_company">Company Name <span>*</span></label>
+                                {{Form::Text('shipping_company', '', ['class' => 'form-control', 'placeholder'=>'', 'id'=> 'shipping_company'])}} </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="4">Area <span>*</span></label>
+                                <input type="text" class="form-control" id="4">
                             </div>
                         </div>
-                    
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="shipping_address1">Address <span>*</span></label>
+                                {{Form::Text('shipping_address1', Auth::check() ? Auth::user()->address : '', ['class' => 'form-control margin-btm', 'placeholder'=>'', 'required'=>'required', 'id'=> 'shipping_address1'])}}
+                                
+                                {{Form::Text('shipping_address2', '', ['class' => 'form-control', 'placeholder'=>'', 'id'=> 'shipping_address2'])}} </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="shipping_city">City <span>*</span></label>
+                                {{Form::Select('shipping_city', $cities, Auth::check() ? Auth::user()->City->id : 0, ['class' => 'search-res form-control', 'id' => 'shipping_city', 'required' => 'required'])}} </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="shipping_country">Country <span>*</span></label>
+                                {{Form::Text('shipping_country', 'Pakistan', ['class' => 'form-control', 'readonly'=>'readonly', 'id'=> 'shipping_country'])}} </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group"> </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="shipping_email">Contact Info <span>*</span></label>
+                                {{Form::Email('shipping_email', Auth::check() ? Auth::user()->email : '', ['class' => 'form-control margin-btm', 'placeholder'=>'Email Address', 'required'=>'required', 'id'=> 'shipping_email'])}}
+                                {{Form::Text('shipping_phone', Auth::check() ? Auth::user()->phone : '', ['class' => 'form-control margin-btm', 'placeholder'=>'Phone Number', 'required'=>'required', 'id'=> 'shipping_phone'])}}
+                                {{Form::Text('shipping_cell', Auth::check() ? Auth::user()->cell : '', ['class' => 'form-control', 'placeholder'=>'Cell Number (Optional)', 'id'=> 'shipping_cell'])}} </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            
-            {{ Form::close() }}
-            <!-- ./ Form Ends Here -->
-            
+        </div>
+        <div class="row">
             <div class="col-md-12">
                 <div class="checkout-form">
-                    <form action="">
-                        <div class="form-group">
-                            <label for="exampleTextarea">Other Note</label>
-                            <textarea class="form-control" id="exampleTextarea" rows="4" placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
-                        </div>
-                    </form>
+                    <div class="form-group">
+                        <label for="exampleTextarea">Other Note</label>
+                        <textarea class="form-control" name="notes" id="notes" rows="4" placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
+                    </div>
                 </div>
             </div>
             <div class="col-md-12">
@@ -216,19 +208,15 @@
                     <h2>Your order </h2>
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="container">
-        <div class="row">
             <div class="col-md-12">
                 <div class="table-responsive checkout-table">
                     <table class="table  table-border table-striped  table-responsive ">
                         <thead>
                             <tr>
                                 <th class="text-left">Product</th>
-                                <th  class="text-left">price</th>
-                                <th  class="text-left">quantity</th>
-                                <th  class="text-left">total</th>
+                                <th  class="text-left">Price</th>
+                                <th  class="text-left">Quantity</th>
+                                <th  class="text-left">Total</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -254,6 +242,15 @@
                     <p class="tempo"></p>
                 </div>
             </div>
+            <input type="hidden" name="net_amount" class="final-net-amount" value="{{$total}}" />
+            <input type="submit" class="btn btn-submit" value="Process" >
+            {{ Form::close() }} 
+            <!-- ./ Form Ends Here --> 
+            
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
             <div class="col-md-offset-8 col-md-4">
                 <div class="table-responsive checkout-table2">
                     <div class="table-total">
@@ -396,9 +393,13 @@
 						{
 							$(".sub-total").text( parseInt($(".sub-total").text()) + price );
 							$(".order-total").text( parseInt($(".order-total").text()) + price );
+							
+							$(".final-net-amount").val( parseInt($(".final-net-amount").val()) + price );
 						} else {
 							$(".sub-total").text( parseInt($(".sub-total").text()) - price );
 							$(".order-total").text( parseInt($(".order-total").text()) - price );
+							
+							$(".final-net-amount").val( parseInt($(".final-net-amount").val()) - price );
 						}
 						
 						if( action  == "plus" )

@@ -15,6 +15,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Yajra\Datatables\Facades\Datatables;
 
+use Illuminate\Support\Facades\Input;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+
 class RestaurantController extends Controller
 {
     /**
@@ -28,12 +31,13 @@ class RestaurantController extends Controller
     }
 
 
+
     /**
     *	Restaurants List Main Page
     */
     public function index()
     {
-        $restaurant_list = Restaurant::all()->where("id", 5);
+        $restaurant_list = Restaurant::all();
 		
 		//dd( $restaurant_list );
 
@@ -48,6 +52,7 @@ class RestaurantController extends Controller
                 "cities"	=> $cities_data,
                 ]);
     }
+
 
 
     /**
@@ -66,17 +71,9 @@ class RestaurantController extends Controller
         $areas_data = [];
 		$categories_data = [];
 
-        foreach( $cities as $city ) {
-            $cities_data[$city->id] = $city->city_name;
-        }
-
-        foreach( $areas as $area ) {
-            $areas_data[$area->id] = $area->area_name;
-        }
-		
-		foreach( $categories as $category ) {
-            $categories_data[$category->id] = $category->category_title;
-        }
+        foreach( $cities as $city ) { $cities_data[$city->id] = $city->city_name; }
+        foreach( $areas as $area ) { $areas_data[$area->id] = $area->area_name; }
+		foreach( $categories as $category ) { $categories_data[$category->id] = $category->category_title; }
 
         return view("restaurants.new")->with([
 				"cities" => $cities_data,
@@ -92,8 +89,6 @@ class RestaurantController extends Controller
     */
     public function add_new_restaurant(Request $request)
     {
-
-        $request->oopen_time;
 
         $input = [
             "title" 	=> $request->title,
@@ -124,8 +119,36 @@ class RestaurantController extends Controller
         $validate = Validator::make($input,$rules, $messages);
 
         if($validate->passes())
-        {
-			//dd( $request );
+        {		
+			$logo_fileName 	 = "";
+			$banner_fileName = "";
+			
+			if (Input::hasFile('logo'))
+			{
+				if (Input::file('logo')->isValid()) {
+					$destinationPath = 'assets/images/restaurants'; // upload path
+					$extension = Input::file('logo')->getClientOriginalExtension(); // getting image extension
+					$logo_fileName = "logo_".date("YmdHis").rand(111,999).'.'.$extension; // renameing image
+					Input::file('logo')->move($destinationPath, $logo_fileName); // uploading file to given path
+				  
+				} else {
+					return "Logo Could be Uploaded.";
+				}
+			}
+			
+			if (Input::hasFile('banner'))
+			{
+				if (Input::file('banner')->isValid()) {
+					$destinationPath = 'assets/images/restaurants'; // upload path
+					$extension = Input::file('banner')->getClientOriginalExtension(); // getting image extension
+					$banner_fileName = "banner_".date("YmdHis").rand(111,999).'.'.$extension; // renameing image
+					Input::file('banner')->move($destinationPath, $banner_fileName); // uploading file to given path
+				  
+				} else {
+					return "File Could be Uploaded.";
+				}
+			}
+			
 			
             $areas = implode(",", $request->area_ids);
             $restaurant = new Restaurant;
@@ -141,6 +164,8 @@ class RestaurantController extends Controller
             $restaurant->contact_phone	= $request->contact_phone;
             $restaurant->contact_email	= $request->contact_email;
             $restaurant->cell			= $request->cell;
+			$restaurant->logo			= $logo_fileName;
+			$restaurant->banner			= $banner_fileName;
             $restaurant->open_time 		= date("H:i:s", strtotime($request->open_time));
             $restaurant->close_time 	= date("H:i:s", strtotime($request->close_time));
             $restaurant->is_takeaway_only = $request->is_takeaway_only;
@@ -164,7 +189,7 @@ class RestaurantController extends Controller
 				}
 				
 				
-				return "Success";
+				return redirect()->back()->with("message", "Success");
 			
 				
             } else {
@@ -287,6 +312,13 @@ class RestaurantController extends Controller
               '.$city_option.'
             </select>
           </div>
+		  
+		  <div class="form-group">
+		      <label>Logo</label>
+			  <img src="'.url('public/assets/images/restaurants').'/'.$restaurant->logo.'" alt="Logo Image">
+			  <input type="file" name="logo" id="logo"/>
+          </div>
+                
 
           <div class="form-group">
             <label>Restaurant Name</label>

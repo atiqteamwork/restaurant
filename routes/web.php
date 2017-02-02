@@ -220,7 +220,7 @@ Route::resource('chat', 'ChatController');
 Route::post('checkout/login', '\App\Http\Controllers\Auth\LoginController@login');
 Route::post('/login', '\App\Http\Controllers\Auth\LoginController@login');
 
+
 Route::any('{catchall}', function() {
   echo "404";
 })->where('catchall', '.*');
-
