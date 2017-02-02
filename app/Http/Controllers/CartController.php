@@ -6,14 +6,12 @@ use Auth;
 
 use App\Cart;
 use App\CartDetails;
-
 use App\Order;
 use App\OrderDetail;
-
 use App\Restaurant;
-
 use App\Dish;
 use App\Deal;
+use App\City;
 
 use Carbon\Carbon;
 
@@ -185,10 +183,21 @@ class CartController extends Controller
         $cart = CartDetails::whereHas("Cart", function($query) use ($session_key) {
                             $query->where("session_key", $session_key);
                         })->get();
+						
         if( empty( $cart ) || count( $cart ) <= 0 ) {
-
+			return redirect(url('/'));
         } else {
-            return view("frontend.checkout")->with("cart", $cart);
+			
+			$cities = City::all();
+			$cities_data = [];
+			foreach( $cities as $city ) {
+				$cities_data[$city->id] = $city->city_name;
+			}
+			
+            return view("frontend.checkout")->with([
+					"cart" => $cart,
+					"cities" => $cities_data,
+					]);
         }
 
 
@@ -313,4 +322,27 @@ class CartController extends Controller
     }
 
 
+	public function update_checkout(Request $request)
+	{
+		$counter = 0;
+		
+		$ids = explode(",", $request->id);
+		$quantity = explode(",", $request->quantity);
+		
+		foreach( $ids as $id)
+		{
+			if( $counter >= count( $quantity )-1 ) continue;
+			
+			$cart = CartDetails::find($id);
+			$cart->quantity = $quantity[$counter++];
+			$response = $cart->save();
+			 	
+		}
+		
+		if( $response == 1 )
+		{
+			return 'Success';	
+		}
+		
+	}
 }

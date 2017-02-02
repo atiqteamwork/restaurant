@@ -1,26 +1,39 @@
-@import "https://fonts.googleapis.com/css?family=Open+Sans:300,600,700";
+@import "https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700";
 @import "https://fonts.googleapis.com/css?family=Raleway:400,600,700";
 @import "https://fonts.googleapis.com/css?family=Montserrat:400,700";
+/* line 8, ../sass/app.scss */
 .no-margin {
-  margin: 0 !important; }
+  margin: 0 !important;
+}
 
+/* line 12, ../sass/app.scss */
 .add-padding {
-  padding: 15px !important; }
+  padding: 15px !important;
+}
 
+/* line 16, ../sass/app.scss */
 .add-margin {
-  margin: 15px !important; }
+  margin: 15px !important;
+}
 
+/* line 19, ../sass/app.scss */
 .no-border {
-  border: none !important; }
+  border: none !important;
+}
 
+/* line 22, ../sass/app.scss */
 .no-padd {
-  padding: 0 !important; }
+  padding: 0 !important;
+}
 
+/* line 26, ../sass/app.scss */
 body {
   height: 100%;
   width: 100%;
-  clear: both; }
+  clear: both;
+}
 
+/* line 32, ../sass/app.scss */
 .navbar-default {
   border: none;
   background-color: rgba(0, 17, 21, 0.8);
@@ -28,13 +41,19 @@ body {
   margin-bottom: 0;
   position: fixed;
   width: 100%;
-  z-index: 100; }
+  z-index: 100;
+}
 
+/* line 41, ../sass/app.scss */
 .navbar-brand {
-  padding: 0 5px; }
-  .navbar-brand img {
-    max-height: 49px; }
+  padding: 0 5px;
+}
+/* line 43, ../sass/app.scss */
+.navbar-brand img {
+  max-height: 49px;
+}
 
+/* line 50, ../sass/app.scss */
 .navbar-default .navbar-nav li a {
   color: #ffffff;
   font-size: 18px;
@@ -43,23 +62,35 @@ body {
   transition-duration: .4s;
   font-family: "Open sans", sans-serif;
   padding-left: 28px;
-  padding-right: 28px; }
-  .navbar-default .navbar-nav li a:hover {
-    color: #d50905;
-    transition-duration: .4s; }
-  .navbar-default .navbar-nav li a:focus {
-    color: #d50905;
-    transition-duration: .4s; }
+  padding-right: 28px;
+}
+/* line 59, ../sass/app.scss */
+.navbar-default .navbar-nav li a:hover {
+  color: #d50905;
+  transition-duration: .4s;
+}
+/* line 63, ../sass/app.scss */
+.navbar-default .navbar-nav li a:focus {
+  color: #d50905;
+  transition-duration: .4s;
+}
 
+/* line 73, ../sass/app.scss */
 .navbar-default .navbar-toggle {
   border-radius: 0;
-  border-color: #ffffff; }
-  .navbar-default .navbar-toggle .icon-bar {
-    background-color: #ffffff; }
+  border-color: #ffffff;
+}
+/* line 76, ../sass/app.scss */
+.navbar-default .navbar-toggle .icon-bar {
+  background-color: #ffffff;
+}
 
+/* line 81, ../sass/app.scss */
 .navbar-default .navbar-toggle:focus, .navbar-default .navbar-toggle:hover {
-  background-color: #d50905; }
+  background-color: #d50905;
+}
 
+/* line 85, ../sass/app.scss */
 .wrapper_bg {
   height: 100vh;
   width: 100%;
@@ -67,29 +98,39 @@ body {
   align-items: center;
   justify-content: center;
   display: flex;
-  text-align: center; }
-  .wrapper_bg .wrapper-box {
-    float: left;
-    position: relative;
-    text-align: center;
-    width: 100%; }
-    .wrapper_bg .wrapper-box h2 {
-      font-family: "Raleway", sans-serif;
-      font-weight: 700;
-      font-size: 45px;
-      color: #ffffff;
-      text-transform: uppercase;
-      margin-bottom: 30px; }
-      .wrapper_bg .wrapper-box h2 span {
-        color: #d50905; }
-    .wrapper_bg .wrapper-box p {
-      font-family: "Raleway", sans-serif;
-      font-weight: 700;
-      font-size: 17px;
-      color: #ffffff;
-      text-transform: uppercase;
-      margin-bottom: 30px; }
+  text-align: center;
+}
+/* line 93, ../sass/app.scss */
+.wrapper_bg .wrapper-box {
+  float: left;
+  position: relative;
+  text-align: center;
+  width: 100%;
+}
+/* line 98, ../sass/app.scss */
+.wrapper_bg .wrapper-box h2 {
+  font-family: "Raleway", sans-serif;
+  font-weight: 700;
+  font-size: 45px;
+  color: #ffffff;
+  text-transform: uppercase;
+  margin-bottom: 30px;
+}
+/* line 105, ../sass/app.scss */
+.wrapper_bg .wrapper-box h2 span {
+  color: #d50905;
+}
+/* line 109, ../sass/app.scss */
+.wrapper_bg .wrapper-box p {
+  font-family: "Raleway", sans-serif;
+  font-weight: 700;
+  font-size: 17px;
+  color: #ffffff;
+  text-transform: uppercase;
+  margin-bottom: 30px;
+}
 
+/* line 120, ../sass/app.scss */
 .btn_order_now {
   font-family: "Raleway", sans-serif;
   color: #ffffff;
@@ -98,24 +139,34 @@ body {
   text-transform: uppercase;
   border: 1px solid #d50905;
   transition-duration: .4s;
-  font-weight: 600 !important; }
-  .btn_order_now:focus {
-    color: #ffffff;
-    transition-duration: .4s;
-    background-color: transparent; }
-  .btn_order_now:hover {
-    color: #ffffff !important;
-    transition-duration: .4s;
-    background-color: transparent; }
+  font-weight: 600 !important;
+}
+/* line 130, ../sass/app.scss */
+.btn_order_now:focus {
+  color: #ffffff;
+  transition-duration: .4s;
+  background-color: transparent;
+}
+/* line 135, ../sass/app.scss */
+.btn_order_now:hover {
+  color: #ffffff !important;
+  transition-duration: .4s;
+  background-color: transparent;
+}
 
+/* line 143, ../sass/app.scss */
 .toggle-order-now {
   position: fixed;
   right: 20%;
-  top: 11px; }
+  top: 11px;
+}
 
+/* line 149, ../sass/app.scss */
 .search_btn {
-  float: left; }
+  float: left;
+}
 
+/* line 152, ../sass/app.scss */
 .btn-search {
   padding: 0;
   height: 50px;
@@ -127,74 +178,110 @@ body {
   text-transform: uppercase;
   border: 1px solid #d50905;
   font-weight: 600;
-  transition-duration: .3s; }
-  .btn-search:hover {
-    color: #ffffff;
-    background-color: rgba(0, 0, 0, 0.5);
-    transition-duration: .3s; }
-  .btn-search:focus {
-    background-color: rgba(0, 0, 0, 0.5);
-    color: #ffffff; }
+  transition-duration: .3s;
+}
+/* line 165, ../sass/app.scss */
+.btn-search:hover {
+  color: #ffffff;
+  background-color: rgba(0, 0, 0, 0.5);
+  transition-duration: .3s;
+}
+/* line 171, ../sass/app.scss */
+.btn-search:focus {
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #ffffff;
+}
 
+/* line 176, ../sass/app.scss */
 .select2-container--default .select2-selection--multiple .select2-selection__rendered {
-  padding: 11px 25px; }
+  padding: 11px 25px;
+}
 
+/* line 179, ../sass/app.scss */
 .search_boxs {
   float: left;
-  width: 100%; }
-  .search_boxs .form-group {
-    margin-bottom: 0; }
+  width: 100%;
+}
+/* line 182, ../sass/app.scss */
+.search_boxs .form-group {
+  margin-bottom: 0;
+}
 
+/* line 189, ../sass/app.scss */
 .select2-container--default.select2-container--open.select2-container--below .select2-selection--single, .select2-container--default.select2-container--open.select2-container--below .select2-selection--multiple {
-  border-radius: 0; }
+  border-radius: 0;
+}
 
+/* line 194, ../sass/app.scss */
 .select-res .select2-container--default.select2-container--focus .select2-selection--multiple {
-  border: none; }
+  border: none;
+}
 
+/* line 198, ../sass/app.scss */
 .select2-container--default .select2-results > .select2-results__options {
   border-left: 1px solid #DDDDDD;
-  border-bottom: 1px solid #DDDDDD; }
+  border-bottom: 1px solid #DDDDDD;
+}
 
+/* line 204, ../sass/app.scss */
 .select2-container--default.select2-container--focus .select2-selection--multiple {
   border-left: 2px solid #dcdcdc;
   border-right: none;
   border-bottom: none;
-  border-top: none; }
+  border-top: none;
+}
 
+/* line 211, ../sass/app.scss */
 .select2-container--default .select2-selection--multiple {
   border: none;
   border-left: 2px solid #dcdcdc;
   border-radius: 0;
-  height: 50px; }
+  height: 50px;
+}
 
+/* line 218, ../sass/app.scss */
 .select2-selection__choice {
-  font-family: "Montserrat", sans-serif; }
+  font-family: "Montserrat", sans-serif;
+}
 
+/* line 221, ../sass/app.scss */
 .select2-container--default .select2-selection--multiple .select2-selection__choice {
   background-color: transparent;
-  border: none; }
+  border: none;
+}
 
+/* line 225, ../sass/app.scss */
 .select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
-  display: none; }
+  display: none;
+}
 
+/* line 228, ../sass/app.scss */
 .select2-container .select2-search--inline .select2-search__field {
   text-transform: capitalize;
   color: #5d5d5d;
   font-family: "Montserrat", sans-serif;
-  font-weight: 400; }
+  font-weight: 400;
+}
 
+/* line 235, ../sass/app.scss */
 .select2-results__option[aria-selected] {
   font-family: "Raleway", sans-serif;
   padding-left: 30px;
-  text-transform: capitalize; }
+  text-transform: capitalize;
+}
 
+/* line 240, ../sass/app.scss */
 .select2-container--default .select2-results > .select2-results__options {
   max-height: 130px;
-  overflow-y: auto; }
+  overflow-y: auto;
+}
 
+/* line 245, ../sass/app.scss */
 .outer_body {
-  padding-top: 52px; }
+  padding-top: 52px;
+}
 
+/* line 249, ../sass/app.scss */
 .detail-bg {
   height: 500px;
   width: 100%;
@@ -204,139 +291,272 @@ body {
   display: flex;
   text-align: center;
   margin-bottom: 25px;
-  background-attachment: fixed; }
-  .detail-bg .wrapper-box {
-    float: left;
-    position: relative;
-    text-align: center;
-    width: 100%; }
-    .detail-bg .wrapper-box h2 {
-      font-family: "Raleway", sans-serif;
-      font-weight: 600;
-      font-size: 36px;
-      color: #ffffff;
-      text-transform: uppercase;
-      margin-bottom: 30px;
-      line-height: 1.4; }
-      .detail-bg .wrapper-box h2 span {
-        font-weight: 700; }
-    .detail-bg .wrapper-box .img-res img {
-      max-width: 155px;
-      max-height: 115px; }
+  background-attachment: fixed;
+}
+/* line 259, ../sass/app.scss */
+.detail-bg .wrapper-box {
+  float: left;
+  position: relative;
+  text-align: center;
+  width: 100%;
+}
+/* line 264, ../sass/app.scss */
+.detail-bg .wrapper-box h2 {
+  font-family: "Raleway", sans-serif;
+  font-weight: 600;
+  font-size: 36px;
+  color: #ffffff;
+  text-transform: uppercase;
+  margin-bottom: 30px;
+  line-height: 1.4;
+}
+/* line 272, ../sass/app.scss */
+.detail-bg .wrapper-box h2 span {
+  font-weight: 700;
+}
+/* line 277, ../sass/app.scss */
+.detail-bg .wrapper-box .img-res img {
+  max-width: 155px;
+  max-height: 115px;
+}
 
+/* line 284, ../sass/app.scss */
+.parallax-window {
+  background: transparent;
+}
+
+/* line 287, ../sass/app.scss */
+.check_out_box {
+  height: 467px;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  text-align: center;
+  background-attachment: fixed;
+}
+/* line 295, ../sass/app.scss */
+.check_out_box .wrapper-box {
+  float: left;
+  position: relative;
+  text-align: center;
+  width: 100%;
+}
+/* line 300, ../sass/app.scss */
+.check_out_box .wrapper-box h2 {
+  font-family: "Raleway", sans-serif;
+  font-weight: 600;
+  font-size: 35px;
+  color: #ffffff;
+  text-transform: capitalize;
+  margin: 0 0 30px;
+}
+/* line 307, ../sass/app.scss */
+.check_out_box .wrapper-box h2 span {
+  color: #d50905;
+  font-weight: 700;
+}
+/* line 312, ../sass/app.scss */
+.check_out_box .wrapper-box p {
+  font-family: "Raleway", sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  color: #ffffff;
+  text-transform: uppercase;
+  margin: 0;
+  letter-spacing: .5px;
+}
+
+/* line 323, ../sass/app.scss */
+.info-checkout {
+  float: left;
+  width: 100%;
+  margin-bottom: 25px;
+  color: #a1b1bc;
+  font-weight: 400;
+  font-size: 14px;
+  font-family: "Open sans", sans-serif;
+}
+
+/* line 332, ../sass/app.scss */
+.checkout-update {
+  float: left;
+  width: 100%;
+  background-color: #ba0909;
+  padding: 14px 20px;
+  margin-bottom: 25px;
+  border-radius: 2px;
+}
+/* line 339, ../sass/app.scss */
+.checkout-update h2 {
+  margin: 0;
+  color: #ffffff;
+  font-size: 14px;
+  font-family: "Open sans", sans-serif;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+/* line 348, ../sass/app.scss */
+.checkout-update span a {
+  color: #ffffff;
+}
+/* line 350, ../sass/app.scss */
+.checkout-update span a:hover {
+  color: #192522;
+}
+
+/* line 357, ../sass/app.scss */
 .heading-line {
   background-color: #d50905;
   float: left;
   width: 100%;
   margin-bottom: 25px;
   position: relative;
-  padding: 30px 0; }
-  .heading-line h2 {
-    font-size: 24px;
-    font-family: "Open sans", sans-serif;
-    font-weight: 400;
-    text-align: center;
-    text-transform: uppercase;
-    color: #ffdc00;
-    margin: 0; }
-    .heading-line h2 span {
-      font-weight: 600; }
+  padding: 30px 0;
+}
+/* line 364, ../sass/app.scss */
+.heading-line h2 {
+  font-size: 24px;
+  font-family: "Open sans", sans-serif;
+  font-weight: 400;
+  text-align: center;
+  text-transform: uppercase;
+  color: #ffdc00;
+  margin: 0;
+}
+/* line 372, ../sass/app.scss */
+.heading-line h2 span {
+  font-weight: 600;
+}
 
+/* line 377, ../sass/app.scss */
 section {
   float: left;
-  width: 100%; }
+  width: 100%;
+}
 
+/* line 381, ../sass/app.scss */
 .detail-sidebar {
   float: left;
-  width: 100%; }
-  .detail-sidebar .navbar {
-    border: 1px solid #e9e9e9;
-    background-color: #f9f9f9;
-    margin-bottom: 30px;
-    float: left;
-    width: 100%;
-    position: relative;
-    display: block; }
-    .detail-sidebar .navbar h4 {
-      background-color: #d50905;
-      color: #ffffff;
-      margin: 0;
-      font-size: 14px;
-      font-family: "Open sans", sans-serif;
-      font-weight: 600;
-      text-transform: uppercase;
-      text-align: left;
-      padding: 12px 20px;
-      border-radius: 0;
-      width: 100%; }
-    .detail-sidebar .navbar .nav {
-      float: left;
-      width: 100%;
-      position: relative;
-      display: block; }
-      .detail-sidebar .navbar .nav li {
-        transition-duration: .4s; }
-        .detail-sidebar .navbar .nav li a {
-          color: #a8a8a8;
-          font-weight: 600;
-          font-size: 14px;
-          font-family: "Open sans", sans-serif;
-          text-transform: capitalize;
-          text-align: left;
-          transition-duration: .4s; }
-        .detail-sidebar .navbar .nav li:focus {
-          background: #ddd; }
-        .detail-sidebar .navbar .nav li:hover {
-          background: #ddd; }
-      .detail-sidebar .navbar .nav .head-tag a {
-        color: #777;
-        font-weight: 600;
-        font-size: 15px;
-        font-family: "Open sans", sans-serif;
-        text-transform: capitalize;
-        text-align: left; }
+  width: 100%;
+}
+/* line 385, ../sass/app.scss */
+.detail-sidebar .navbar {
+  border: 1px solid #e9e9e9;
+  background-color: #f9f9f9;
+  margin-bottom: 30px;
+  float: left;
+  width: 100%;
+  position: relative;
+  display: block;
+}
+/* line 393, ../sass/app.scss */
+.detail-sidebar .navbar h4 {
+  background-color: #d50905;
+  color: #ffffff;
+  margin: 0;
+  font-size: 14px;
+  font-family: "Open sans", sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  text-align: left;
+  padding: 12px 20px;
+  border-radius: 0;
+  width: 100%;
+}
+/* line 406, ../sass/app.scss */
+.detail-sidebar .navbar .nav {
+  float: left;
+  width: 100%;
+  position: relative;
+  display: block;
+}
+/* line 411, ../sass/app.scss */
+.detail-sidebar .navbar .nav li {
+  transition-duration: .4s;
+}
+/* line 413, ../sass/app.scss */
+.detail-sidebar .navbar .nav li a {
+  color: #a8a8a8;
+  font-weight: 600;
+  font-size: 14px;
+  font-family: "Open sans", sans-serif;
+  text-transform: capitalize;
+  text-align: left;
+  transition-duration: .4s;
+}
+/* line 422, ../sass/app.scss */
+.detail-sidebar .navbar .nav li:focus {
+  background: #ddd;
+}
+/* line 425, ../sass/app.scss */
+.detail-sidebar .navbar .nav li:hover {
+  background: #ddd;
+}
+/* line 430, ../sass/app.scss */
+.detail-sidebar .navbar .nav .head-tag a {
+  color: #777;
+  font-weight: 600;
+  font-size: 15px;
+  font-family: "Open sans", sans-serif;
+  text-transform: capitalize;
+  text-align: left;
+}
 
+/* line 442, ../sass/app.scss */
 .main-detail {
   float: left;
   width: 100%;
   margin-bottom: 25px;
   position: relative;
   border: 1px solid #e9e9e9;
-  background-color: #f9f9f9; }
-  .main-detail .detail_box {
-    float: left;
-    width: 100%;
-    border-bottom: 1px solid #e9e9e9;
-    padding: 20px 20px; }
-    .main-detail .detail_box h4 {
-      float: left;
-      width: 100%;
-      font-size: 25px;
-      font-family: "Open sans", sans-serif;
-      font-weight: 600;
-      text-transform: capitalize;
-      text-align: left;
-      margin: 0 0 30px;
-      color: #333333; }
-    .main-detail .detail_box .small-detail {
-      float: left;
-      width: 100%; }
-      .main-detail .detail_box .small-detail h5 {
-        color: #5e5e5e;
-        font-size: 17px;
-        font-family: "Montserrat", sans-serif;
-        font-weight: 700;
-        text-transform: capitalize;
-        text-align: left; }
-      .main-detail .detail_box .small-detail p {
-        color: #999;
-        font-size: 14px;
-        font-family: "Raleway", sans-serif;
-        font-weight: 600;
-        text-transform: capitalize;
-        text-align: left;
-        margin-bottom: 0; }
+  background-color: #f9f9f9;
+}
+/* line 449, ../sass/app.scss */
+.main-detail .detail_box {
+  float: left;
+  width: 100%;
+  border-bottom: 1px solid #e9e9e9;
+  padding: 20px 20px;
+}
+/* line 454, ../sass/app.scss */
+.main-detail .detail_box h4 {
+  float: left;
+  width: 100%;
+  font-size: 25px;
+  font-family: "Open sans", sans-serif;
+  font-weight: 600;
+  text-transform: capitalize;
+  text-align: left;
+  margin: 0 0 30px;
+  color: #333333;
+}
+/* line 465, ../sass/app.scss */
+.main-detail .detail_box .small-detail {
+  float: left;
+  width: 100%;
+}
+/* line 468, ../sass/app.scss */
+.main-detail .detail_box .small-detail h5 {
+  color: #5e5e5e;
+  font-size: 17px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+  text-transform: capitalize;
+  text-align: left;
+}
+/* line 476, ../sass/app.scss */
+.main-detail .detail_box .small-detail p {
+  color: #999;
+  font-size: 14px;
+  font-family: "Raleway", sans-serif;
+  font-weight: 600;
+  text-transform: capitalize;
+  text-align: left;
+  margin-bottom: 0;
+}
 
+/* line 488, ../sass/app.scss */
 .btn_cart {
   color: #d50905;
   background-color: transparent;
@@ -346,72 +566,100 @@ section {
   font-family: "Open sans", sans-serif;
   font-weight: 600;
   transition-duration: .4s;
-  text-transform: uppercase; }
-  .btn_cart i {
-    font-size: 18px;
-    margin-left: 5px; }
-  .btn_cart:hover {
-    color: #ffffff;
-    background-color: #d50905;
-    transition-duration: .4s; }
-  .btn_cart:focus {
-    color: #ffffff;
-    background-color: #d50905;
-    transition-duration: .4s; }
+  text-transform: uppercase;
+}
+/* line 498, ../sass/app.scss */
+.btn_cart i {
+  font-size: 18px;
+  margin-left: 5px;
+}
+/* line 502, ../sass/app.scss */
+.btn_cart:hover {
+  color: #ffffff;
+  background-color: #d50905;
+  transition-duration: .4s;
+}
+/* line 507, ../sass/app.scss */
+.btn_cart:focus {
+  color: #ffffff;
+  background-color: #d50905;
+  transition-duration: .4s;
+}
 
+/* line 513, ../sass/app.scss */
 .btn_cart.active {
   color: #ffffff;
-  background-color: #d50905; }
+  background-color: #d50905;
+}
 
+/* line 518, ../sass/app.scss */
 .no-bottom-border {
-  border-bottom: none !important; }
+  border-bottom: none !important;
+}
 
+/* line 522, ../sass/app.scss */
 .res-ser .select2-container--default .select2-selection--multiple {
-  border-radius: 30px 0 0 30px; }
+  border-radius: 30px 0 0 30px;
+}
 
+/* line 526, ../sass/app.scss */
 .cart-btn-box {
   padding: 20px;
   float: left;
-  width: 100%; }
+  width: 100%;
+}
 
+/* line 532, ../sass/app.scss */
 .food-banner {
   float: left;
   width: 100%;
   margin: 40px 0;
-  position: relative; }
-  .food-banner img {
-    max-height: 100px;
-    width: 100%; }
-  .food-banner h3 {
-    color: #fff;
-    font-size: 20px;
-    font-family: "Raleway", sans-serif;
-    font-weight: 600;
-    text-transform: capitalize;
-    text-align: left;
-    position: absolute;
-    top: 0;
-    left: 10%; }
+  position: relative;
+}
+/* line 537, ../sass/app.scss */
+.food-banner img {
+  max-height: 100px;
+  width: 100%;
+}
+/* line 541, ../sass/app.scss */
+.food-banner h3 {
+  color: #fff;
+  font-size: 20px;
+  font-family: "Raleway", sans-serif;
+  font-weight: 600;
+  text-transform: capitalize;
+  text-align: left;
+  position: absolute;
+  top: 0;
+  left: 10%;
+}
 
+/* line 553, ../sass/app.scss */
 .recipe_box {
   float: left;
   width: 100%;
   text-align: center;
   margin-bottom: 30px;
-  display: block; }
-  .recipe_box img {
-    border: 1px solid #e9e9e9;
-    margin-bottom: 15px;
-    max-height: 105px;
-    display: inline-block; }
-  .recipe_box p {
-    color: #444;
-    font-size: 14px;
-    font-family: "Open sans", sans-serif;
-    font-weight: 600;
-    text-transform: capitalize;
-    margin-bottom: 15px; }
+  display: block;
+}
+/* line 559, ../sass/app.scss */
+.recipe_box img {
+  border: 1px solid #e9e9e9;
+  margin-bottom: 15px;
+  max-height: 105px;
+  display: inline-block;
+}
+/* line 565, ../sass/app.scss */
+.recipe_box p {
+  color: #444;
+  font-size: 14px;
+  font-family: "Open sans", sans-serif;
+  font-weight: 600;
+  text-transform: capitalize;
+  margin-bottom: 15px;
+}
 
+/* line 574, ../sass/app.scss */
 .cart-sidebar {
   float: left;
   width: 100%;
@@ -419,193 +667,280 @@ section {
   position: relative;
   border: 1px solid #e9e9e9;
   background-color: #f9f9f9;
-  padding: 5px; }
-  .cart-sidebar .cart-sticker {
-    float: left;
-    width: 100%;
-    border: 1px solid #e9e9e9;
-    background-color: #fff;
-    margin-bottom: 30px; }
-    .cart-sidebar .cart-sticker h4 {
-      color: #444;
-      font-size: 14px;
-      font-family: "Open sans", sans-serif;
-      font-weight: 400;
-      text-transform: capitalize;
-      margin: 0;
-      padding: 20px 10px; }
-      .cart-sidebar .cart-sticker h4 span {
-        color: #444;
-        font-size: 15px;
-        font-family: "Montserrat", sans-serif;
-        font-weight: 600; }
-    .cart-sidebar .cart-sticker h3 {
-      color: #444;
-      font-size: 16px;
-      font-family: "Montserrat", sans-serif;
-      font-weight: 600;
-      padding: 15px 20px 15px;
-      border-bottom: 1px solid #dedede;
-      margin: 0; }
-    .cart-sidebar .cart-sticker .cart_detail {
-      float: left;
-      width: 100%;
-      padding: 10px 0 0 0;
-      overflow: hidden;
-      position: relative;
-      transition-duration: 0.5s; }
-      .cart-sidebar .cart-sticker .cart_detail p {
-        color: #969696;
-        font-size: 12px;
-        font-family: "Montserrat", sans-serif;
-        font-weight: 400;
-        text-transform: capitalize;
-        border-bottom: 1px solid #dedede;
-        padding: 0 15px 10px 15px;
-        margin-bottom: 0;
-        float: left;
-        width: 100%; }
-        .cart-sidebar .cart-sticker .cart_detail p span {
-          float: left;
-          margin-right: 15px;
-          height: 60px;
-          position: relative;
-          top: 10px;
-          font-size: 18px;
-          font-family: "Montserrat", sans-serif;
-          font-weight: 600; }
-      .cart-sidebar .cart-sticker .cart_detail .overlay-shadow {
-        position: absolute;
-        top: 100%;
-        width: 100%;
-        height: 100%;
-        transition-duration: 0.4s;
-        background: rgba(213, 9, 5, 0.7);
-        z-index: 100; }
-        .cart-sidebar .cart-sticker .cart_detail .overlay-shadow .overlay-inner {
-          position: relative;
-          width: 100%;
-          height: 100%; }
-          .cart-sidebar .cart-sticker .cart_detail .overlay-shadow .overlay-inner .close_btn {
-            float: right;
-            width: 100%;
-            text-align: right;
-            position: relative; }
-            .cart-sidebar .cart-sticker .cart_detail .overlay-shadow .overlay-inner .close_btn i {
-              color: #fff;
-              position: absolute;
-              left: 90%;
-              top: 45px;
-              transition-duration: 0.3s;
-              font-size: 20px; }
-              .cart-sidebar .cart-sticker .cart_detail .overlay-shadow .overlay-inner .close_btn i:hover {
-                color: whitesmoke;
-                transition-duration: 0.3s; }
-      .cart-sidebar .cart-sticker .cart_detail:hover {
-        transition-duration: 0.5s; }
-        .cart-sidebar .cart-sticker .cart_detail:hover .overlay-shadow {
-          top: 0;
-          transition-duration: 0.5s; }
-        .cart-sidebar .cart-sticker .cart_detail:hover .plus {
-          display: block !important;
-          transition-duration: 0.5s;
-          z-index: 1000; }
-        .cart-sidebar .cart-sticker .cart_detail:hover .minus {
-          display: block !important;
-          transition-duration: 0.5s;
-          z-index: 1000; }
-        .cart-sidebar .cart-sticker .cart_detail:hover p span {
-          color: #ffffff;
-          z-index: 1000; }
-    .cart-sidebar .cart-sticker .plus {
-      position: absolute;
-      top: 6px;
-      left: 12px;
-      display: none;
-      transition-duration: 0.3s; }
-      .cart-sidebar .cart-sticker .plus a {
-        display: block;
-        text-decoration: none; }
-        .cart-sidebar .cart-sticker .plus a span {
-          width: 15px;
-          height: 15px;
-          display: block;
-          text-align: center;
-          background: #ffffff;
-          color: #444444;
-          line-height: 1;
-          border: 1px solid #999;
-          font-family: "Raleway", sans-serif;
-          font-weight: 400;
-          font-size: 15px;
-          z-index: 100; }
-          .cart-sidebar .cart-sticker .plus a span:hover {
-            background: #4CAF50;
-            color: #ffffff; }
-    .cart-sidebar .cart-sticker .minus {
-      position: absolute;
-      top: 41px;
-      left: 12px;
-      display: none; }
-      .cart-sidebar .cart-sticker .minus a {
-        display: block;
-        text-decoration: none; }
-        .cart-sidebar .cart-sticker .minus a span {
-          width: 15px;
-          height: 15px;
-          display: block;
-          text-align: center;
-          background: #ffffff;
-          border: 1px solid #999;
-          line-height: 0.8;
-          color: #444444;
-          font-family: "Raleway", sans-serif;
-          font-weight: 400;
-          font-size: 15px; }
-          .cart-sidebar .cart-sticker .minus a span:hover {
-            background: #4CAF50;
-            color: #ffffff; }
-    .cart-sidebar .cart-sticker h6 {
-      font-size: 14px;
-      font-family: "Montserrat", sans-serif;
-      font-weight: 600;
-      color: #969696;
-      padding: 15px 10px;
-      text-transform: capitalize;
-      float: left;
-      width: 100%;
-      margin: 0; }
-    .cart-sidebar .cart-sticker h5 {
-      border-bottom: 1px solid #dedede;
-      font-size: 14px;
-      font-family: "Montserrat", sans-serif;
-      font-weight: 600;
-      color: #0b8daa;
-      padding: 15px 10px;
-      text-transform: capitalize;
-      float: left;
-      width: 100%;
-      margin: 0; }
-    .cart-sidebar .cart-sticker h2 {
-      border-bottom: 1px solid #dedede;
-      font-size: 18px;
-      font-family: "Montserrat", sans-serif;
-      font-weight: 600;
-      color: #0b8daa;
-      padding: 15px 10px;
-      text-transform: capitalize;
-      float: left;
-      width: 100%;
-      margin: 0; }
-      .cart-sidebar .cart-sticker h2 .pull-left {
-        color: #969696;
-        font-size: 14px;
-        font-weight: 400; }
+  padding: 5px;
+}
+/* line 583, ../sass/app.scss */
+.cart-sidebar .cart-sticker {
+  float: left;
+  width: 100%;
+  border: 1px solid #e9e9e9;
+  background-color: #fff;
+  margin-bottom: 30px;
+}
+/* line 590, ../sass/app.scss */
+.cart-sidebar .cart-sticker h4 {
+  color: #444;
+  font-size: 14px;
+  font-family: "Open sans", sans-serif;
+  font-weight: 400;
+  text-transform: capitalize;
+  margin: 0;
+  padding: 20px 10px;
+}
+/* line 598, ../sass/app.scss */
+.cart-sidebar .cart-sticker h4 span {
+  color: #444;
+  font-size: 15px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+}
+/* line 605, ../sass/app.scss */
+.cart-sidebar .cart-sticker h3 {
+  color: #444;
+  font-size: 16px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  padding: 15px 20px 15px;
+  border-bottom: 1px solid #dedede;
+  margin: 0;
+}
+/* line 614, ../sass/app.scss */
+.cart-sidebar .cart-sticker .cart_detail {
+  float: left;
+  width: 100%;
+  padding: 10px 0 0 0;
+  overflow: hidden;
+  position: relative;
+  transition-duration: 0.5s;
+}
+/* line 621, ../sass/app.scss */
+.cart-sidebar .cart-sticker .cart_detail p {
+  color: #969696;
+  font-size: 12px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  text-transform: capitalize;
+  border-bottom: 1px solid #dedede;
+  padding: 0 15px 10px 15px;
+  margin-bottom: 0;
+  float: left;
+  width: 100%;
+}
+/* line 632, ../sass/app.scss */
+.cart-sidebar .cart-sticker .cart_detail p span {
+  float: left;
+  margin-right: 15px;
+  height: 60px;
+  position: relative;
+  top: 10px;
+  font-size: 18px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+}
+/* line 646, ../sass/app.scss */
+.cart-sidebar .cart-sticker .cart_detail .overlay-shadow {
+  position: absolute;
+  top: 100%;
+  width: 100%;
+  height: 100%;
+  transition-duration: 0.4s;
+  background: rgba(213, 9, 5, 0.7);
+  z-index: 100;
+}
+/* line 654, ../sass/app.scss */
+.cart-sidebar .cart-sticker .cart_detail .overlay-shadow .overlay-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+/* line 658, ../sass/app.scss */
+.cart-sidebar .cart-sticker .cart_detail .overlay-shadow .overlay-inner .close_btn {
+  float: right;
+  width: 100%;
+  text-align: right;
+  position: relative;
+}
+/* line 663, ../sass/app.scss */
+.cart-sidebar .cart-sticker .cart_detail .overlay-shadow .overlay-inner .close_btn i {
+  color: #fff;
+  position: absolute;
+  left: 90%;
+  top: 45px;
+  transition-duration: 0.3s;
+  font-size: 20px;
+}
+/* line 670, ../sass/app.scss */
+.cart-sidebar .cart-sticker .cart_detail .overlay-shadow .overlay-inner .close_btn i:hover {
+  color: whitesmoke;
+  transition-duration: 0.3s;
+}
+/* line 681, ../sass/app.scss */
+.cart-sidebar .cart-sticker .cart_detail:hover {
+  transition-duration: 0.5s;
+}
+/* line 683, ../sass/app.scss */
+.cart-sidebar .cart-sticker .cart_detail:hover .overlay-shadow {
+  top: 0;
+  transition-duration: 0.5s;
+}
+/* line 687, ../sass/app.scss */
+.cart-sidebar .cart-sticker .cart_detail:hover .plus {
+  display: block !important;
+  transition-duration: 0.5s;
+  z-index: 1000;
+}
+/* line 692, ../sass/app.scss */
+.cart-sidebar .cart-sticker .cart_detail:hover .minus {
+  display: block !important;
+  transition-duration: 0.5s;
+  z-index: 1000;
+}
+/* line 697, ../sass/app.scss */
+.cart-sidebar .cart-sticker .cart_detail:hover p span {
+  color: #ffffff;
+  z-index: 1000;
+}
+/* line 703, ../sass/app.scss */
+.cart-sidebar .cart-sticker .plus {
+  position: absolute;
+  top: 6px;
+  left: 12px;
+  display: none;
+  transition-duration: 0.3s;
+}
+/* line 709, ../sass/app.scss */
+.cart-sidebar .cart-sticker .plus a {
+  display: block;
+  text-decoration: none;
+}
+/* line 712, ../sass/app.scss */
+.cart-sidebar .cart-sticker .plus a span {
+  width: 15px;
+  height: 15px;
+  display: block;
+  text-align: center;
+  background: #ffffff;
+  color: #444444;
+  line-height: 1;
+  border: 1px solid #999;
+  font-family: "Raleway", sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+  z-index: 100;
+}
+/* line 725, ../sass/app.scss */
+.cart-sidebar .cart-sticker .plus a span:hover {
+  background: #4CAF50;
+  color: #ffffff;
+}
+/* line 732, ../sass/app.scss */
+.cart-sidebar .cart-sticker .minus {
+  position: absolute;
+  top: 41px;
+  left: 12px;
+  display: none;
+}
+/* line 737, ../sass/app.scss */
+.cart-sidebar .cart-sticker .minus a {
+  display: block;
+  text-decoration: none;
+}
+/* line 740, ../sass/app.scss */
+.cart-sidebar .cart-sticker .minus a span {
+  width: 15px;
+  height: 15px;
+  display: block;
+  text-align: center;
+  background: #ffffff;
+  border: 1px solid #999;
+  line-height: 0.8;
+  color: #444444;
+  font-family: "Raleway", sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+}
+/* line 752, ../sass/app.scss */
+.cart-sidebar .cart-sticker .minus a span:hover {
+  background: #4CAF50;
+  color: #ffffff;
+}
+/* line 759, ../sass/app.scss */
+.cart-sidebar .cart-sticker h6 {
+  font-size: 14px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  color: #969696;
+  padding: 15px 10px;
+  text-transform: capitalize;
+  float: left;
+  width: 100%;
+  margin: 0;
+}
+/* line 770, ../sass/app.scss */
+.cart-sidebar .cart-sticker h5 {
+  border-bottom: 1px solid #dedede;
+  font-size: 14px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  color: #0b8daa;
+  padding: 15px 10px;
+  text-transform: capitalize;
+  float: left;
+  width: 100%;
+  margin: 0;
+}
+/* line 782, ../sass/app.scss */
+.cart-sidebar .cart-sticker h2 {
+  border-bottom: 1px solid #dedede;
+  font-size: 18px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  color: #0b8daa;
+  padding: 15px 10px;
+  text-transform: capitalize;
+  float: left;
+  width: 100%;
+  margin: 0;
+}
+/* line 783, ../sass/app.scss */
+.cart-sidebar .cart-sticker h2 .pull-left {
+  color: #969696;
+  font-size: 14px;
+  font-weight: 400;
+}
 
+/* line 802, ../sass/app.scss */
 .btn-checkout.active {
   color: #d50905;
-  background-color: transparent; }
+  background-color: transparent;
+}
 
+/* line 806, ../sass/app.scss */
+.btn-submit {
+  color: #ffffff;
+  background-color: #ba0909;
+  border: 1px solid #d50905;
+  border-radius: 3px;
+  font-size: 16px;
+  font-family: "Open sans", sans-serif;
+  font-weight: 600;
+  transition-duration: .4s;
+  text-transform: uppercase;
+  padding: 12px 18px;
+}
+/* line 817, ../sass/app.scss */
+.btn-submit:hover {
+  color: #ba0909;
+  background-color: transparent;
+  transition-duration: .4s;
+}
+/* line 822, ../sass/app.scss */
+.btn-submit:focus {
+  color: #ba0909;
+  background-color: transparent;
+}
+
+/* line 827, ../sass/app.scss */
 .btn-checkout {
   margin-bottom: 10px;
   color: #ffffff;
@@ -616,96 +951,596 @@ section {
   font-family: "Open sans", sans-serif;
   font-weight: 600;
   transition-duration: .4s;
-  text-transform: uppercase; }
-  .btn-checkout:hover {
-    color: #d50905;
-    background-color: transparent;
-    transition-duration: .4s; }
-  .btn-checkout:focus {
-    color: #d50905;
-    background-color: transparent;
-    transition-duration: .4s; }
+  text-transform: uppercase;
+}
+/* line 838, ../sass/app.scss */
+.btn-checkout:hover {
+  color: #d50905;
+  background-color: transparent;
+  transition-duration: .4s;
+}
+/* line 843, ../sass/app.scss */
+.btn-checkout:focus {
+  color: #d50905;
+  background-color: transparent;
+  transition-duration: .4s;
+}
 
+/* line 849, ../sass/app.scss */
 .check_btn_box {
   float: left;
   width: 100%;
   margin: 20px 0;
-  padding: 0 12px; }
+  padding: 0 12px;
+}
 
+/* line 855, ../sass/app.scss */
 .sidebar_fixed {
   position: fixed !important;
   width: 230px !important;
   height: 100vh;
   overflow: scroll;
-  top: 10%; }
+  top: 10%;
+}
 
+/* line 863, ../sass/app.scss */
 .d {
   display: none;
-  position: relative; }
+  position: relative;
+}
+
+/* line 868, ../sass/app.scss */
+.checkout-form {
+  float: left;
+  width: 100%;
+  margin-bottom: 25px;
+  position: relative;
+}
+/* line 873, ../sass/app.scss */
+.checkout-form h2 {
+  margin: 0 0 30px;
+  font-size: 24px;
+  font-family: "Open sans", sans-serif;
+  font-weight: 700;
+  color: #2c3e50;
+  text-transform: capitalize;
+}
+/* line 883, ../sass/app.scss */
+.checkout-form  .checkbox label {
+  padding-left: 0;
+}
+/* line 886, ../sass/app.scss */
+.checkout-form  .checkbox input[type="checkbox"] {
+  display: none;
+}
+/* line 890, ../sass/app.scss */
+.checkout-form  .checkbox input[type="checkbox"] + label {
+  color: #a1b1bc;
+  margin-bottom: 30px;
+}
+/* line 895, ../sass/app.scss */
+.checkout-form  .checkbox input[type="checkbox"] + label span {
+  display: inline-block;
+  width: 19px;
+  height: 19px;
+  margin: -2px 10px 0 0;
+  vertical-align: middle;
+  background: url(../images/check_sheet.png) left top no-repeat;
+  cursor: pointer;
+}
+/* line 905, ../sass/app.scss */
+.checkout-form  .checkbox input[type="checkbox"]:checked + label span {
+  background: url(../images/check_sheet.png) -19px top no-repeat;
+}
+/* line 910, ../sass/app.scss */
+.checkout-form  .form-group {
+  margin-bottom: 20px;
+}
+/* line 912, ../sass/app.scss */
+.checkout-form  .form-group textarea {
+  font-family: "Open sans", sans-serif;
+  border: 1px solid #e3e6e9;
+  border-radius: 2px;
+  outline: none;
+}
+/* line 918, ../sass/app.scss */
+.checkout-form  .form-group input {
+  border-radius: 2px;
+  border: 1px solid #e3e6e9;
+  color: #444444;
+  font-family: "Open sans", sans-serif;
+  font-weight: 400;
+  height: 40px;
+  outline: none;
+  box-shadow: none;
+}
+/* line 928, ../sass/app.scss */
+.checkout-form  .form-group ::-webkit-input-placeholder {
+  color: #a1b1bc;
+}
+/* line 931, ../sass/app.scss */
+.checkout-form  .form-group :-moz-placeholder {
+  /* Firefox 18- */
+  color: #a1b1bc;
+}
+/* line 934, ../sass/app.scss */
+.checkout-form  .form-group ::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #a1b1bc;
+}
+/* line 937, ../sass/app.scss */
+.checkout-form  .form-group :-ms-input-placeholder {
+  color: #a1b1bc;
+}
+/* line 940, ../sass/app.scss */
+.checkout-form  .form-group label {
+  color: #34495e;
+  font-size: 14px;
+  font-family: "Open sans", sans-serif;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+/* line 946, ../sass/app.scss */
+.checkout-form  .form-group label span {
+  color: #d50905;
+}
+
+/* line 954, ../sass/app.scss */
+.check-border {
+  float: left;
+  width: 100%;
+  margin: 0 0 20px;
+}
+
+/* line 959, ../sass/app.scss */
+.margin-btm {
+  margin-bottom: 10px;
+}
+
+/* line 965, ../sass/app.scss */
+b {
+  font-family: "Open sans", sans-serif;
+}
+
+/* line 970, ../sass/app.scss */
+.checkout-table .table > tbody > tr > td, .checkout-table .table > tbody > tr > th, .checkout-table .table > tfoot > tr > td, .checkout-table .table > tfoot > tr > th, .checkout-table .table > thead > tr > td, .checkout-table .table > thead > tr > th {
+  border: none;
+  padding: 32px 20px;
+}
+/* line 974, ../sass/app.scss */
+.checkout-table .table > tbody > tr > td, .checkout-table .table > tbody > tr > th, .checkout-table .table > tfoot > tr > td, .checkout-table .table > tfoot > tr > th {
+  border: none;
+  padding: 20px 20px;
+}
+/* line 978, ../sass/app.scss */
+.checkout-table .table-border {
+  border: 1px solid #eaf0f2;
+}
+/* line 980, ../sass/app.scss */
+.checkout-table .table-border th {
+  color: #2c3e50;
+  font-size: 16px;
+  font-family: "Open sans", sans-serif;
+  text-transform: uppercase;
+  background-color: #ecf0f1;
+  font-weight: 700;
+}
+/* line 987, ../sass/app.scss */
+.checkout-table .table-pro-img {
+  margin-right: 30px;
+  float: left;
+  max-width: 70px;
+  position: relative;
+  overflow: hidden;
+}
+/* line 993, ../sass/app.scss */
+.checkout-table .table-pro-img img {
+  max-width: 70px;
+}
+/* line 998, ../sass/app.scss */
+.checkout-table .table-text-pro {
+  color: #a1b1bc;
+  font-family: "Montserrat", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  float: left;
+  position: relative;
+  line-height: 3;
+}
+/* line 1007, ../sass/app.scss */
+.checkout-table .price-table {
+  color: #9d9d9d;
+  font-family: "Montserrat", sans-serif;
+  font-size: 14px;
+  line-height: 3;
+}
+/* line 1013, ../sass/app.scss */
+.checkout-table .select-two {
+  font-size: 14px;
+  padding: 6px 12px;
+  font-family: "Open Sans", sans-serif;
+  margin: 0;
+  cursor: pointer;
+  color: #2c3e50;
+  border-radius: 5px;
+  border: 1px solid #b8c6d0;
+}
+/* line 1022, ../sass/app.scss */
+.checkout-table .select-two option {
+  font-family: "Open Sans", sans-serif;
+}
+/* line 1025, ../sass/app.scss */
+.checkout-table .img-icon {
+  position: relative;
+  top: 5px;
+}
+/* line 1029, ../sass/app.scss */
+.checkout-table .inc-dec-pro {
+  border: 1px solid #b8c6d0;
+  padding: 2px 6px;
+}
+/* line 1032, ../sass/app.scss */
+.checkout-table .inc-dec-pro i {
+  color: #b8c6d0;
+}
+
+/* line 1038, ../sass/app.scss */
+.checkout-table2 td {
+  font-family: "Open sans", sans-serif;
+  font-weight: 700;
+}
+/* line 1041, ../sass/app.scss */
+.checkout-table2 td strong {
+  font-family: "Open sans", sans-serif;
+  font-weight: 700;
+  color: #2c3e50;
+}
+/* line 1047, ../sass/app.scss */
+.checkout-table2 .table > tbody > tr > td, .checkout-table2 .table > tbody > tr > th, .checkout-table2 .table > tfoot > tr > td, .checkout-table2 .table > tfoot > tr > th, .checkout-table2 .table > thead > tr > td, .checkout-table2 .table > thead > tr > th {
+  border: none;
+  padding: 32px 20px;
+}
+/* line 1051, ../sass/app.scss */
+.checkout-table2 .table > tbody > tr > td, .checkout-table2 .table > tbody > tr > th, .checkout-table2 .table > tfoot > tr > td, .checkout-table2 .table > tfoot > tr > th {
+  border: none;
+  padding: 20px 20px;
+}
+/* line 1055, ../sass/app.scss */
+.checkout-table2 .table-border {
+  border: none;
+}
+/* line 1057, ../sass/app.scss */
+.checkout-table2 .table-border th {
+  color: #2c3e50;
+  font-size: 16px;
+  font-family: "Open sans", sans-serif;
+  text-transform: uppercase;
+  background-color: #ecf0f1;
+  font-weight: 700;
+}
+/* line 1064, ../sass/app.scss */
+.checkout-table2 .green {
+  color: #7bc200;
+}
+/* line 1066, ../sass/app.scss */
+.checkout-table2 .red {
+  color: #ba0909;
+}
+
+/* line 1070, ../sass/app.scss */
+.logo-slider-heading {
+  float: left;
+  width: 100%;
+  margin-bottom: 70px;
+  position: relative;
+}
+/* line 1075, ../sass/app.scss */
+.logo-slider-heading h2 {
+  margin: 0;
+  font-size: 30px;
+  font-family: "Open sans", sans-serif;
+  font-weight: 400;
+  color: #313131;
+  text-transform: capitalize;
+}
+
+/* line 1084, ../sass/app.scss */
+.client-logo {
+  float: left;
+  width: 100%;
+  margin-bottom: 50px;
+  position: relative;
+  border: 1px solid #f1f1f1;
+  text-align: center;
+  padding: 48px;
+  display: block;
+}
+/* line 1094, ../sass/app.scss */
+.client-logo img {
+  display: inline-block;
+  max-height: 200px;
+}
+
+/* line 1100, ../sass/app.scss */
+.logo-slider .slick-prev:before, .logo-slider .slick-next:before {
+  font-size: 20px;
+  line-height: 0.6;
+  position: relative;
+  opacity: .75;
+  color: #a2a2a2;
+}
+/* line 1106, ../sass/app.scss */
+.logo-slider .slick-prev {
+  font-size: 0;
+  line-height: 0;
+  position: absolute;
+  top: -40px;
+  display: block;
+  width: 30px;
+  left: 47%;
+  height: 30px;
+  padding: 0;
+  cursor: pointer;
+  color: #ffffff;
+  border: none;
+  outline: none;
+  background-color: #f9f9f9;
+  border-radius: 0;
+}
+/* line 1123, ../sass/app.scss */
+.logo-slider .slick-next {
+  font-size: 0;
+  line-height: 0;
+  position: absolute;
+  top: -40px;
+  right: 47.5%;
+  display: block;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  cursor: pointer;
+  color: #ffffff;
+  border: none;
+  transition: .3s;
+  outline: none;
+  background-color: #f9f9f9;
+  border-radius: 0;
+}
+/* line 1140, ../sass/app.scss */
+.logo-slider .slick-prev:hover, .logo-slider .slick-next:hover {
+  background-color: #d50905;
+  transition: .3s;
+}
+/* line 1143, ../sass/app.scss */
+.logo-slider .slick-prev:hover .slick-prev:before, .logo-slider .slick-prev:hover .slick-next:before, .logo-slider .slick-next:hover .slick-prev:before, .logo-slider .slick-next:hover .slick-next:before {
+  color: #ffffff !important;
+}
+
+/* line 1149, ../sass/app.scss */
+.slick-slide {
+  outline: none;
+}
+
+/* line 1152, ../sass/app.scss */
+.footer-main {
+  float: left;
+  width: 100%;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: url("../images/footer-img.png") center/cover no-repeat;
+  padding: 63px 0;
+}
+/* line 1161, ../sass/app.scss */
+.footer-main .social-icon {
+  float: left;
+  width: 100%;
+  text-align: center;
+  margin: 20px 0;
+}
+/* line 1167, ../sass/app.scss */
+.footer-main .social-icon a i {
+  width: 33px;
+  height: 33px;
+  background: #4a4a4a;
+  border-radius: 100%;
+  margin-right: 5px;
+  transition: .3s;
+  color: #6b6b6b;
+  line-height: 2.3;
+}
+/* line 1176, ../sass/app.scss */
+.footer-main .social-icon a i:hover {
+  background: #d50905;
+  color: #ffffff;
+  transition: .3s;
+}
+/* line 1185, ../sass/app.scss */
+.footer-main .address {
+  float: left;
+  width: 100%;
+  text-align: center;
+  margin-bottom: 30px;
+}
+/* line 1190, ../sass/app.scss */
+.footer-main .address i {
+  color: #ffffff;
+  font-size: 20px;
+}
+/* line 1194, ../sass/app.scss */
+.footer-main .address p {
+  margin: 0;
+  line-height: 1.8;
+  color: #969595;
+  font-family: "Open sans", sans-serif;
+  font-weight: 400;
+  font-size: 13px;
+}
+
+/* line 1204, ../sass/app.scss */
+.copyright {
+  float: left;
+  width: 100%;
+  text-align: center;
+}
+/* line 1208, ../sass/app.scss */
+.copyright h4 {
+  margin: 0;
+  color: #969595;
+  font-family: "Open sans", sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 14px;
+}
+/* line 1215, ../sass/app.scss */
+.copyright h4 a {
+  color: #969595;
+  text-decoration: none;
+}
+/* line 1218, ../sass/app.scss */
+.copyright h4 a:hover {
+  color: #ffffff;
+}
 
 @media (max-width: 992px) {
+  /* line 3, ../sass/screen.scss */
   .navbar-header {
-    float: none; }
+    float: none;
+  }
+
+  /* line 6, ../sass/screen.scss */
   .navbar-left, .navbar-right {
-    float: none !important; }
+    float: none !important;
+  }
+
+  /* line 9, ../sass/screen.scss */
   .navbar-toggle {
     display: block;
-    margin-top: 10px !important; }
+    margin-top: 10px !important;
+  }
+
+  /* line 13, ../sass/screen.scss */
   .navbar-collapse {
     border-top: 1px solid transparent;
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1); }
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+
+  /* line 17, ../sass/screen.scss */
   .navbar-fixed-top {
     top: 0;
-    border-width: 0 0 1px; }
+    border-width: 0 0 1px;
+  }
+
+  /* line 21, ../sass/screen.scss */
   .navbar-collapse.collapse {
-    display: none !important; }
+    display: none !important;
+  }
+
+  /* line 24, ../sass/screen.scss */
   .navbar-nav {
     float: none !important;
-    margin-top: 7.5px; }
+    margin-top: 7.5px;
+  }
+
+  /* line 28, ../sass/screen.scss */
   .navbar-nav > li {
-    float: none; }
+    float: none;
+  }
+
+  /* line 31, ../sass/screen.scss */
   .navbar-nav > li > a {
     padding-top: 10px;
-    padding-bottom: 10px; }
+    padding-bottom: 10px;
+  }
+
+  /* line 35, ../sass/screen.scss */
   .collapse.in {
-    display: block !important; }
+    display: block !important;
+  }
+
+  /* line 38, ../sass/screen.scss */
   .navbar-nav {
     left: 0px !important;
-    position: relative; }
+    position: relative;
+  }
+
+  /* line 42, ../sass/screen.scss */
   .navbar-default {
-    background-color: #333 !important; } }
+    background-color: #333 !important;
+  }
 
-@media (min-width: 992px) {
-  .no-padding {
-    padding: 0 !important; } }
-
-@media (max-width: 992px) {
+  /* line 46, ../sass/screen.scss */
   .res-ser .select2-container--default .select2-selection--multiple {
-    border-radius: 0; }
+    border-radius: 0;
+  }
+
+  /* line 50, ../sass/screen.scss */
   .select2-container {
-    margin-bottom: 25px; }
+    margin-bottom: 25px;
+  }
+
+  /* line 53, ../sass/screen.scss */
   .form-group {
-    margin-bottom: 0; }
+    margin-bottom: 0;
+  }
+
+  /* line 56, ../sass/screen.scss */
   .search_boxs .form-group {
-    margin-left: 0; }
+    margin-left: 0;
+  }
+
+  /* line 60, ../sass/screen.scss */
   .select-res .select2-container--default .select2-selection--multiple {
-    border-radius: 0; }
+    border-radius: 0;
+  }
+
+  /* line 63, ../sass/screen.scss */
   .btn-search {
     width: 100%;
-    border-radius: 0; }
+    border-radius: 0;
+  }
+
+  /* line 67, ../sass/screen.scss */
   .search_btn {
-    width: 100%; }
+    width: 100%;
+  }
+
+  /* line 70, ../sass/screen.scss */
   .search_boxs {
     padding: 20px;
-    background: rgba(0, 0, 0, 0.7); }
-  .wrapper_bg .wrapper-box h2 {
-    font-size: 32px; } }
+    background: rgba(0, 0, 0, 0.7);
+  }
 
+  /* line 74, ../sass/screen.scss */
+  .wrapper_bg .wrapper-box h2 {
+    font-size: 32px;
+  }
+}
+@media (min-width: 992px) {
+  /* line 82, ../sass/screen.scss */
+  .no-padding {
+    padding: 0 !important;
+  }
+}
 @media (max-width: 420px) {
+  /* line 88, ../sass/screen.scss */
   .toggle-order-now {
-    display: none; }
+    display: none;
+  }
+
+  /* line 91, ../sass/screen.scss */
   .food-banner h3 {
     font-size: 14px;
-    top: -3px; } }
+    top: -3px;
+  }
+}
+@media (max-width: 1200px) {
+  /* line 99, ../sass/screen.scss */
+  .slick-prev, .slick-next {
+    display: none !important;
+  }
+}
 
 .recipe_box p{min-height: 60px;}
+.shipping-address {display:none;}

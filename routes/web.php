@@ -204,6 +204,7 @@ Route::resource('cart/add', 'CartController@addto_main_cart');
 Route::resource('cart/view', 'CartController@view_cart');
 Route::post('cart/item/delete', 'CartController@delete_item');
 Route::post('cart/item/changequantity', 'CartController@change_quantity');
+Route::post('cart/checkout/update', 'CartController@update_checkout');
 Route::get('/checkout', 'CartController@checkout');
 
 Route::resource('/checkout/proceed', 'CartController@proceed_checkout');
@@ -216,6 +217,7 @@ Route::resource('chat', 'ChatController');
 
 
 Route::post('checkout/login', '\App\Http\Controllers\Auth\LoginController@login');
+Route::post('/login', '\App\Http\Controllers\Auth\LoginController@login');
 
 Route::any('{catchall}', function() {
   echo "404";

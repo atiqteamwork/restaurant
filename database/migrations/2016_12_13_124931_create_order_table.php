@@ -17,14 +17,28 @@ class CreateOrderTable extends Migration
             $table->increments('id');
 			$table->integer('user_id');
 			$table->integer('restaurant_id');
-			$table->string('first_name', 128)->nullable()->comment('Add first name if guest checkout');
-			$table->string('last_name', 128)->nullable()->comment('Add last name if guest checkout');
+			
+			$table->string('first_name', 128)->nullable();
+			$table->string('last_name', 128)->nullable();
 			$table->string('company')->nullable();
 			$table->string('email');
-			$table->string('address');
+			$table->string('address1');
+			$table->string('address2');
 			$table->string('phone');
 			$table->string('cell')->nullable();
-			$table->string('city', 128)->nullable()->comment('Add city if guest checkout');
+			$table->string('city', 128)->nullable();
+			
+			$table->string('shipping_first_name', 128)->nullable();
+			$table->string('shipping_last_name', 128)->nullable();
+			$table->string('shipping_company')->nullable();
+			$table->string('shipping_email');
+			$table->string('shipping_address1');
+			$table->string('shipping_address2');
+			$table->string('shipping_phone');
+			$table->string('shipping_cell')->nullable();
+			$table->string('shipping_city', 128)->nullable();
+			
+			
 			$table->datetime('dated');
 			$table->integer('net_amount')->default(0);
 			$table->integer('gst')->default(0);
