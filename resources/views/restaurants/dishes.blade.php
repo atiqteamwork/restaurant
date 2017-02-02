@@ -35,7 +35,9 @@
                         <td>{{$dish->description}}</td>
                         <td>{{$dish->price}}</td>
                         <td> @if($dish->status=='Active') <span class="label label-primary">{{$dish->status}}</span> @else <span class="label label-danger"> {{$dish->status}}</span> @endif </td>
-                        <td><a href="#" class="btn btn-success btn-sm view_Dish_button" data-id="{{$dish->id}}"><i class="fa fa-info" aria-hidden="true"></i></a> <a class="btn btn-primary btn-sm edit_Dish_btn" data-id="{{$dish->id}}"><i class="fa fa-edit" aria-hidden="true"></i></a></td>
+                        <td>
+                            <a href="#" class="btn btn-success btn-sm view_Dish_button" data-id="{{$dish->id}}"><i class="fa fa-info" aria-hidden="true"></i></a>
+                            <a class="btn btn-primary btn-sm edit_Dish_btn" data-id="{{$dish->id}}"><i class="fa fa-edit" aria-hidden="true"></i></a></td>
                     </tr>
                     @endforeach
                     @endif
@@ -168,7 +170,27 @@
 
 
 @section('script')
+    <script src="assets/plugins/jquery/jquery-2.2.4.min.js"></script>
 <script>
+    $(document).on('change', '.fetch_cat', function () {
+        var id = $(this).val();
+        $.ajax({
+            type: "POST",
+            url: "{{ url('get_restaurant_menus')}}",
+            data:{
+                id:id,
+                '_token': '{{csrf_token()}}'
+            },
+            success: function (data) {
+
+                $('.menu_list').html( data );
+            },
+            error:function () {
+                alert("fail");
+            }
+        });
+
+    });
 		$(document).ready(function () {
 			var r_default_id = $("#restaurants_list").val();
 			
@@ -277,9 +299,13 @@
             *	Fetch Restaurants Data and Put into Edit Model
             */
 			$( '#dishes' ).on( 'click', '.edit_Dish_btn', function () {
+                var rest_id = $(this).attr('data-rest');
+
+
 				var dataString = {
 						'id': $(this).attr("data-id"),
-						'_token': $('input[name="_token"]').val()
+						'_token': $('input[name="_token"]').val(),
+						'rest_id': rest_id
 					};
 				
                 $.ajax({

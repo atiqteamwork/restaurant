@@ -6,6 +6,7 @@ use Auth;
 use App\Restaurant;
 use App\Dish;
 use App\MenuCategory;
+use App\RestaurantMenu;
 
 use Validator;
 
@@ -116,10 +117,10 @@ class DishesController extends Controller
                 <td><span class='label ".$label."'>".$dish->status."</span></td>
                 <td>
                     <input type='hidden' name='_token' value='".csrf_token()."'>
-                        <a style='display:none !important;' href='#' class='btn btn-success btn-sm view_Dish_button' data-id='".$dish->id."'>
+                        <a style='display:none !important;' href='#' class='btn btn-success btn-sm view_Dish_button' data-rest='".$dish->restaurant_id."' data-id='".$dish->id."'>
                             <i class='fa fa-info' aria-hidden='true'></i>
                         </a>
-                        <a class='btn btn-primary btn-sm edit_Dish_btn' data-id ='".$dish->id."'><i class='fa fa-edit' aria-hidden='true'></i></a>
+                        <a class='btn btn-primary btn-sm edit_Dish_btn' data-rest='".$dish->restaurant_id."' data-id ='".$dish->id."'><i class='fa fa-edit' aria-hidden='true'></i></a>
                         <a href='#' class='btn btn-danger del_btn' data-id='".$dish->id."'><i class='fa fa-trash'></i></a>
                 </td></tr>";
             }
@@ -136,15 +137,20 @@ class DishesController extends Controller
     */
     public function fetch_dish_byid(Request $request)
     {
-        $dishes_data = Dish::find($request->id);// $dishes->fetch_dish_byid( $request );	//	Fetch Dishes
+        $dishes_data = Dish::find($request->id);
         $restaurant_data = Restaurant::all("id", "title");		//	Fetch Restaurants for Select box
-		$category_data = MenuCategory::all("id", "category_title");	//Fetch Categories for Select box
-        
-		
-		dd( $dishes_data );
+		$category_data = RestaurantMenu::where("restaurant_id", $request->rest_id)->get();	//Fetch Categories for Select box
+
+
 		
         $restaurant_options = "";
         $category_options = "";
+
+
+
+        foreach ($category_data as $item){
+            $category_options .= '<option value="'.$item->MenuCategory->id.'">'.$item->MenuCategory->category_title.'</option>';
+        }
         
         $returndata = "";
         if( isset( $_POST['is_view'] ) ) {
@@ -154,12 +160,7 @@ class DishesController extends Controller
             foreach( $restaurant_data as $restaruant) {
                 $restaurant_options .= "<option value='".$restaruant->id."' ".($restaruant->id==$dishes_data->restaurant_id?'selected':'').">".$restaruant->title."</option>";	
             }
-            
-            
-            foreach( $category_data as $category) {
-                $category_options .= "<option value='".$category->id."' ".($category->id==$dishes_data->category_id?'selected':'').">".$category->category_title."</option>";	
-            }
-            
+
             
             // Prepare Html to send back for Edit Model
             $returndata = '<div class="box-body">
@@ -171,23 +172,29 @@ class DishesController extends Controller
             <label>Dish Title</label>
             <input class="form-control" type="text" name="dish_title" id="dish_title" value="'.$dishes_data->dish_title . '"/>
           </div>
-          <div class="form-group">
-            <label>Category</label>
-            <select name="category_id" class="form-control" id="category_id">'.$category_options.'</select>
-          </div>';
+          
+        ';
           
           if( Auth::user()->role_id == 1) {
               $returndata .= '<div class="form-group">
                 <label>Restaurant</label>
-                <select name="restaurant_id" class="form-control" id="restaurant_id">'.$restaurant_options.'</select>
+                <select name="restaurant_id" class="form-control fetch_cat" id="restaurant_id">'.$restaurant_options.'</select>
               </div>';
           } else {
               $returndata .= '<input type="hidden" name="restaurant_id" id="restaurant_id" value="'.Auth::user()->restaurant_id.'">';
           }
-          
-          $returndata .='<label>Description</label>
-            <input class="form-control" type="text" name="description" id="description" value="'.$dishes_data->description . '"/>
+
+          $returndata .='
+
+            <div class="form-group">
+            <label>Category</label>
+            <select name="category_id" class="form-control menu_list" id="category_id">"'.$category_options.'"</select>
           </div>
+
+            <div class="form-group">
+                <label>Description</label>
+                    <input class="form-control" type="text" name="description" id="description" value="'                            .$dishes_data->description . '"/>
+            </div>
           
           <div class="form-group">
             <label>Price</label>
@@ -358,6 +365,18 @@ class DishesController extends Controller
         } else {
             return $dish_result;	
         }
+    }
+
+    public function get_restaurant_menus(Request $request){
+     $menu_list = RestaurantMenu::where('restaurant_id', 1)->get();
+        $options ="";
+
+        foreach ($menu_list as $item){
+            $options .= '<option value="'.$item->MenuCategory->id.'">'.$item->MenuCategory->category_title.'</option>';
+        }
+
+        return $options;
+
     }
 
     

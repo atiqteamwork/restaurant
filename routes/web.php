@@ -151,6 +151,7 @@ Route::resource('admin/restaurant-menus/add_new', 'DishesController@add_new_dish
 Route::resource('admin/restaurant-menus/fetch_dish_byid', 'DishesController@fetch_dish_byid');
 Route::resource('admin/restaurant-menu/update', 'DishesController@update_dish');
 Route::resource('admin/restaurant-menu/del', 'DishesController@delete_dish');
+Route::resource('get_restaurant_menus', 'DishesController@get_restaurant_menus');
 
 
 

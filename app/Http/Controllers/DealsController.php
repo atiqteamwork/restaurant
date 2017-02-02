@@ -195,15 +195,12 @@ class DealsController extends Controller
             <label>Deal Title</label>
             <input class="form-control" type="text" name="deal_title" id="deal_title" value="'.$deals_data[0]->deal_title . '"/>
           </div>
-          <div class="form-group">
-            <label>Category</label>
-            <select name="category_id" class="form-control" id="category_id">'.$category_options.'</select>
-          </div>';
+          ';
 
           if( Auth::user()->role_id == 1) {
               $returndata .= '<div class="form-group">
                 <label>Restaurant</label>
-                <select name="restaurant_id" class="form-control" id="restaurant_id">
+                <select name="restaurant_id" class="form-control fetch_cat" id="restaurant_id">
                     '.$restaurant_options.'
                 </select>
               </div>';
@@ -211,7 +208,14 @@ class DealsController extends Controller
               $returndata .= '<input type="hidden" name="restaurant_id" id="restaurant_id" value="'.Auth::user()->restaurant_id.'">';
           }
 
-          $returndata .= '		  
+          $returndata .= '	
+		  <div class="form-group">
+            <label>Category</label>
+            <select name="category_id" class="form-control menu_list" id="category_id"></select>
+          </div>
+		  	  
+		  	  
+		  <div class="form-group">
           <label>Description</label>
             <input class="form-control" type="text" name="description" id="description" value="'.$deals_data[0]->description.'"/>
           </div>

@@ -151,7 +151,31 @@
 
 
 @section('script')
+    <script src="assets/plugins/jquery/jquery-2.2.4.min.js"></script>
 <script>
+    $(document).on('change', '.fetch_cat', function () {
+        var id = $(this).val();
+        $.ajax({
+            type: "POST",
+            url: "{{ url('get_restaurant_menus')}}",
+            data:{
+                id:id,
+                '_token': '{{csrf_token()}}'
+            },
+            success: function (data) {
+
+                $('.menu_list').html( data );
+            },
+            error:function () {
+                alert("fail");
+            }
+        });
+
+    });
+
+
+
+
 		$(document).ready(function () {
 			var r_default_id = $("#restaurants_list").val();
 			
