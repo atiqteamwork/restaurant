@@ -160,28 +160,6 @@
 
 
 @section('script') 
-<!-- jQuery 2.2.3 --> 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
-<!-- Bootstrape --> 
-<script src='assets/plugins/bootstrap/js/bootstrap.min.js'></script> 
-<script src='assets/plugins/angularjs/angular.js'></script>
-<script src='assets/plugins/angularjs/angular-route.min.js'></script>
-<script src='assets/plugins/angularjs/ng-map.min.js'></script>
-<script src='assets/plugins/angularjs/angular-animate.min.js'></script>
-<script src='assets/node_modules/select2/dist/js/select2.js'></script>");
-<script src='assets/node_modules/angular-chart.js/dist/Chart.min.js'></script>");
-<script src='assets/node_modules/angular-chart.js/dist/angular-chart.js'></script>");
-<script src='assets/plugins/angularjs/ng-google-chart.js'></script>");
-<script src='assets/plugins/angular-mappy/build/angular-mappy.js'></script>
-<script src='assets/node_modules/angular-loading-bar/build/loading-bar.js'></script>
-<script src='assets/js/angularScript.js'></script>
-<script src='assets/js/custom.js'></script>
-
-<script src="assets/plugins/datetimepicker/jquery.datetimepicker.min.js"></script>
-
-
-
-
 <script>
 	$(document).ready(function () {	
 

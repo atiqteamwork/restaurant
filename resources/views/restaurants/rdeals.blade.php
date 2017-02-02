@@ -168,14 +168,7 @@
 @stop
 
 
-@section('script') 
-<!-- jQuery 2.2.3 --> 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script> 
-<!-- Bootstrape --> 
-<script src='assets/plugins/bootstrap/js/bootstrap.min.js'></script> 
-<!-- DataTables --> 
-<script src='assets/plugins/dataTables/dataTables.min.js'></script> 
-<script src='assets/plugins/dataTables/dataTables.bootstrap.min.js'></script> 
+@section('script')
 <script>
 		$(document).ready(function () {
             $('#DealListTable').DataTable({

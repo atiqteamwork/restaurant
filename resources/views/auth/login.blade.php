@@ -46,7 +46,3 @@
     </div>
 </div>
 @endsection
-
-@section('script') 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script> 
-@endsection

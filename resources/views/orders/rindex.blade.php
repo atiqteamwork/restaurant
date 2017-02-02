@@ -231,15 +231,7 @@
 
 
 @section('script') 
-<!-- jQuery 2.2.3 --> 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script> 
-<!-- Bootstrape --> 
-<script src='assets/plugins/bootstrap/js/bootstrap.min.js'></script> 
-<!-- DataTables --> 
-<script src='assets/plugins/dataTables/dataTables.min.js'></script> 
-<script src='assets/plugins/dataTables/dataTables.bootstrap.min.js'></script>
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 <script>
 		$(document).ready(function () {
             $('#OrderListTable').DataTable({

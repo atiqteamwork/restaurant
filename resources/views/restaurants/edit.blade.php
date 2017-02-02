@@ -334,10 +334,7 @@
 @stop
 
 
-@section('script') 
-<!-- jQuery 2.2.3 --> 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
-
+@section('script')
 <script>
 	$(document).ready(function () {	
 		
