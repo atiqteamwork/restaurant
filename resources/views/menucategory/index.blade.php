@@ -108,7 +108,9 @@
 @stop
 
 
-@section('script')
+@section('script') 
+<!--jquery--> 
+<script src="assets/plugins/jquery/jquery-2.2.4.min.js"></script> 
 <script>
         $(document).ready(function () {
 
@@ -181,8 +183,8 @@
 				var new_status = $("#update_cate #status").val();
 								
 				if( new_title == old_title && old_status == new_status ) {
-					$(".alert span").text( "You have'nt changed anything." );
-					$(".alert").fadeIn(400);
+					$(".alert-danger span").text( "You have'nt changed anything." );
+					$(".alert-danger").fadeIn(400);
 				} else {
 					$.ajax({
 						type: "POST",

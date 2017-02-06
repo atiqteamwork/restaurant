@@ -105,10 +105,8 @@
             </div>
             <div class="col-md-6">
                 <div class="checkout-form">
-                    <h2>Ship to Different Address ?
-                        <label>
-                            <input type="checkbox" name="is_shipping_different" id="is_shipping_different">
-                        </label>
+                    <h2>Shipping Address
+                        
                     </h2>
                     <div class="row shipping-addresss">
                         <div class="col-md-6">
@@ -200,10 +198,10 @@
                         <?php $total = 0 ?>
                         @if( !empty($order) && count( $order ) > 0 )
                             @foreach( $order->OrderDetail as $c )
-
+								
                             <?php $total = ($c->price * $c->quantity) + $total ?>
                             <tr class="text-left">
-                                <td><span class="table-pro-img"><img src="{{url('/assets/images/')}}/{{($c->item_type == 'deal') ? 'deals/' : 'dishes/'}}" alt="image" class="img-responsive"></span><span class="table-text-pro">{{($c->dish_id != 0) ? $c->Dishes[0]->dish_title : $c->Deals[0]->deal_title}}</span></td>
+                                <td><span class="table-pro-img"><img src="{{url('/assets/images/')}}/{{($c->dish_id == '0') ? 'deals/'.$c->Deals[0]->picture : 'dishes/'.$c->Dishes[0]->picture}}" alt="image" class="img-responsive"></span><span class="table-text-pro">{{($c->dish_id != 0) ? $c->Dishes[0]->dish_title : $c->Deals[0]->deal_title}}</span></td>
                                 <td><span class="price-table">Rs. <span>{{$c->price}}</span></span></td>
                                 <td class="pm-table"> <strong>{{$c->quantity}}</strong> </td>
                                 <td><span class="table-text-pro item-total">Rs. <span><?php echo ($c->price * $c->quantity)?></span></span></td>

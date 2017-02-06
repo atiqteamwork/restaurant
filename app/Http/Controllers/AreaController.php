@@ -31,12 +31,12 @@ class AreaController extends Controller
     public function index(Request $request)
     {
         $this->user_role = Auth::user()->role_id;
-
+		
+		//	Getting Cities to Load into city Searchbox/dropbox
         $cities = City::all();
         $cities_data = [""=> "Select City"];
-        foreach( $cities as $city ) {
-            $cities_data[$city->id] = $city->city_name;
-        }
+        foreach( $cities as $city ) {$cities_data[$city->id] = $city->city_name;}
+
 
         if( $this->user_role == 1 )
         {

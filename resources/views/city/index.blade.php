@@ -109,6 +109,9 @@
 
 
 @section('script') 
+<!--jquery-->
+<script src="assets/plugins/jquery/jquery-2.2.4.min.js"></script>
+
 <script>
         $(document).ready(function () {
 			$(".new-category-click").click(function() {

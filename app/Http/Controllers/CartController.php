@@ -220,6 +220,9 @@ class CartController extends Controller
      **/
     public function proceed_checkout( Request $request )
     {
+		
+		//dd( $request );
+		
         $cart  = CartDetails::whereHas("Cart", function($query) use ($request) {
                             $query->where("id", $request->cart_id);
                         })->get();
@@ -229,7 +232,17 @@ class CartController extends Controller
         $gst = round($request->net_amount * ($restaurant[0]->gst / 100));
         $extra_charges = 0;
 
-        $order = new Order();
+		
+		/** Saving ORder Start Here **/
+		$orders_temp = Order::where("remember_token", $request->_token)->get();
+		
+		if( count($orders_temp) > 0) {
+			$order = Order::find($orders_temp[0]->id);
+		} else {
+			$order = new Order();
+		}
+		
+        
         $order->user_id 		= Auth::check() ? Auth::user()->id : 0;
         $order->restaurant_id   = $request->restaurant_id;
 		
@@ -242,6 +255,8 @@ class CartController extends Controller
         $order->email           = $request->email;
         $order->phone          	= $request->phone;
         $order->cell			= $request->cell;
+		
+		$order->shipping_location	= isset($request->is_shipping_different) ? "Shipping": "Billing";
 		
 		$order->shipping_first_name     = $request->shipping_first_name;
         $order->shipping_last_name      = $request->shipping_last_name;
@@ -260,16 +275,13 @@ class CartController extends Controller
         $order->gst				= $gst;
         $order->total_amount 	= $request->net_amount + $gst + $extra_charges;
         $order->order_type		= $cart[0]->Cart[0]->order_type;
+		$order->remember_token	= $request->_token;
+		
         $response1 = $order->save();
-
-
         $order_id =  $order->id;
 
 
-        
-		
-
-        if( $response1 )
+        if( $response1 && count($orders_temp) <= 0)
         {
             foreach( $cart as $c)
             {
@@ -297,7 +309,8 @@ class CartController extends Controller
 				
             }
         } else {
-            return "An Error Generated! Please! try again.";
+            //return "An Error Generated! Please! try again.";
+			$response2 = 1;
         }
 
         if( $response1 && $response2 )
@@ -340,11 +353,11 @@ class CartController extends Controller
 			$data = ['order' => $order];
 			/****/
 			/**		Sending Email To User
-			/****
+			/****/
 			$from_email = 'admin@newsklic.com';
 			$from_name  = 'Restaurant Administrator';
 			
-			$to_email	= $order->email;
+			$to_email	= "offshore.jump@gmail.com"; //$order->email;
 			$to_name  = $order->first_name . " " . $order->last_name;
 			
 			Mail::send('mail.user', $data, function($message) use ($from_email, $from_name, $to_email, $to_name)
@@ -366,7 +379,7 @@ class CartController extends Controller
 			
 			/****/
 			/**		Sending Email To Admin
-			/****
+			/****/
 			$from_email = $order->email;
 			$from_name  = $order->first_name . " " . $order->last_name;
 			
@@ -393,7 +406,7 @@ class CartController extends Controller
 			
 			/****/
 			/**		Sending Email To Restaurant
-			/****
+			/****/
 			$from_email = $order->email;
 			$from_name  = $order->first_name . " " . $order->last_name;
 			
@@ -416,10 +429,12 @@ class CartController extends Controller
 				}	
 			}*/
 			
+			$order_sending = $order;
+			unset( $order );
 			
+			//return redirect("order_completed")->with("order", $order_sending);
 			
-			return view("frontend.thankyou")->with("order", $order);
-			
+			return view("frontend.thankyou")->with("order", $order_sending);
 			
         }
 
@@ -448,5 +463,13 @@ class CartController extends Controller
 			return 'Success';	
 		}
 		
+	}
+	
+	/**
+	 * 
+	 **/
+	public function order_completed(Request $request)
+	{
+		dd( $request );
 	}
 }

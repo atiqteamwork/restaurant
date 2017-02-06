@@ -1,21 +1,25 @@
-/*if ($(document).ready(function() {
+if ($(document).ready(function() {
         $(".search-res").select2({
             placeholder: "Select/Type City...",
             allowClear: !0,
-            maximumSelectionSize: 1
+            maximumSelectionSize: 1,
+			
         }).on("select2-opening", function(e) {
             $(this).select2("val").length > 0 && e.preventDefault()
+			
         }), $(".search-area").select2({
             placeholder: "Select/Type Area...",
             allowClear: !0,
-            maximumSelectionSize: 1
+            maximumSelectionSize: 1,
+			
         }), $(".search-type").select2({
             placeholder: "Select Type",
             allowClear: !0,
-            maximumSelectionSize: 1
+            maximumSelectionSize: 1,
+			
         })
     }), function(e) {
-        jQuery.scrollSpeed = function(i, n, o) {
+        /*jQuery.scrollSpeed = function(i, n, o) {
             var t, a, l, r = e(document),
                 s = e(window),
                 d = e("html, body"),
@@ -41,9 +45,9 @@
             })
         }, jQuery.easing.default = function(e, i, n, o, t) {
             return -o * ((i = i / t - 1) * i * i * i - 1) + n
-        }
+        }*/
     }(jQuery), $(function() {
-        jQuery.scrollSpeed(50, 700)
+        //jQuery.scrollSpeed(50, 700)
     }), $(window).width() > 992) {
     $(window).scroll(function() {
         var e = $(window).scrollTop();
@@ -71,7 +75,6 @@ $(window).resize(function() {
     })
 });
 
-*/
 
 
 
@@ -122,7 +125,7 @@ $(function() {
     });
 });*/
 
-
+/*
 var container = document.getElementById('sidebar_nav');
 Ps.initialize(container);
 
@@ -173,3 +176,4 @@ $(window).resize(function() {
 
 });
 
+*/

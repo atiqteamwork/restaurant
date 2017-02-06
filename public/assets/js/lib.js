@@ -16,9 +16,9 @@ document.writeln("<script src='assets/plugins/angularjs/ng-map.min.js'></script>
 
 document.writeln("<script src='assets/plugins/angularjs/angular-animate.min.js'></script>");
 
-document.writeln("<script src='../node_modules/amcharts/dist/amcharts.js'></script>");
+document.writeln("<script src='assets/node_modules/amcharts/dist/amcharts.js' async></script>");
 
-document.writeln("<script src='../node_modules/amcharts/dist/serial.js'></script>");
+document.writeln("<script src='assets/node_modules/amcharts/dist/serial.js'></script>");
 
 document.writeln("<script src='assets/plugins/jqwidgets/scripts/jqxcore.js'></script>");
 

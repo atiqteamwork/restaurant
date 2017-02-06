@@ -8,6 +8,6 @@ class AjaxController extends Controller
 {
 	public function ajax_login( Request $request )
 	{
-		dd( $request );
+		
 	}
 }

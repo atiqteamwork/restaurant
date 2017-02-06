@@ -233,7 +233,56 @@
 
 
 @section('script')
+<!--jquery-->
+<script src="assets/plugins/jquery/jquery-2.2.4.min.js"></script>
 <script>
+
+
+
+/*
+*
+*	On change of Restaurant Filter
+*/
+//$("#restaurants_list").on("change", function () {
+$(document).on("change", "#restaurants_list", function () {
+	var dataString = {
+		'id': $("#restaurants_list").val(), 
+		'_token': $('input[name="_token"]').val()
+	};
+	
+	$.ajax({
+		type: "POST",
+		url: "{{ url('admin/orders/fetch_order_by_restaurant')}}",
+		data: dataString,
+		success: function ( response ) {						
+			$("#OrderListTable tbody").html( response );
+		}
+	});
+});
+		
+		
+
+
+/**
+* Trigger when Add new Restaurants button pressed.
+*/
+$(document).on('submit', "#search_filter",function () {
+	$.ajax({
+		type: "POST",
+		url: $(this).attr('action'), // "{{ url('/orders/add_new')}}",
+		data: $(this).serialize(),
+		success: function (response) {
+			$("#OrderListTable tbody").html( response );
+		}
+	});	
+
+	
+	return false;
+});
+
+			
+
+
 		$(document).ready(function () {
             $('#OrderListTable').DataTable({
                 "paging": true,
@@ -265,26 +314,7 @@
 			}
 
 			
-			/*
-			*
-			*	On change of Restaurant Filter
-			*/
-			$("#restaurants_list").on("change", function () {
-						
-                var dataString = {
-						'id': $(this).val(), 
-						'_token': $('input[name="_token"]').val()
-				};
-				
-                $.ajax({
-                    type: "POST",
-                    url: "{{ url('admin/orders/fetch_order_by_restaurant')}}",
-                    data: dataString,
-                    success: function ( response ) {						
-						$("#OrderListTable tbody").html( response );
-                    }
-                });
-            });
+			
 				
 
 			/*** Will Show Model to Add new Order ***/
@@ -526,22 +556,7 @@
 			
 			
 			
-			/**
-            * Trigger when Add new Restaurants button pressed.
-            */
-            $("#search_filter").on('submit', function () {
-				$.ajax({
-					type: "POST",
-					url: $(this).attr('action'), // "{{ url('/orders/add_new')}}",
-					data: $(this).serialize(),
-					success: function (response) {
-						$("#OrderListTable tbody").html( response );
-					}
-				});	
-
-				
-                return false;
-            });
+			
 			
 			
 			

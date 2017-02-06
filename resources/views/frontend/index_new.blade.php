@@ -2,10 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <base href="{{ getenv('APP_URL') }}" />
     <title>Hello Food</title>
     <!--Styles files-->
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="assets_front/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets_front/css/font-awesome.min.css">
     <!--perfect-scrollbar-->
     <link rel="stylesheet" href="node_modules/perfect-scrollbar/css/perfect-scrollbar.min.css">
     <!--Slick-->
@@ -13,7 +14,7 @@
     <!--selectize-->
     <link rel="stylesheet" href="node_modules/selectize.js-master/dist/css/selectize.css">
     <!--app-->
-    <link rel="stylesheet" href="assets/css/app.css">
+    <link rel="stylesheet" href="assets_front/css/app.css">
     <!--end here-->
 </head>
 <body>
@@ -27,7 +28,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index.html"><img src="assets/images/res_logo.png" alt="logo"></a>
+            <a class="navbar-brand" href="index.html"><img src="assets_front/images/res_logo.png" alt="logo"></a>
                         <span class="toggle-order-now hidden-lg hidden-md">
                             <a href="#" class="btn btn_order_now">ORDER NOW</a>
                         </span>
@@ -46,7 +47,7 @@
 </nav>
 <!--nav end-->
 <!--wrapper bg-->
-<div class="wrapper_bg parallax-window" data-parallax="scroll" data-image-src="assets/images/index_bg.jpg">
+<div class="wrapper_bg parallax-window" data-parallax="scroll" data-image-src="assets_front/images/index_bg.jpg">
     <div class="wrapper-box">
         <h2>order <span>takeaway</span> or delivery now</h2>
         <p>Ridiculus sociosqu cursus neque cursus curae ante scelerisque vehicula.
@@ -55,10 +56,12 @@
             <!--search_boxs-->
         <div class="row">
                 <div class="col-md-offset-2 col-md-8 col-sm-12 col-xs-12 col-md-offset-2">
+                	{{ Form::open(array('url' => '/restaurants/find','id'=>'searchrestaurants')) }}
                     <div class="row">
                         <div class="col-md-4 col-sm-12 no-padding">
                             <div class="select-res">
-                                <select id="select-restaurent" placeholder="Select/type city...">
+                            {{Form::Select('city', $cities, null, ['class' => 'search-res form-control', 'id' => 'select-city', 'required' => 'required'])}}
+                                <!--<select id="select-restaurent" placeholder="Select/type city...">
                                     <option value="">Select/type city...</option>
                                     <option value="AL">Alabama</option>
                                     <option value="AK">Alaska</option>
@@ -71,23 +74,27 @@
                                     <option value="DC">District of Columbia</option>
                                     <option value="FL">Florida</option>
                                     <option value="GA">Georgia</option>
-                                </select>
+                                </select>-->
                             </div>
                         </div>
                         <div class="col-md-3 col-sm-12 no-padding">
                             <div class="select-type">
-                                <select id="select-type" placeholder="select type...">
+                            	{{Form::Select('type', ['true' =>'Takeaway', 'false' => 'Delivery + Takeaway'], null, ['class' => 'search-type form-control', 'id' => 'type', 'required' => 'required'])}}
+                                <!--<select id="select-type" placeholder="select type...">
                                     <option value="">select type...</option>
                                     <option value="TAK">Takeaway</option>
                                     <option value="DEl">Deliver</option>
-                                </select>
+                                </select>-->
 
                             </div>
 
                         </div>
                         <div class="col-md-3 col-sm-12 no-padding">
                             <div class="select-area">
-                                <select id="select-area" placeholder="Select/type Area...">
+                                
+                                {{Form::Select('area', [], null, ['class' => 'search-area form-control', 'id' => 'select-areas', 'required' => 'required'])}}
+                                
+                                <!--<select id="select-area" placeholder="Select/type Area...">
                                     <option value="">Select/type area...</option>
                                     <option value="IA">Iowa</option>
                                     <option value="KS">Kansas</option>
@@ -115,7 +122,7 @@
                                     <option value="PA">Pennsylvania</option>
                                     <option value="RI">Rhode Island</option>
                                     <option value="SC">South Carolina</option>
-                                </select>
+                                </select>-->
 
                             </div>
 
@@ -125,7 +132,8 @@
                         </div>
                         </div>
                     </div>
-
+                    
+					{{ Form::close() }}
                 </div>
             <!--end here-->
             </div>
@@ -174,7 +182,7 @@
                         <div class="col-lg-4 col-md-6 col-sm-6">
                             <div class="img-box">
                                 <a href="#">
-                                    <img class="img-responsive" src="assets/images/index-res-1.png" alt="restaurent logo">
+                                    <img class="img-responsive" src="assets_front/images/index-res-1.png" alt="restaurent logo">
                                 </a>
                             </div>
                             <div class="detail-res">
@@ -218,7 +226,7 @@
                         <div class="col-lg-4 col-md-6 col-sm-6">
                             <div class="img-box">
                                 <a href="#">
-                                    <img class="img-responsive" src="assets/images/index-res-2.png" alt="restaurent logo">
+                                    <img class="img-responsive" src="assets_front/images/index-res-2.png" alt="restaurent logo">
                                 </a>
                             </div>
                             <div class="detail-res">
@@ -263,7 +271,7 @@
                         <div class="col-lg-4 col-md-6 col-sm-6">
                             <div class="img-box">
                                 <a href="#">
-                                    <img class="img-responsive" src="assets/images/index-res-3.png" alt="restaurent logo">
+                                    <img class="img-responsive" src="assets_front/images/index-res-3.png" alt="restaurent logo">
                                 </a>
                             </div>
                             <div class="detail-res">
@@ -308,7 +316,7 @@
                         <div class="col-lg-4 col-md-6 col-sm-6">
                             <div class="img-box">
                                 <a href="#">
-                                    <img class="img-responsive" src="assets/images/index-res-4.png" alt="restaurent logo">
+                                    <img class="img-responsive" src="assets_front/images/index-res-4.png" alt="restaurent logo">
                                 </a>
                             </div>
                             <div class="detail-res">
@@ -352,7 +360,7 @@
                         <div class="col-lg-4 col-md-6 col-sm-6">
                             <div class="img-box">
                                 <a href="#">
-                                    <img class="img-responsive" src="assets/images/index-res-1.png" alt="restaurent logo">
+                                    <img class="img-responsive" src="assets_front/images/index-res-1.png" alt="restaurent logo">
                                 </a>
                             </div>
                             <div class="detail-res">
@@ -396,7 +404,7 @@
                         <div class="col-lg-4 col-md-6 col-sm-6">
                             <div class="img-box">
                                 <a href="#">
-                                    <img class="img-responsive" src="assets/images/index-res-2.png" alt="restaurent logo">
+                                    <img class="img-responsive" src="assets_front/images/index-res-2.png" alt="restaurent logo">
                                 </a>
                             </div>
                             <div class="detail-res">
@@ -441,7 +449,7 @@
                         <div class="col-lg-4 col-md-6 col-sm-6">
                             <div class="img-box">
                                 <a href="#">
-                                    <img class="img-responsive" src="assets/images/index-res-3.png" alt="restaurent logo">
+                                    <img class="img-responsive" src="assets_front/images/index-res-3.png" alt="restaurent logo">
                                 </a>
                             </div>
                             <div class="detail-res">
@@ -486,7 +494,7 @@
                         <div class="col-lg-4 col-md-6 col-sm-6">
                             <div class="img-box">
                                 <a href="#">
-                                    <img class="img-responsive" src="assets/images/index-res-4.png" alt="restaurent logo">
+                                    <img class="img-responsive" src="assets_front/images/index-res-4.png" alt="restaurent logo">
                                 </a>
                             </div>
                             <div class="detail-res">
@@ -536,35 +544,35 @@
         <div class="col-md-3">
             <a href="#">
                 <div class="client-logo">
-                    <img src="assets/images/client-logo.png" alt="logo" class="img-responsive">
+                    <img src="assets_front/images/client-logo.png" alt="logo" class="img-responsive">
                 </div>
             </a>
         </div>
         <div class="col-md-3">
             <a href="#">
                 <div class="client-logo">
-                    <img src="assets/images/client-logo.png" alt="logo" class="img-responsive">
+                    <img src="assets_front/images/client-logo.png" alt="logo" class="img-responsive">
                 </div>
             </a>
         </div>
         <div class="col-md-3">
             <a href="#">
                 <div class="client-logo">
-                    <img src="assets/images/client-logo.png" alt="logo" class="img-responsive">
+                    <img src="assets_front/images/client-logo.png" alt="logo" class="img-responsive">
                 </div>
             </a>
         </div>
         <div class="col-md-3">
             <a href="#">
                 <div class="client-logo">
-                    <img src="assets/images/client-logo.png" alt="logo" class="img-responsive">
+                    <img src="assets_front/images/client-logo.png" alt="logo" class="img-responsive">
                 </div>
             </a>
         </div>
         <div class="col-md-3">
             <a href="#">
                 <div class="client-logo">
-                    <img src="assets/images/client-logo.png" alt="logo" class="img-responsive">
+                    <img src="assets_front/images/client-logo.png" alt="logo" class="img-responsive">
                 </div>
             </a>
         </div>
@@ -613,9 +621,9 @@
 </footer>
 
 <!--javascript files-->
-<script src="assets/js/jquery.min.js"></script>
+<script src="assets_front/js/jquery.min.js"></script>
 <!--bootstrap-->
-<script src="assets/js/bootstrap.min.js"></script>
+<script src="assets_front/js/bootstrap.min.js"></script>
 <!--jquery-easing-->
 <script src="node_modules/scrolling-effect/jquery-easing.min.js"></script>
 <!--slick.min.js-->
@@ -627,19 +635,20 @@
 <!--end Selectize-->
 <script src="node_modules/parallax/parallax.min.js"></script>
 <!--app js-->
-<script src="assets/dist/app.js"></script>
+<script src="assets_front/dist/app.js"></script>
 
 <script>
     var xhr;
     var select_city, $select_city;
 
-    $select_state = $('#select-restaurent').selectize({
+    $select_state = $('#select-city').selectize({
         onChange: function(value) {
             if (!value.length) return;
-            select_city.disable();
-            select_city.clearOptions();
-            select_city.load(function(callback) {
-                xhr && xhr.abort();
+			
+            //select_city.disable();
+            //select_city.clearOptions();
+            /*select_city.load(function(callback) {
+                /*xhr && xhr.abort();
                 xhr = $.ajax({
                     url: 'http://www.corsproxy.com/api.sba.gov/geodata/primary_city_links_for_state_of/' + value + '.json',
                     success: function(results) {
@@ -649,17 +658,38 @@
                     error: function() {
                         callback();
                     }
-                })
+                })*
+            });*/
+        }
+    });
+	
+    $select_state = $('#type').selectize({
+        onChange: function(value) {
+            if (!value.length) return;
+            select_city.disable();
+            select_city.clearOptions();
+            select_city.load(function(callback) {
+               /* xhr && xhr.abort();
+                xhr = $.ajax({
+                    url: 'http://www.corsproxy.com/api.sba.gov/geodata/primary_city_links_for_state_of/' + value + '.json',
+                    success: function(results) {
+                        select_city.enable();
+                        callback(results);
+                    },
+                    error: function() {
+                        callback();
+                    }
+                })*/
             });
         }
     });
-    $select_state = $('#select-type').selectize({
+    $select_state = $('#select-areas').selectize({
         onChange: function(value) {
-            if (!value.length) return;
+            /*if (!value.length) return;
             select_city.disable();
             select_city.clearOptions();
             select_city.load(function(callback) {
-                xhr && xhr.abort();
+               /* xhr && xhr.abort();
                 xhr = $.ajax({
                     url: 'http://www.corsproxy.com/api.sba.gov/geodata/primary_city_links_for_state_of/' + value + '.json',
                     success: function(results) {
@@ -669,30 +699,275 @@
                     error: function() {
                         callback();
                     }
-                })
-            });
-        }
-    });
-    $select_state = $('#select-area').selectize({
-        onChange: function(value) {
-            if (!value.length) return;
-            select_city.disable();
-            select_city.clearOptions();
-            select_city.load(function(callback) {
-                xhr && xhr.abort();
-                xhr = $.ajax({
-                    url: 'http://www.corsproxy.com/api.sba.gov/geodata/primary_city_links_for_state_of/' + value + '.json',
-                    success: function(results) {
-                        select_city.enable();
-                        callback(results);
-                    },
-                    error: function() {
-                        callback();
-                    }
-                })
-            });
+                })*
+            });*/
         }
     });
 </script>
+
+<!--javascript files-->
+<script src="assets_front/js/jquery.min.js"></script>
+<script>
+	$(document).ready(function() {
+		
+		/**
+		*	
+		*/
+		$("#select-city").change(function() {			
+			
+			var city_id = $(this).val();
+			
+			$.ajax({
+				type: 'POST',
+				url: "{{url('c/get_city_areas')}}",
+				data:{
+					'city_id': city_id,
+					'_token': '{{csrf_token()}}'
+				},
+				success: function (response) {
+					alert(response);
+					$("#select-areas").html(response);
+				},
+				error:function () {
+					alert("error");
+				}
+			});
+        });
+		
+		
+		
+		//var test = $("#restaurant_id").val();		
+		
+		/**
+		*
+		*
+        $('#restaurant_text').keyup(function () {
+			var keyword = $(this).val();
+			var len		= keyword.length;
+			
+			if( len >= 3) {
+				$.ajax({
+					type: 'POST',
+					url: "{{url('c/get_restaurants')}}",
+					data:{
+						'keyword': keyword,
+						'_token': '{{csrf_token()}}'
+					},
+					success: function (response) {
+						$("#restaurants").html(response);
+					},
+					error:function () {
+						
+					}
+				});
+			}
+		});
+		
+		
+		/**
+		*	
+		*
+		$("#restaurants").change(function() {			
+			var restaurant_id = $(this).val();
+			
+			$.ajax({
+				type: 'POST',
+				url: "{{url('c/get_restaurant_areas')}}",
+				data:{
+					'restaurant_id': restaurant_id,
+					'_token': '{{csrf_token()}}'
+				},
+				success: function (response) {
+					$("#areas").html(response);
+				},
+				error:function () {
+					
+				}
+			});
+        });
+		
+		
+		/**
+		*
+		*
+		$("#search_dishes").on("submit", function(){
+	
+			$.ajax({
+				type: 'POST',
+				url: $(this).attr('action'), // "{{url('c/get_restaurants')}}",
+				data:$(this).serialize(),
+				success: function (response) {
+					alert( "Test" );
+				},
+				error:function () {
+					alert("Some error");
+				}
+			});
+			
+			
+			return false;	
+		})*/
+		
+    });
+	
+</script> 
+
 </body>
 </html>
+
+
+
+<!--@extends('layouts.landing')
+@section('title', 'Hello Food')
+
+@section('content') 
+
+<!--wrapper bg--
+
+
+
+
+<div class="wrapper_bg">
+<div class="wrapper-box">
+        <h2>order <span>takeaway</span> or delivery now</h2>
+        <p>Ridiculus sociosqu cursus neque cursus curae ante scelerisque vehicula.</p>
+        <div class="container">
+            
+            <div class="row">
+                <div class="col-md-offset-2 col-md-9 col-sm-12 col-xs-12 col-md-offset-3">
+                    {{ Form::open(array('url' => '/restaurants/find','id'=>'searchrestaurants')) }}
+                    
+                    <div class="row">
+                        <div class="col-md-3 col-sm-12 no-padding">
+                            <div class="res-ser">
+                            	{{Form::Select('city', $cities, null, ['class' => 'search-res form-control', 'id' => 'city', 'multiple' => 'multiple', 'required' => 'required'])}}
+                            </div></div>
+                            
+                        <div class="col-md-4 col-sm-12 no-padding"> <div class="form-group">
+                        	{{Form::Select('type', ['true' =>'Takeaway', 'false' => 'Delivery + Takeaway'], null, ['class' => 'search-type form-control', 'id' => 'type', 'multiple' => 'multiple', 'required' => 'required'])}}
+                        </div>
+                        </div>
+                        
+                        <div class="col-md-3 col-sm-12 no-padding"> <div class="form-group">
+                        	{{Form::Select('area', [], null, ['class' => 'search-area form-control', 'id' => 'areas', 'multiple' => 'multiple', 'required' => 'required'])}}
+                        </div>
+                        </div>
+                        
+                        <div class="col-md-2 col-sm-12 no-padding" >
+                            <div class="search_btn"><a href="#"><button class="btn btn-search">SEARCH</button></a></div>
+                        </div>
+                    </div>
+                    
+                    {{ Form::close() }}
+                    
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+@stop
+@section('script') 
+<script>
+	/*$(document).ready(function() {
+		
+		/**
+		*	
+		*/
+		$("#select-restaurent").change(function() {			
+			var city_id = $(this).val();
+						
+			$.ajax({
+				type: 'POST',
+				url: "{{url('c/get_city_areas')}}",
+				data:{
+					'city_id': city_id,
+					'_token': '{{csrf_token()}}'
+				},
+				success: function (response) {
+					$("#select-areas").html(response);
+				},
+				error:function () {
+					
+				}
+			});
+        });
+		
+		
+		
+		//var test = $("#restaurant_id").val();		
+		
+		/**
+		*
+		*
+        $('#restaurant_text').keyup(function () {
+			var keyword = $(this).val();
+			var len		= keyword.length;
+			
+			if( len >= 3) {
+				$.ajax({
+					type: 'POST',
+					url: "{{url('c/get_restaurants')}}",
+					data:{
+						'keyword': keyword,
+						'_token': '{{csrf_token()}}'
+					},
+					success: function (response) {
+						$("#restaurants").html(response);
+					},
+					error:function () {
+						
+					}
+				});
+			}
+		});
+		
+		
+		/**
+		*	
+		*
+		$("#restaurants").change(function() {			
+			var restaurant_id = $(this).val();
+			
+			$.ajax({
+				type: 'POST',
+				url: "{{url('c/get_restaurant_areas')}}",
+				data:{
+					'restaurant_id': restaurant_id,
+					'_token': '{{csrf_token()}}'
+				},
+				success: function (response) {
+					$("#areas").html(response);
+				},
+				error:function () {
+					
+				}
+			});
+        });
+		
+		
+		/**
+		*
+		*
+		$("#search_dishes").on("submit", function(){
+	
+			$.ajax({
+				type: 'POST',
+				url: $(this).attr('action'), // "{{url('c/get_restaurants')}}",
+				data:$(this).serialize(),
+				success: function (response) {
+					alert( "Test" );
+				},
+				error:function () {
+					alert("Some error");
+				}
+			});
+			
+			
+			return false;	
+		})*
+		
+    });*/
+	
+</script> 
+@stop-->

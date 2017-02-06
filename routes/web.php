@@ -11,7 +11,7 @@
 
 Auth::routes();
 
-Route::get('/admin/', 'PagesController@home');
+Route::get('/admin', 'PagesController@home');
 Route::get('/home/', 'PagesController@home');
 Route::get('/', 'FrontendController@index');
 
@@ -47,6 +47,9 @@ Route::resource('admin/users/new', 'UsersController@new_user');
 Route::resource('admin/users/get_user_byid', 'UsersController@get_user_byid');
 Route::resource('admin/users/update-user', 'UsersController@update_users');
 Route::resource('admin/users/del', 'UsersController@delete_user');
+
+
+
 
 
 /**
@@ -221,6 +224,32 @@ Route::resource('chat', 'ChatController');
 
 Route::post('checkout/login', '\App\Http\Controllers\Auth\LoginController@login');
 Route::post('/login', '\App\Http\Controllers\Auth\LoginController@login');
+/*Route::post('/login', function() {
+	
+	//dd( Auth::user() );
+	
+/*	if( Auth::user()->role_id <= 10 ) {
+		echo "TEST"; exit;
+	}	*
+});*/ //'\App\Http\Controllers\Auth\LoginController@login');
+
+
+Route::resource('restaurant/all', 'CommonController@top_restaurants');
+Route::resource('html/restaurants/get_by_city', 'CommonController@get_restaurants_bycity');
+
+
+Route::get('visitor/orders', 'VisitorController@index');
+Route::resource('visitor/orders/search_filter', 'VisitorController@search_filter');
+
+/*Route::resource('admin/orders/fetch_order_by_restaurant', 'OrdersController@fetch_order_by_restaurant');
+Route::resource('admin/orders/view_order_byid', 'OrdersController@view_order_byid');
+Route::resource('admin/orders/new', 'OrdersController@new_order_page');
+Route::resource('admin/orders/add_new', 'OrdersController@add_new_order');
+Route::resource('admin/orders/edit', 'OrdersController@edit_page');
+Route::resource('admin/orders/update_order', 'OrdersController@update_order');
+Route::resource('admin/orders/del', 'OrdersController@delete_order');*/
+
+Route::resource('order_completed', 'CartController@order_completed');
 
 
 Route::any('{catchall}', function() {

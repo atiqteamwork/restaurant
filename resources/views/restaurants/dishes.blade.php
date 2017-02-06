@@ -95,7 +95,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Update Restaurant</h4>
+                <h4 class="modal-title">Update Dish/Menu</h4>
             </div>
             <div class="alert alert-danger" style="display:none"><strong>Alert!</strong> <span></span></div>
             <div class="alert alert-success" style="display:none"><strong>Success!</strong> <span></span></div>

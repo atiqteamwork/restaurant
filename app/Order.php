@@ -40,6 +40,14 @@ class Order extends Model
         return $this->belongsTo('App\City', "city", "id");
     }
 	
+	/**
+	 *
+	 **/
+	public function user()
+    {
+        return $this->belongsTo('App\User', "user_id", "id");
+    }
+	
     
 	/*
 	*
@@ -61,6 +69,8 @@ class Order extends Model
         return $orders;
 	}
 		
+		
+		
 	
 	/**
 	*	Search by Filters
@@ -81,7 +91,7 @@ class Order extends Model
 			->join('restaurants as c', function ($join) {
 				$join->on('c.id', '=', 'a.restaurant_id');
 			})
-			->select( ["a.id as id", "a.address as order_address", "a.phone as order_phone","a.email as order_email","a.cell as order_cell", "a.status as status", "a.net_amount","a.gst","a.total_amount", "a.dated", "b.full_name as user_full_name", "c.title as restaurant_title", "c.phone_primary as restaurant_phone", "c.cell as restaurant_cell", "c.address as restaurant_address", "c.email as restaurant_email"] );
+			->select( ["a.id as id", "a.address1 as order_address", "a.phone as order_phone","a.email as order_email","a.cell as order_cell", "a.status as status", "a.net_amount","a.gst","a.total_amount", "a.dated", "b.full_name as user_full_name", "c.title as restaurant_title", "c.phone_primary as restaurant_phone", "c.cell as restaurant_cell", "c.address as restaurant_address", "c.email as restaurant_email"] );
 			
 			if( isset( $request->restaurants_list ) && !empty( $request->restaurants_list ) )
 			{
@@ -145,6 +155,91 @@ class Order extends Model
 			}
 			
 			$orders = $result->get();
+			//dd($orders);
+			return $orders;
+	}
+	
+	
+	function search_filter_user($request)
+	{	
+	
+		$filter 	= $request->filter;
+		$from_date 	= "";
+		$to_date 	= "";
+		
+		
+		$result = DB::table('orders as a')
+			->join('users as b', function ($join) {
+				$join->on('b.id', '=', 'a.user_id');
+			})
+			->join('restaurants as c', function ($join) {
+				$join->on('c.id', '=', 'a.restaurant_id');
+			})
+			->select( ["a.id as id", "a.address1 as order_address", "a.phone as order_phone","a.email as order_email","a.cell as order_cell", "a.status as status", "a.net_amount","a.gst","a.total_amount", "a.dated", "b.full_name as user_full_name", "c.title as restaurant_title", "c.phone_primary as restaurant_phone", "c.cell as restaurant_cell", "c.address as restaurant_address", "c.email as restaurant_email"] );
+			
+			/*if( isset( $request->restaurants_list ) && !empty( $request->restaurants_list ) )
+			{
+				$result->where('a.restaurant_id', $request->restaurants_list);	
+			} else {
+				if( Auth::user()->role_id != 1 ) {
+					$result->where('a.restaurant_id', Auth::user()->restaurant_id);
+				}
+			}*/
+			
+		
+		
+			/// Conditional Where for Query Builder
+			/*switch( $filter )
+			{
+				case "filter_previous_year":
+					$result->whereYear('a.dated', '=', date("Y", strtotime("-1 Year")));
+					break;
+				
+				case "filter_this_year":
+					$result->whereYear('a.dated', '=', date("Y"));
+					break;
+					
+				case "filter_previous_month":
+					$result->whereYear('a.dated', '=', date("Y"));
+					$result->whereMonth('a.dated', '=', date("m", strtotime("-1 Month")));
+					break;
+					
+				case "filter_this_month":
+					$result->whereYear('a.dated', '=', date("Y"));
+					$result->whereMonth('a.dated', '=', date("m"));
+					break;
+					
+				case "filter_previous_week":	
+					$from_date = strtotime("last sunday midnight", strtotime("-1 week +1 day"));
+					$to_date = strtotime("next sunday",$from_date);
+					
+					$from_date = date("Y-m-d",$from_date);
+					$to_date = date("Y-m-d",$to_date);
+					
+					$result->whereBetween('a.dated', [$from_date, $to_date]);
+					break;
+					
+				case "filter_this_week":	
+					$from_date = strtotime("last sunday midnight");
+					$to_date = strtotime("next sunday",$from_date);
+					
+					$from_date = date("Y-m-d",$from_date);
+					$to_date = date("Y-m-d",$to_date);
+					
+					$result->whereBetween('a.dated', [$from_date, $to_date]);
+					break;
+					
+				case "filter_between":
+					$from_date = date("Y-m-d", strtotime($request->from_date));
+					$to_date = date("Y-m-d", strtotime($request->to_date));
+					
+					$result->whereBetween('a.dated', [$from_date, $to_date]);
+					break;
+				
+			}*/
+			
+			$orders = $result->get();
+			dd($orders);
 			return $orders;
 	}
 	

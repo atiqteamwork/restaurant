@@ -14,5 +14,4 @@ class City extends Model
 {
 	use SoftDeletes;
 	
-	
 }

@@ -144,39 +144,39 @@
                             <input type="checkbox" name="is_shipping_different" id="is_shipping_different">
                         </label>
                     </h2>
-                    <div class="row shipping-addresss">
+                    <div class="row shipping-addresss" style="display:none;">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="shipping_first_name">First name<span>*</span></label>
-                                {{Form::Text('shipping_first_name',(Auth::check() ? Auth::user()->first_name : ''), ['class' => 'form-control', 'placeholder'=>'', 'required'=>'required', 'id'=> 'shipping_first_name'])}} </div>
+                                {{Form::Text('shipping_first_name',(Auth::check() ? Auth::user()->first_name : ''), ['class' => 'form-control', 'placeholder'=>'', 'id'=> 'shipping_first_name'])}} </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="shipping_last_name">Last name <span>*</span></label>
-                                {{Form::Text('shipping_last_name', Auth::check() ? Auth::user()->last_name : '', ['class' => 'form-control', 'placeholder'=>'', 'required'=>'required', 'id'=> 'shipping_last_name'])}} </div>
+                                {{Form::Text('shipping_last_name', Auth::check() ? Auth::user()->last_name : '', ['class' => 'form-control', 'placeholder'=>'', 'id'=> 'shipping_last_name'])}} </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="shipping_company">Company Name <span>*</span></label>
+                                <label for="shipping_company">Company Name</label>
                                 {{Form::Text('shipping_company', '', ['class' => 'form-control', 'placeholder'=>'', 'id'=> 'shipping_company'])}} </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="4">Area <span>*</span> </label>
-                                 {{Form::Select('shipping_area_id', $areas, $cart[0]->Cart[0]->area_id, ['class' => 'search-res form-control', 'id' => 'shipping_area', 'required' => 'required'])}}
+                                 {{Form::Select('shipping_area_id', $areas, $cart[0]->Cart[0]->area_id, ['class' => 'search-res form-control', 'id' => 'shipping_area'])}}
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="shipping_address1">Address <span>*</span></label>
-                                {{Form::Text('shipping_address1', Auth::check() ? Auth::user()->address : '', ['class' => 'form-control margin-btm', 'placeholder'=>'', 'required'=>'required', 'id'=> 'shipping_address1'])}}
+                                {{Form::Text('shipping_address1', Auth::check() ? Auth::user()->address : '', ['class' => 'form-control margin-btm', 'placeholder'=>'', 'id'=> 'shipping_address1'])}}
                                 
                                 {{Form::Text('shipping_address2', '', ['class' => 'form-control', 'placeholder'=>'', 'id'=> 'shipping_address2'])}} </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="shipping_city">City <span>*</span></label>
-                                {{Form::Select('shipping_city', $cities, Auth::check() ? Auth::user()->City->id : 0, ['class' => 'search-res form-control', 'id' => 'shipping_city', 'required' => 'required'])}} </div>
+                                {{Form::Select('shipping_city', $cities, Auth::check() ? Auth::user()->City->id : 0, ['class' => 'search-res form-control', 'id' => 'shipping_city'])}} </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
@@ -189,8 +189,8 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="shipping_email">Contact Info <span>*</span></label>
-                                {{Form::Email('shipping_email', Auth::check() ? Auth::user()->email : '', ['class' => 'form-control margin-btm', 'placeholder'=>'Email Address', 'required'=>'required', 'id'=> 'shipping_email'])}}
-                                {{Form::Text('shipping_phone', Auth::check() ? Auth::user()->phone : '', ['class' => 'form-control margin-btm', 'placeholder'=>'Phone Number', 'required'=>'required', 'id'=> 'shipping_phone'])}}
+                                {{Form::Email('shipping_email', Auth::check() ? Auth::user()->email : '', ['class' => 'form-control margin-btm', 'placeholder'=>'Email Address', 'id'=> 'shipping_email'])}}
+                                {{Form::Text('shipping_phone', Auth::check() ? Auth::user()->phone : '', ['class' => 'form-control margin-btm', 'placeholder'=>'Phone Number', 'id'=> 'shipping_phone'])}}
                                 {{Form::Text('shipping_cell', Auth::check() ? Auth::user()->cell : '', ['class' => 'form-control', 'placeholder'=>'Cell Number (Optional)', 'id'=> 'shipping_cell'])}} </div>
                         </div>
                     </div>
@@ -477,6 +477,34 @@
         });
 		
 		
+		
+		$("#is_shipping_different").click(function() {
+            if( $(this).is(":checked") )
+			{
+				$("#shipping_first_name").attr("required", "required");
+				$("#shipping_last_name").attr("required", "required");
+				$("#shipping_area").attr("required", "required");
+				$("#shipping_address1").attr("required", "required");
+				$("#shipping_city").attr("required", "required");
+				$("#shipping_email").attr("required", "required");
+				$("#shipping_phone").attr("required", "required");
+				
+				$(".shipping-addresss").fadeIn(200);
+				
+			} else {
+				$("#shipping_first_name").removeAttr("required");
+				$("#shipping_last_name").removeAttr("required");
+				$("#shipping_area").removeAttr("required");
+				$("#shipping_address1").removeAttr("required");
+				$("#shipping_city").removeAttr("required");
+				$("#shipping_email").removeAttr("required");
+				$("#shipping_phone").removeAttr("required");
+				
+				$(".shipping-addresss").fadeOut(200);
+			}
+        });
+		
+		
 		$("#checkout_proceed").submit(function() {
 			var stat = false;
 			area_id = $("#area").val();
@@ -487,6 +515,7 @@
 			} else {
 				area_id = $("#area").val();
 			}
+			
 			
 			
 			$.ajax({

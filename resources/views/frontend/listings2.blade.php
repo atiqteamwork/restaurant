@@ -7,22 +7,29 @@
         <div class="wrapper-box">
             <h2> <span>{{$restaurants[0]->title}}</span> - {{$restaurants[0]->City->city_name}} <br>
                 {{$restaurants[0]->description}}<br />
-                {{$area[0]->area_name}} </h2>
+                {{( count( $area ) > 0 ) ? $area[0]->area_name : ""}} </h2>
             <div class="img-res"> <img src="{{url('/')}}/assets/images/restaurants/{{$restaurants[0]->logo}}" alt="Restaurent image"> </div>
         </div>
     </div>
+    
+
     <!--heading-res-nam-->
     <div class="heading-line">
         <div class="container">
             <div class="row">
-                <div class="col-md-12"> @if( in_array( $area[0]->id, explode(",",$restaurants[0]->area_ids ) ) )
+                <div class="col-md-12">
+                @if( count( $area ) > 0 )
+	                @if( in_array( $area[0]->id, explode(",",$restaurants[0]->area_ids ) ) )
                     <h2>{{$restaurants[0]->title}} - {{$restaurants[0]->City->city_name}} can <span>deliver</span> to you at <span>{{$area[0]->area_name}}</span></h2>
                     @else
                     <h2>{{$restaurants[0]->title}} - {{$restaurants[0]->City->city_name}} cannot <span>deliver</span> to you at <span>{{$area[0]->area_name}}</span></h2>
-                    @endif </div>
+                    @endif 
+               @endif     
+               </div>
             </div>
         </div>
     </div>
+    
     <!--end heading-res-nam-->
     
     <div class="container">
@@ -165,7 +172,7 @@
 					'type': type,
 					'id': id,
 					'restaurant_id': restid,
-					'area_id': '{{$area[0]->id}}',
+					'area_id': '{{ ( count( $area ) > 0 ) ? $area[0]->id : 0}}',
 					'order_type': order_type,
 					'_token': '{{csrf_token()}}',
 				},

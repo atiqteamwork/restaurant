@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <base href="{{ getenv('APP_URL') }}" />
+    <base href="{{getenv('APP_URL')}}" />
     <title>@yield('title')</title>
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <link rel="stylesheet" href="assets_front/css/bootstrap.min.css">
@@ -20,7 +20,6 @@
 <!--wrapper bg-->
 
 @yield('content')
-
 
 <!--end outer_body-->
 <footer class="footer-main">
@@ -76,15 +75,6 @@
 <script src="node_modules/slick-slider/slick.min.js"></script>
 <!--app.js-->
 <script src="assets_front/dist/app.js"></script>
-
-
-
-
-
-
-
-
-
 
 
 
