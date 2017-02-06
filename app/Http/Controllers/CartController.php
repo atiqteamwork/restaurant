@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Auth;
 
+use App\Area;
 use App\Cart;
 use App\CartDetails;
 use App\Order;
@@ -39,7 +40,7 @@ class CartController extends Controller
         $session_key = app('App\Http\Controllers\SessionController')->get_session( $request );
         $session_key = app('App\Http\Controllers\SessionController')->get_session( $request );
 
-        $cart = Cart::all()->where("session_key", $session_key);
+        $cart = Cart::all()->where("session_key", $session_key)->where('status', 'Active');
 
         if( empty( $cart ) || count( $cart ) <= 0 ) {
             $cart = new Cart();
@@ -48,6 +49,7 @@ class CartController extends Controller
             $cart->session_key     =  $session_key;
             $cart->dated           =  date('Y-m-d H:i:s');
             $cart->restaurant_id   =  $request->restaurant_id;
+			$cart->area_id		   =  $request->area_id;
             $cart->extra_charges   =  0;
             $cart->order_type	   =  $request->order_type;
             $cart->save();
@@ -181,22 +183,31 @@ class CartController extends Controller
         $session_key = app('App\Http\Controllers\SessionController')->get_session( $request );
 
         $cart = CartDetails::whereHas("Cart", function($query) use ($session_key) {
-                            $query->where("session_key", $session_key);
-                        })->get();
+                            $query->where("session_key", $session_key)
+							->where('status', 'Active');
+                        })
 						
+						->get();
+		
+		//dd( $cart[0]->Cart[0]->area_id );
+
         if( empty( $cart ) || count( $cart ) <= 0 ) {
 			return redirect(url('/'));
         } else {
+
+			$areas = Area::all();
+			$areas_data = [];
+			foreach( $areas as $area ) { $areas_data[$area->id] = $area->area_name; }
+			
 			
 			$cities = City::all();
 			$cities_data = [];
-			foreach( $cities as $city ) {
-				$cities_data[$city->id] = $city->city_name;
-			}
+			foreach( $cities as $city ) { $cities_data[$city->id] = $city->city_name; }
 			
             return view("frontend.checkout")->with([
 					"cart" => $cart,
 					"cities" => $cities_data,
+					"areas"	=> $areas_data,
 					]);
         }
 
@@ -209,9 +220,6 @@ class CartController extends Controller
      **/
     public function proceed_checkout( Request $request )
     {
-		
-        //dd( $request );
-
         $cart  = CartDetails::whereHas("Cart", function($query) use ($request) {
                             $query->where("id", $request->cart_id);
                         })->get();
@@ -238,8 +246,8 @@ class CartController extends Controller
 		$order->shipping_first_name     = $request->shipping_first_name;
         $order->shipping_last_name      = $request->shipping_last_name;
         $order->shipping_company		= $request->shipping_company;
-        $order->shipping_address1        = $request->shipping_address1;
-		$order->shipping_address2        = $request->shipping_address2;
+        $order->shipping_address1       = $request->shipping_address1;
+		$order->shipping_address2       = $request->shipping_address2;
         $order->shipping_city			= $request->shipping_city;
         $order->shipping_email          = $request->shipping_email;
         $order->shipping_phone          = $request->shipping_phone;
@@ -259,7 +267,7 @@ class CartController extends Controller
 
 
         
-
+		
 
         if( $response1 )
         {
@@ -294,8 +302,14 @@ class CartController extends Controller
 
         if( $response1 && $response2 )
         {
-			$order = Order::findOrFail($order_id);
 			
+			$cart_update = Cart::find($request->cart_id);
+			$cart_update->status = 'Ordered';
+			$cart_update->save();
+			
+			$order = Order::find($order_id);
+			
+			//dd( $order );
 			/*$emails = ['atiq@teamwork.com.pk', 'atiq@teamwork.com.pk'];
 			
 			Mail::send("mail.index", [], function($message) use ($emails)
@@ -319,16 +333,93 @@ class CartController extends Controller
 				echo "No errors, all sent successfully!";
 			}*/
 			
-			Mail::to("atiq@teamwork.com.pk")->send( new OrderSaved( $order ) );
+			//Mail::to("atiq@teamwork.com.pk")->send( new OrderSaved( $order ) );
 			
-			if( count( Mail::failures() ) <= 0 )
+			
+			
+			$data = ['order' => $order];
+			/****/
+			/**		Sending Email To User
+			/****
+			$from_email = 'admin@newsklic.com';
+			$from_name  = 'Restaurant Administrator';
+			
+			$to_email	= $order->email;
+			$to_name  = $order->first_name . " " . $order->last_name;
+			
+			Mail::send('mail.user', $data, function($message) use ($from_email, $from_name, $to_email, $to_name)
+			{   
+				$message->from($from_email, $from_name);
+				$message->to($to_email, $to_name)->subject('Your Order Received');
+			});
+			
+			
+			/*if( count( Mail::failures() ) <= 0 )
 			{
-				return "Email Sent Successfully";
+				echo "Email Sent to User Successfully<br>";
 			} else {
 				foreach(Mail::failures as $email_address) {
 				   echo " - $email_address <br />";
 				}	
-			}
+			}*/
+			
+			
+			/****/
+			/**		Sending Email To Admin
+			/****
+			$from_email = $order->email;
+			$from_name  = $order->first_name . " " . $order->last_name;
+			
+			$to_email	= 'atiq@teamwork.com.pk';	//Administrator Email
+			$to_name  = 'Administrator';
+			
+			Mail::send('mail.user', $data, function($message) use ($from_email, $from_name, $to_email, $to_name)
+			{   
+				$message->from($from_email, $from_name);
+				$message->to($to_email, $to_name)->subject('New Order Received');
+			});
+			
+			
+			/*if( count( Mail::failures() ) <= 0 )
+			{
+				echo "Email Sent to Administrator Successfully<br>";
+			} else {
+				foreach(Mail::failures as $email_address) {
+				   echo " - $email_address <br />";
+				}	
+			}*/
+			
+			
+			
+			/****/
+			/**		Sending Email To Restaurant
+			/****
+			$from_email = $order->email;
+			$from_name  = $order->first_name . " " . $order->last_name;
+			
+			$to_email	= 'atiq@teamwork.com.pk';	//Administrator Email
+			$to_name  = 'Administrator';
+			
+			Mail::send('mail.user', $data, function($message) use ($from_email, $from_name, $to_email, $to_name)
+			{   
+				$message->from($from_email, $from_name);
+				$message->to('atiq@teamwork.com.pk', 'Atiq UrRehman')->subject('New Order from Restaurant Website');
+			});
+			
+			
+			/*if( count( Mail::failures() ) <= 0 )
+			{
+				echo "Email Sent to Restaurant Successfully<br>";
+			} else {
+				foreach(Mail::failures as $email_address) {
+				   echo " - $email_address <br />";
+				}	
+			}*/
+			
+			
+			
+			return view("frontend.thankyou")->with("order", $order);
+			
 			
         }
 

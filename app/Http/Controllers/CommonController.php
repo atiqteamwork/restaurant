@@ -238,5 +238,23 @@ class CommonController extends Controller
             ]);
         
     }
+	
+	
+	public function is_restaurant_area(Request $request)
+	{
+		
+		$restaurants = Restaurant::whereRaw("FIND_IN_SET(".$request->restaurant_id.", area_ids)")
+						->where("id", $request->restaurant_id)
+						->get();
+		
+		
+		if( count( $restaurants ) > 0 ){
+			return $restaurants[0]->title;
+		} else {
+			return "No";	
+		}
+		
+		
+	}
     
 }

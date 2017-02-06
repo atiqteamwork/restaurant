@@ -12,6 +12,34 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
+	
+	protected $with = ["Restaurant", 'OrderDetail', 'City'];
+	
+	/**
+	 *	
+	 **/
+	public function restaurant()
+    {
+       return $this->hasOne('App\Restaurant', "id", "restaurant_id");
+    }
+	
+	
+	 /**
+     * 
+     */
+    public function orderdetail()
+    {
+       return $this->hasMany('App\OrderDetail', "order_id", "id");
+    }
+	
+	/**
+	 *
+	 **/
+	public function city()
+    {
+        return $this->belongsTo('App\City', "city", "id");
+    }
+	
     
 	/*
 	*

@@ -21,6 +21,7 @@ class CreateCartTable extends Migration
             $table->integer('restaurant_id');
             $table->string('extra_charges');
 			$table->string('order_type'); //->default("Takeway");
+			$table->integer('area_id')->default('0');
 			$table->enum('status', ["Active", "Inactive", 'Ordered'])->default("Active");
             $table->timestamps();
 			$table->integer('created_by')->nullable();

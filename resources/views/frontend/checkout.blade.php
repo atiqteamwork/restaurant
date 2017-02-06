@@ -72,7 +72,10 @@
             <!-- Form Started Here --> 
             {{ Form::open( ['url' => 'checkout/proceed','id'=>'checkout_proceed']) }}
             <input type="hidden" name="user_id" value="{{Auth::check() ? Auth::user()->id : 0}}" />
-            <input type="hidden" name="restaurant_id" value="{{$cart[0]->Cart[0]->restaurant_id}}" />
+            <input type="hidden" name="restaurant_id" id="restaurant_id" value="{{$cart[0]->Cart[0]->restaurant_id}}" />
+            <input type="hidden" name="order_type" id="order_type" value="Takeaway" />
+            <input type="hidden" id="_order_place" value="0" />
+            
             <div class="col-md-6">
                 <div class="checkout-form">
                     <h2>billing details</h2>
@@ -94,8 +97,8 @@
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="g">Area <span>*</span></label>
-                                <input type="text" class="form-control" id="g">
+                                <label for="g">Area <span>*</span> </label>
+                                {{Form::Select('area_id', $areas, $cart[0]->Cart[0]->area_id, ['class' => 'search-res form-control', 'id' => 'area', 'required' => 'required'])}}
                             </div>
                         </div>
                         <div class="col-md-12">
@@ -138,7 +141,7 @@
                 <div class="checkout-form">
                     <h2>Ship to Different Address ?
                         <label>
-                            <input type="checkbox">
+                            <input type="checkbox" name="is_shipping_different" id="is_shipping_different">
                         </label>
                     </h2>
                     <div class="row shipping-addresss">
@@ -159,8 +162,8 @@
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="4">Area <span>*</span></label>
-                                <input type="text" class="form-control" id="4">
+                                <label for="4">Area <span>*</span> </label>
+                                 {{Form::Select('shipping_area_id', $areas, $cart[0]->Cart[0]->area_id, ['class' => 'search-res form-control', 'id' => 'shipping_area', 'required' => 'required'])}}
                             </div>
                         </div>
                         <div class="col-md-12">
@@ -240,6 +243,10 @@
                     </table>
                     <a href="#" class="btn btn-submit update-cart">Update Cart</a>
                     <p class="tempo"></p>
+                    <div class="alert alert-danger" style="display:none"><strong>Alert!</strong> <span></span>
+                    <a href="#" class="resend-checkout-form btn btn-submit">Ok</a>
+                    </div>
+
                 </div>
             </div>
             <input type="hidden" name="net_amount" class="final-net-amount" value="{{$total}}" />
@@ -466,6 +473,59 @@
 				}
 			});
 			
+			return false;
+        });
+		
+		
+		$("#checkout_proceed").submit(function() {
+			var stat = false;
+			area_id = $("#area").val();
+			
+			if( $("#is_shipping_different").is(":checked") )
+			{
+				area_id = $("#shipping_area").val();
+			} else {
+				area_id = $("#area").val();
+			}
+			
+			
+			$.ajax({
+				type: 'POST',
+				url: "{{url('cart/check/delivery_area/')}}",
+				data:{
+					'area_id': area_id,
+					'restaurant_id': $("#restaurant_id").val(),
+					'_token': '{{csrf_token()}}'
+				},
+				success: function (response) {
+					
+					if( response == "No" )
+					{
+						$(".alert-danger span").html("Restaurant Does Not Deliver to Your Area. Order will be changed to Takeaway instead of Delivery.");
+						$(".alert-danger").slideDown(500);
+						$("#order_type").val("Takeaway");
+						$("#_order_place").val(0);
+						
+					} else {
+						$("#order_type").val("Delivery");
+						$("#_order_place").val(1);
+					}
+				},
+				error:function() {
+					
+				}
+			});
+			
+			//alert( $("#_order_place").val() );
+			if( $("#_order_place").val() == 0 )
+				return false;
+            
+        });
+		
+		
+		$(".resend-checkout-form").click(function() {
+			$("#_order_place").val(1);
+            $("#checkout_proceed").submit();
 			return false;
         });
 		

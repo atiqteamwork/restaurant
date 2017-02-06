@@ -20,7 +20,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <h2>McDonald's - Satyana can <span>deliver</span> to you at Madina Town (Faislabad)</h2>
+                    <h2></h2>
                 </div>
             </div>
         </div>
@@ -28,7 +28,7 @@
     <!--end heading-line-->
     <div class="container">
         <div class="crumbs">
-            <h2 class="pull-left">Breadcrumbs</h2>
+            <h2 class="pull-left">Restaurants in </h2>
             <ol class="breadcrumb pull-right">
                 <li><a href="{{url('/')}}">Home</a></li>
                 <li class="active">Restaurants</li>

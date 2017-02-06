@@ -165,6 +165,7 @@
 					'type': type,
 					'id': id,
 					'restaurant_id': restid,
+					'area_id': '{{$area[0]->id}}',
 					'order_type': order_type,
 					'_token': '{{csrf_token()}}',
 				},

@@ -33,8 +33,8 @@ class CreateRestaurantTable extends Migration
 			$table->string('menu_categories')->nullable();
 			$table->string('outof_area_charges')->nullable();
 			$table->integer('gst')->default('16');
-            $table->string('logo')->default('no-image.png');
-			$table->string('banner')->default('no-image.png');
+            $table->string('logo')->default('v-logo.png');
+			$table->string('banner')->default('blog-post.jpg');
 			$table->string('ip', '16')->nullable();
 			$table->enum('status', ["Active", "Inactive"])->default("Active");
 			$table->integer('created_by')->nullable();

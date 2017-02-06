@@ -59,8 +59,11 @@ class FrontendController extends Controller
         $restaurants = Restaurant::where("id", $id)->get();
         $categories  = MenuCategory::get();
         $cart		 = CartDetails::whereHas("Cart", function($query) use ($session_key) {
-                            $query->where("session_key", $session_key);
-                        })->get();
+                            $query->where("session_key", $session_key)
+							->where('status', 'Active');
+                        })
+						->get();
+						
 		
         if( !empty( $cart ) && count( $cart ) > 0 )
         {

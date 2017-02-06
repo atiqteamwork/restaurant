@@ -14,7 +14,7 @@ class RestaurantMenusSeeder extends Seeder
     {
         $faker = Faker::create();
 
-        foreach (range(1,4) as $index) {
+        foreach (range(1,25) as $index) {
             DB::table('restaurant_menus')->insert([
                 'restaurant_id'    => rand(1,4),
                 'menu_id'  => rand(1,4),

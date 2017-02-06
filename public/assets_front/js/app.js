@@ -1,6 +1,6 @@
 $(document).ready(function () {
     $(".search-res").select2({
-        placeholder: "Select City..",
+        placeholder: "Select Restaurant..",
         allowClear: true,
         maximumSelectionSize: 1
 
@@ -155,8 +155,6 @@ $(window).resize(function() {
             }
         });
     }
-    var container = document.getElementById('sidebar_nav');
-    Ps.initialize(container);
 });
 
 $(function() {
