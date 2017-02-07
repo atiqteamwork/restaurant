@@ -20,10 +20,11 @@
 <div class="wrapper" data-ng-controller="mainController">
 
     <!--navigation bar-->
-    @include("partials.sidebar");
+    @include("partials.sidebar")
 
     <!--right side content-->
     <div class="main-content">
+        @include("partials.topbar")
         <div class="row">
             <!--announcements widget-->
             <div class="col-md-12">@yield('content')</div>
