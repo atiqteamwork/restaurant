@@ -105,23 +105,18 @@
                 <hr>
                 <div class="row">
                     <div class="col-sm-offset-1 col-sm-2"> {{Form::label('open_time', 'Opening Time', ["class" => "text-right"])}} </div>
-                    <div class="col-sm-6">
+                    <div class="col-sm-8">
                         <div class="form-group"> 
                         	<!--<input type="time" class="form-control" id='time' />-->
-                            {{Form::time('open_time','', ['class' => 'form-control', 'placeholder'=>'12:00 pm', 'required'=>'required'])}}
+                            {{Form::time('open_time','', ['class' => 'form-control time', 'placeholder'=>'12:00 pm', 'required'=>'required'])}}
                         </div>
                     </div>
-                    <div class="col-sm-3">
-                        <div class="form-group"> <em> i.e 12:00 pm</em> </div>
-                    </div>
+
                 </div>
                 <div class="row">
                     <div class="col-sm-offset-1 col-sm-2"> {{Form::label('close_time', 'Closing Time', ["class" => "text-right"])}} </div>
-                    <div class="col-sm-6">
-                        <div class="form-group"> {{Form::time('close_time','', ['class' => 'form-control', 'placeholder'=>'12:00 am', 'required'=>'required'])}} </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="form-group"> <em>i.e 12:00 am</em> </div>
+                    <div class="col-sm-8">
+                        <div class="form-group"> {{Form::time('close_time','', ['class' => 'form-control time', 'placeholder'=>'12:00 am', 'required'=>'required'])}} </div>
                     </div>
                 </div>
                 <div class="row">
@@ -169,8 +164,8 @@
 <!--jquery--> 
 <script src="assets/plugins/jquery/jquery-2.2.4.min.js"></script> 
 <script>
-	$(document).ready(function () {	
-		
+	$(document).ready(function () {
+        $(".time").jqxDateTimeInput({ width: '100%', height: '35px'});
 		
 		var city_id = $("#cities").val();			
 		$.ajax({
@@ -191,7 +186,6 @@
 		
 		$("#cities").change(function() {	
 			var city_id = $(this).val();
-						
 			$.ajax({
 				type: 'POST',
 				url: "{{url('c/get_city_areas')}}",
