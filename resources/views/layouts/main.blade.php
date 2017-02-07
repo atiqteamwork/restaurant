@@ -73,6 +73,7 @@
 <script src="assets_front/js/jquery.min.js"></script>
 <script src="node_modules/parallax/parallax.min.js"></script>
 <script src="node_modules/slick-slider/slick.min.js"></script>
+
 <!--app.js-->
 <script src="assets_front/dist/app.js"></script>
 
@@ -111,15 +112,12 @@ $(document).ready(function() {
 		$("iframe").each(function(index, element) {
 			var obj = $(this);
 			$(obj).contents().find("body").find("#popoutChat").hide(1);
+			
 			var html = $(obj).contents().find("body").find(".thin").next("b").text();
 			
-			if( html == "tawk.to" )
-			{
-				html = "Teamwork";
-			}
+			if( html == "tawk.to" ) { html = "Teamwork"; }
 			
 			$(obj).contents().find("body").find(".thin").next("b").text(html);
-
 			
 		});	
 	}, 10);
@@ -129,8 +127,6 @@ $(document).ready(function() {
 
 </script>
 <!--End of Tawk.to Script-->
-
-
 
 
 

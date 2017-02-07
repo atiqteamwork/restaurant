@@ -58,10 +58,10 @@
                 <hr class="check-border">
                 <div class="row">
                     <div class="col-md-6">
-                        <div class="info-checkout"> <i class="fa fa-user"></i> register an account? </div>
+                        <!--<div class="info-checkout"> <i class="fa fa-user"></i> register an account? </div>-->
                     </div>
                     <div class="col-md-6">
-                        <div class="info-checkout"> <i class="fa fa-unlock"></i> lost your password </div>
+                        <!--<div class="info-checkout"> <i class="fa fa-unlock"></i> lost your password </div>-->
                     </div>
                 </div>
             </div>

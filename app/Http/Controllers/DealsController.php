@@ -110,7 +110,7 @@ class DealsController extends Controller
                             <i class='fa fa-info' aria-hidden='true'></i>
                         </a>
                         <a class='btn btn-primary btn-sm edit_deal_btn' data-id ='".$deal->id."'><i class='fa fa-edit' aria-hidden='true'></i></a>
-                        <a href='#' class='btn btn-danger del_btn' data-id='".$deal->id."'><i class='fa fa-trash'></i></a>
+                        <a href='#' class='btn btn-danger btn-sm del_btn' data-id='".$deal->id."'><i class='fa fa-trash'></i></a>
                 </td></tr>";
             }
         }

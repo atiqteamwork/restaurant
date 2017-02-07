@@ -69,10 +69,16 @@
 <!--end footer-->
 <!--javascript files-->
 <script src="assets_front/js/jquery.min.js"></script>
+
 <script src="assets_front/js/bootstrap.min.js"></script>
+
 <script src="node_modules/parallax/parallax.min.js"></script>
+
 <script src="node_modules/scroll-speed/scroll-speed-js.js"></script>
+
 <script src="node_modules/slick-slider/slick.min.js"></script>
+<!--javascript files-->
+<script src="assets_front/js/jquery.min.js"></script>
 <script src="assets_front/dist/app.js"></script>
 @yield('script')
 <!--end -->

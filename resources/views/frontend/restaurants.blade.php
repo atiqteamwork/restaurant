@@ -4,7 +4,7 @@
 @section('content')
 <div class="outer_body no-padding"> 
     <!--start check_out_box-->
-    <div class="check_out_box parallax-window" data-parallax="scroll" data-image-src="{{url('/assets/images/list-img-bg.png')}}">
+    <div class="check_out_box parallax-window" data-parallax="scroll" data-image-src="{{url('/assets_front/images/list-img-bg.png')}}">
         <div class="wrapper-box">
             <h2> Order from {{count($restaurants)}} <span>RESTAURENT.</span> </h2>
             <p>delivering to your door</p>

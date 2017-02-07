@@ -4,6 +4,8 @@ use Illuminate\Database\Seeder;
 use App\Role;
 use App\Restaurant;
 
+use Faker\Factory as Faker;
+
 class RestaurantDataSeeder extends Seeder
 {
     /**
@@ -80,6 +82,18 @@ class RestaurantDataSeeder extends Seeder
         $restaurant4->contact_person = "Customer Care";
 		$restaurant4->logo = "v-logo.png";
         $restaurant4->save();
+		
+		
+		$faker = Faker::create();
+		
+		foreach (range(1,10) as $index) {
+            /*DB::table('Restaurant')->insert([
+                
+                //'dish_title'     => $faker->sentence(3),
+                //'description'    => $faker->paragraph(2),
+				
+            ]);*/
+        }
 
     }
 }

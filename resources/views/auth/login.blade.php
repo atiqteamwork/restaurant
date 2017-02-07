@@ -1,10 +1,11 @@
 @extends('layouts.default')
+@section('title', 'Login Now')
 
 @section('content')
 
 <div class="outer_body no-padding">
     <!--start check_out_box-->
-    <div class="check_out_box M-bottom-30 parallax-window" data-parallax="scroll" data-image-src="../assets/images/check-out-img.png">
+    <div class="check_out_box M-bottom-30 parallax-window" data-parallax="scroll" data-image-src="assets_front/images/check-out-img.png">
         <div class="wrapper-box">
             <h2>
                 Order Food Delivery From your <span>Favorite</span> Restaurants
@@ -26,6 +27,9 @@
             <div class="col-md-offset-4 col-md-4 col-sm-12 col-md-offset-4">
                <!--login Form-->
                 <div class="checkout-form">
+                	@if (session('status'))
+                    	<div class="alert alert-success"> {{ session('status') }} </div>
+                    @endif
                     <form class="form-horizontal validate" role="form" method="POST" action="{{ url('/login') }}">
                     {{ csrf_field() }}
                         <div class="form-group">
@@ -117,3 +121,4 @@
     </div>
 </div>-->
 @endsection
+

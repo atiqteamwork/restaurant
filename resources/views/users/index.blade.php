@@ -38,8 +38,8 @@
                         <td><span class="label label-success"> {{$user->display_name}}</span></td>
                         <td>@if($user->status=='Active') <span class="label label-primary">{{$user->status}}</span> @else <span class="label label-danger"> {{$user->status}}</span> @endif </td>
                         <td><input type="hidden" name="_token" value="{{ csrf_token() }}">
-                            <button class="btn btn-primary btn-sm edit_user_btn" type="submit" name="id" value="{{$user->u_id}}"><i class="fa fa-edit " aria-hidden="true"></i></button>
-                            @if( $user->role_id > Auth::user()->role_id) <a href="#" class="btn btn-danger del_user_btn" data-id="{{$user->u_id}}"><i class="fa fa-trash"></i></a> @endif </td>
+                            <button class="btn btn-primary btn-sm edit_user_btn" type="submit" name="id" value="{{$user->u_id}}"><i class="fa fa-edit" aria-hidden="true"></i></button>
+                            @if( $user->role_id > Auth::user()->role_id) <a href="#" class="btn btn-danger btn-sm del_user_btn" data-id="{{$user->u_id}}"><i class="fa fa-trash"></i></a> @endif </td>
                     </tr>
                     @endforeach
                         </tbody>

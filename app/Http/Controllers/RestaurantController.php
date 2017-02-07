@@ -257,9 +257,9 @@ class RestaurantController extends Controller
         $result = $restaurant->save();
 
         if( $result == 1 ) {
-            return "Success";
+            return redirect()->back()->with('status', 'Restaurant Updated');
         } else {
-            return $result;
+            return redirect()->back()->with('error', 'Error Generated while Updating Restaurant.');
         }
     }
 
@@ -288,7 +288,6 @@ class RestaurantController extends Controller
                 <tr><th>Opening Time</th><td>'.date("h:i:s a", strtotime($restaurant->open_time)).'</td></tr>
                 <tr><th>Closing Time</th><td>'.date("h:i:s a", strtotime($restaurant->close_time)).'</td></tr>
                 <tr><th>Restaurant Type</th><td></td></tr>
-                <tr><th>Out of Area Charges</th><td>'.$restaurant->outof_area_charges.'</td></tr>
             </table>
         </div>';
 
@@ -315,14 +314,20 @@ class RestaurantController extends Controller
 		  
 		  <div class="form-group">
 		      <label>Logo</label>
-			  <img src="'.url('public/assets/images/restaurants').'/'.$restaurant->logo.'" alt="Logo Image">
+			  <img width="40%" src="'.getenv('APP_URL').'/assets/images/restaurants'.'/'.$restaurant->logo.'" alt="Logo Image">
+			  <input type="file" name="logo" id="logo"/>
+          </div>
+		  
+		  <div class="form-group">
+		      <label>Banner Image</label>
+			  <img width="70%" src="'.getenv('APP_URL').'/assets/images/restaurants'.'/'.$restaurant->banner.'" alt="Logo Image">
 			  <input type="file" name="logo" id="logo"/>
           </div>
                 
 
           <div class="form-group">
             <label>Restaurant Name</label>
-            <input class="form-control" type="text" name="title" id="title" value="'.$restaurant->title.'"/>
+            <input class="form-control" type="text" name="title" id="title" value="'.$restaurant->title.'" required="required"/>
           </div>		  
           
           <div class="form-group">
@@ -332,18 +337,18 @@ class RestaurantController extends Controller
           
           <div class="form-group">
             <label>Email</label>
-            <input class="form-control" type="email" name="email" id="email" value="'.$restaurant->email.'"/>
+            <input class="form-control" type="email" name="email" id="email" value="'.$restaurant->email.'" required="required"/>
           </div>
           
           
           <div class="form-group">
             <label>Address</label>
-            <input class="form-control" type="text" name="address" id="address" value="'.$restaurant->address.'"/>
+            <input class="form-control" type="text" name="address" id="address" value="'.$restaurant->address.'" required="required"/>
           </div>
           
          <div class="form-group">
             <label>Primary Phone</label>
-            <input class="form-control" type="text" name="phone_primary" id="phone_primary" value="'.$restaurant->phone_primary.'"/>
+            <input class="form-control" type="text" name="phone_primary" id="phone_primary" value="'.$restaurant->phone_primary.'" required="required"/>
           </div>
           
           <div class="form-group">
@@ -368,17 +373,17 @@ class RestaurantController extends Controller
           
           <div class="form-group">
             <label>Contact Email</label>
-            <input class="form-control" type="text" name="contact_email" id="contact_email" value="'.$restaurant->contact_email.'"/>
+            <input class="form-control" type="text" name="contact_email" id="contact_email" value="'.$restaurant->contact_email.'" required="required"/>
           </div>
           
           <div class="form-group">
             <label>Opening Time</label>
-            <input class="form-control" type="time" name="open_time" id="open_time" value="'. date("h:i:s a" , strtotime($restaurant->open_time)).'"/>
+            <input class="form-control" type="time" name="open_time" id="open_time" value="'.$restaurant->open_time.'"/>
           </div>
           
           <div class="form-group">
             <label>Closing Time</label>
-            <input class="form-control" type="time" name="close_time" id="close_time" value="'.date("h:i:s a" , strtotime($restaurant->close_time) ).'"/>
+            <input class="form-control" type="time" name="close_time" id="close_time" value="'.$restaurant->close_time.'"/>
           </div>
           
           <div class="form-group">
@@ -387,11 +392,6 @@ class RestaurantController extends Controller
               <option value="true" '.($restaurant->is_takeaway_only == "true"?"selected=selected":"").'>Takeaway Only</option>
               <option value="false" '.($restaurant->is_takeaway_only== "false"?"selected=selected":"").'>Delivery & Takeaway</option>
             </select>
-          </div>
-          
-          <div class="form-group">
-            <label>Ouside Area Charges</label>
-            <input class="form-control" type="number" name="outof_area_charges" id="outof_area_charges" value="'.$restaurant->outof_area_charges.'"/>
           </div>
           
           <div class="form-group">

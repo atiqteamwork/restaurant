@@ -11,7 +11,28 @@
     <div class="box-body">
         <div class="panel panel-default table-panel">
             <div class="panel-heading">Menu Restaurants</div>
+            
+            
+             @if (session('status'))
+                <div class="alert alert-success">
+                    {{ session('status') }}
+                </div>
+            @endif
+            
+            
+             @if (session('error'))
+                <div class="alert alert-danger">
+                    {{ session('error') }}
+                </div>
+            @endif
+            
+            
             <div class="panel-body"> <a href="{{url('admin/restaurant/new')}}" class="btn btn-primary" style="float:right; display:block; clear:both;">Add New</a>
+            
+            
+           
+            
+            
                 <table id="dataTable" data-dtable class="table table-bordered table-striped data-table">
                     <thead>
                         <tr>
@@ -44,7 +65,7 @@
     </div>
 </div>
 
-<!-- New Restaurants Modal Start -->
+<!-- New Restaurants Modal Start --
 <div id="addnewRestaurants" class="modal fade" role="dialog"> {{ Form::open(array('url' => 'admin/restaurant/new','id'=>'new_restaurant')) }}
     <div class="modal-dialog">
         <div class="modal-content">
@@ -207,7 +228,7 @@
 
             /**
             * Trigger when Add new Restaurants button pressed.
-            */
+            *
             $("#new_Restaurants").on('submit', function () {
 				$.ajax({
                     type: "POST",
@@ -230,7 +251,7 @@
 
             /**
             *	Trigger when update Restaurants is pressed.
-            */
+            *
             $("#update_Restaurants").on('submit', function (e) {
 				$.ajax({
 					type: "POST",

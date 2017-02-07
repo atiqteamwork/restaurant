@@ -3,12 +3,12 @@
 
 @section('content')
 <div class="outer_body no-padding">
-    <div class="detail-bg">
+    <div class="detail-bg parallax-window" data-parallax="scroll" data-image-src="assets_front/images/detail_page_bg.jpg">
         <div class="wrapper-box">
             <h2> <span>{{$restaurants[0]->title}}</span> - {{$restaurants[0]->City->city_name}} <br>
                 {{$restaurants[0]->description}}<br />
                 {{( count( $area ) > 0 ) ? $area[0]->area_name : ""}} </h2>
-            <div class="img-res"> <img src="{{url('/')}}/assets/images/restaurants/{{$restaurants[0]->logo}}" alt="Restaurent image"> </div>
+            <div class="img-res"> <img src="{{url('/assets/images/restaurants/')}}/{{$restaurants[0]->logo}}" alt="Restaurent image"> </div>
         </div>
     </div>
     

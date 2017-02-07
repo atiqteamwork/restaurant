@@ -35,8 +35,10 @@
 </div>
 @stop
 @section('script') 
+
 <script>
 	$(document).ready(function() {
+				
 		/**
 		*	Get Areas According to City
 		*/
@@ -58,6 +60,7 @@
 				}
 			});
         });
+		
 		
     });
 	

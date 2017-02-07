@@ -19,7 +19,7 @@
                 <div class="row">
                     <div class="col-sm-offset-1 col-sm-2"> {{Form::label('city_id', 'City', ["class" => "text-right"])}} </div>
                     <div class="col-sm-8">
-                        <div class="form-group"> {{Form::Select('city_id', $cities, null ,['class' => 'form-control select2'])}} </div>
+                        <div class="form-group"> {{Form::Select('city_id', $cities, null ,['class' => 'form-control select2', 'id' => 'cities'])}} </div>
                     </div>
                 </div>
                 
@@ -106,7 +106,10 @@
                 <div class="row">
                     <div class="col-sm-offset-1 col-sm-2"> {{Form::label('open_time', 'Opening Time', ["class" => "text-right"])}} </div>
                     <div class="col-sm-6">
-                        <div class="form-group"> {{Form::time('open_time','', ['class' => 'form-control', 'placeholder'=>'12:00 pm', 'required'=>'required'])}} </div>
+                        <div class="form-group"> 
+                        	<!--<input type="time" class="form-control" id='time' />-->
+                            {{Form::time('open_time','', ['class' => 'form-control', 'placeholder'=>'12:00 pm', 'required'=>'required'])}}
+                        </div>
                     </div>
                     <div class="col-sm-3">
                         <div class="form-group"> <em> i.e 12:00 pm</em> </div>
@@ -140,14 +143,16 @@
                         <label class="text-right">Areas</label>
                     </div>
                     <div class="col-sm-8">
-                        <div class="form-group"> {{Form::select('area_ids[]', $areas,null ,['class' => 'select2 form-control', 'data-select1', "multiple" => "multiple"])}} </div>
+                        <div class="form-group"> {{Form::select('area_ids[]', [],null ,['class' => 'select2 form-control', 'data-select1', "multiple" => "multiple", 'id' => 'select-areas'])}} </div>
                     </div>
                 </div>
-                <hr>
+
                 <div class="row">
-                    <div class="col-sm-offset-1 col-sm-2"> {{Form::label('outof_area_charges', 'Outside Area Charges', ["class" => "text-right"])}} </div>
+                    <div class="col-sm-offset-1 col-sm-2"> 
+                    	<!--{{Form::label('outof_area_charges', 'Outside Area Charges', ["class" => "text-right"])}} -->
+                        </div>
                     <div class="col-sm-8">
-                        <div class="form-group"> {{Form::number('outof_area_charges','', ['class' => 'form-control', 'placeholder'=>'Outside Area Charges'])}} </div>
+                        <div class="form-group"> {{Form::hidden('outof_area_charges','0', [])}} </div>
                     </div>
                 </div>
                 <hr>
@@ -165,6 +170,45 @@
 <script src="assets/plugins/jquery/jquery-2.2.4.min.js"></script> 
 <script>
 	$(document).ready(function () {	
+		
+		
+		var city_id = $("#cities").val();			
+		$.ajax({
+			type: 'POST',
+			url: "{{url('c/get_city_areas')}}",
+			data:{
+				'city_id': city_id,
+				'_token': '{{csrf_token()}}'
+			},
+			success: function (response) {
+				$("#select-areas").html(response);
+			},
+			error:function () {
+				
+			}
+		});
+		
+		
+		$("#cities").change(function() {	
+			var city_id = $(this).val();
+						
+			$.ajax({
+				type: 'POST',
+				url: "{{url('c/get_city_areas')}}",
+				data:{
+					'city_id': city_id,
+					'_token': '{{csrf_token()}}'
+				},
+				success: function (response) {
+					$("#select-areas").html(response);
+				},
+				error:function () {
+					
+				}
+			});
+			
+        });
+		
 		
 		/*$("#new_restaurant").on("submit", function(){
 			var formData = new FormData( $("#new_dish")[0] );

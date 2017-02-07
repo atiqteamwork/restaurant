@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Validator;
 use App\City;
+
 use Illuminate\Http\Request;
 
 class CityController extends Controller
@@ -48,15 +50,51 @@ class CityController extends Controller
     */
     public function new_city(Request $request)
     {
-        $city = new City();
-        $city->city_name = $request->city_name;
-        $response = $city->save();
+		
+		
+		$input = [
+            "city_name" 	=> $request->city_name,
+        ];
 
-        if( $response == 1 ) {
-            return "Success";
-        } else {
-            return $response;
-        }
+
+        $rules = [
+            'city_name' 		=> 'unique:cities,city_name|required|min:3',
+        ];
+
+        $messages =  [
+            'city_name.required' => 'Enter Restaurant Name.',
+            'city_name.unique' 	 => 'City Name Already Exists',
+        ];
+
+        $validate = Validator::make($input,$rules, $messages);
+
+        if($validate->passes())
+        {
+			$city = new City();
+			$city->city_name = $request->city_name;
+			$response = $city->save();
+	
+			if( $response == 1 ) {
+				return "Success";
+			} else {
+				return $response;
+			}
+		} else {
+			$messages = $validate->messages();
+            $messages = json_decode( $messages );
+            $message_html = "";
+
+            foreach($messages as $index => $value) {
+                $message_html .=  "<p>".$value[0]."</p>";
+            }
+
+            return $message_html;
+		}
+		
+		
+		
+		
+        
     }
 	
 	
