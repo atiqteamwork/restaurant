@@ -206,6 +206,7 @@ class RestaurantController extends Controller
                 $message_html .=  "<p>".$value[0]."</p>";
             }
 
+
 			return redirect()->back()->with("error", $message_html);
             //return $message_html;
         }
@@ -417,7 +418,7 @@ class RestaurantController extends Controller
         $restaurant_result = Restaurant::destroy( $_POST["restaurant_id"] );
 
         if( $restaurant_result == 1 ) {
-            return "Success";	
+            return "Success";
         } else {
             return $restaurant_result;	
         }	

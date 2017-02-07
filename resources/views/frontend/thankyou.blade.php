@@ -22,6 +22,7 @@
                     <h2>You order will be ready in 30-45 Minutes Depending on Order Type. </h2>
                 </div>
             </div>
+            
         </div>
     </div>
     <!--end heading-line--> 

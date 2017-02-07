@@ -58,6 +58,13 @@
                             	@foreach( $restaurant->Menus as $menus )
                                 	{{$menus->category_title}},
                                 @endforeach
+                                
+                                @foreach( $restaurant->Menus as $menus )
+                                	{{$menus->category_title}},
+                                @endforeach
+                                @foreach( $restaurant->Menus as $menus )
+                                	{{$menus->category_title}},
+                                @endforeach
                             
                              </p>
                         </div>

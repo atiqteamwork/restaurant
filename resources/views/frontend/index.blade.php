@@ -77,37 +77,13 @@
                                 </div>
                             </div>
                             <div class="col-md-3 col-sm-12 no-padding">
-                                <div class="select-area"> {{Form::Select('area', [], null, ['class' => 'search-area form-control', 'id' => 'select-areas', 'required' => 'required'])}} 
+                                <div class="select-area"> 
+                                	{{Form::Select('area', [], null, ['class' => 'search-area form-control', 'id' => 'select-area', 'required' => 'required'])}}
                                     
-                                    <!--<select id="select-area" placeholder="Select/type Area...">
+                                   <!--<select id="select-area" placeholder="Select/type Area...">
                                     <option value="">Select/type area...</option>
                                     <option value="IA">Iowa</option>
-                                    <option value="KS">Kansas</option>
-                                    <option value="KY">Kentucky</option>
-                                    <option value="LA">Louisiana</option>
-                                    <option value="ME">Maine</option>
-                                    <option value="MD">Maryland</option>
-                                    <option value="MA">Massachusetts</option>
-                                    <option value="MI">Michigan</option>
-                                    <option value="MN">Minnesota</option>
-                                    <option value="MS">Mississippi</option>
-                                    <option value="MO">Missouri</option>
-                                    <option value="MT">Montana</option>
-                                    <option value="NE">Nebraska</option>
-                                    <option value="NV">Nevada</option>
-                                    <option value="NH">New Hampshire</option>
-                                    <option value="NJ">New Jersey</option>
-                                    <option value="NM">New Mexico</option>
-                                    <option value="NY">New York</option>
-                                    <option value="NC">North Carolina</option>
-                                    <option value="ND">North Dakota</option>
-                                    <option value="OH">Ohio</option>
-                                    <option value="OK">Oklahoma</option>
-                                    <option value="OR">Oregon</option>
-                                    <option value="PA">Pennsylvania</option>
-                                    <option value="RI">Rhode Island</option>
-                                    <option value="SC">South Carolina</option>
-                                </select>--> 
+                                </select>-->
                                     
                                 </div>
                             </div>
@@ -307,16 +283,18 @@
 
 <!--javascript files--> 
 <script src="assets_front/js/jquery.min.js"></script> 
+<!--Selectize--> 
+<script src="node_modules/selectize.js-master/dist/js/standalone/selectize.min.js"></script> 
+
 <!--bootstrap--> 
 <script src="assets_front/js/bootstrap.min.js"></script> 
+
 <!--jquery-easing--> 
 <script src="node_modules/scrolling-effect/jquery-easing.min.js"></script> 
 <!--slick.min.js--> 
 <script src="node_modules/slick-slider/slick.min.js"></script> 
 <!--perfect-scrollbar--> 
 <script src="node_modules/perfect-scrollbar/js/perfect-scrollbar.min.js"></script> 
-<!--Selectize--> 
-<script src="node_modules/selectize.js-master/dist/js/standalone/selectize.min.js"></script> 
 <!--end Selectize--> 
 <script src="node_modules/parallax/parallax.min.js"></script> 
 <!--app js--> 
@@ -326,52 +304,131 @@
 <script src="assets_front/js/jquery.min.js"></script> 
 <script>
 $(document).ready(function() {
+
+
+
+var city_id =  $("#select-city").val();
 		
+$.ajax({
+	type: 'POST',
+	url: "{{url('c/get_city_areas')}}",
+	data:{
+		'city_id': city_id,
+		'_token': '{{csrf_token()}}'
+	},
+	success: function (response) {
+		//alert(response);
+		$("#select-area").html(response);
+	},
+	error:function () {
+		alert("error");
+	}
+});
+	
+/**
+*	
+*/
+$("#select-city").change(function() {			
+	
+	var city_id = $(this).val();
+	
+	$.ajax({
+		type: 'POST',
+		url: "{{url('c/get_city_areas')}}",
+		data:{
+			'city_id': city_id,
+			'_token': '{{csrf_token()}}'
+		},
+		success: function (response) {
+			//alert(response);
+			$("#select-area").html(response);
+		},
+		error:function () {
+			alert("error");
+		}
+	});
+});
+	
+/*var xhr;
+var select_city, $select_city;
+
+$select_state = $('#select-city').selectize({
+	onChange: function(value) {
+		if (!value.length) return;
 		
-		var city_id = $("#select-city").val();
-			
-		$.ajax({
-			type: 'POST',
-			url: "{{url('c/get_city_areas')}}",
-			data:{
-				'city_id': city_id,
-				'_token': '{{csrf_token()}}'
-			},
-			success: function (response) {
-				//alert(response);
-				$("#select-areas").html(response);
-			},
-			error:function () {
-				alert("error");
-			}
-		});
-		
-		
-		/**
-		*	
-		*/
-		$("#select-city").change(function() {			
-			
-			var city_id = $(this).val();
-			
-			$.ajax({
-				type: 'POST',
-				url: "{{url('c/get_city_areas')}}",
-				data:{
-					'city_id': city_id,
-					'_token': '{{csrf_token()}}'
+		select_city.disable();
+		select_city.clearOptions();
+		select_city.load(function(callback) {
+			xhr && xhr.abort();
+			xhr = $.ajax({
+				url: 'http://www.corsproxy.com/api.sba.gov/geodata/primary_city_links_for_state_of/' + value + '.json',
+				success: function(results) {
+					select_city.enable();
+					callback(results);
 				},
-				success: function (response) {
-					//alert(response);
-					$("#select-areas").html(response);
-				},
-				error:function () {
-					alert("error");
+				error: function() {
+					callback();
 				}
-			});
-        });
+			})
+		});
+	}
+});
+
+$select_state = $('#type').selectize({
+	onChange: function(value) {
+		if (!value.length) return;
+		select_city.disable();
+		select_city.clearOptions();
+		select_city.load(function(callback) {
+			xhr && xhr.abort();
+			xhr = $.ajax({
+				url: 'http://www.corsproxy.com/api.sba.gov/geodata/primary_city_links_for_state_of/' + value + '.json',
+				success: function(results) {
+					select_city.enable();
+					callback(results);
+				},
+				error: function() {
+					callback();
+				}
+			})
+		});
+	}
+});
+
+
+
+
+$select_state = $('#select-area').selectize({
+	onChange: function(value) {
+		if (!value.length) return;
+		select_city.disable();
+		select_city.clearOptions();
+		select_city.load(function(callback) {
+			xhr && xhr.abort();
+			xhr = $.ajax({
+				url: 'http://www.corsproxy.com/api.sba.gov/geodata/primary_city_links_for_state_of/' + value + '.json',
+				success: function(results) {
+					select_city.enable();
+					callback(results);
+				},
+				error: function() {
+					callback();
+				}
+			})
+		});
+	}
+});	
+
+
+
+
+
+	
+	
+	
+	
 		
-		
+	
 		/**
 		*	
 		*
@@ -414,76 +471,14 @@ $(document).ready(function() {
 			
 			
 			return false;	
-		})*/
+		})*
 		
-    });
+    });*/
 
 
-    var xhr;
-    var select_city, $select_city;
-
-    $select_state = $('#select-city').selectize({
-        onChange: function(value) {
-            if (!value.length) return;
-			
-            //select_city.disable();
-            //select_city.clearOptions();
-            /*select_city.load(function(callback) {
-                /*xhr && xhr.abort();
-                xhr = $.ajax({
-                    url: 'http://www.corsproxy.com/api.sba.gov/geodata/primary_city_links_for_state_of/' + value + '.json',
-                    success: function(results) {
-                        select_city.enable();
-                        callback(results);
-                    },
-                    error: function() {
-                        callback();
-                    }
-                })*
-            });*/
-        }
-    });
-	
-    $select_state = $('#type').selectize({
-        onChange: function(value) {
-            if (!value.length) return;
-            select_city.disable();
-            select_city.clearOptions();
-            select_city.load(function(callback) {
-               /* xhr && xhr.abort();
-                xhr = $.ajax({
-                    url: 'http://www.corsproxy.com/api.sba.gov/geodata/primary_city_links_for_state_of/' + value + '.json',
-                    success: function(results) {
-                        select_city.enable();
-                        callback(results);
-                    },
-                    error: function() {
-                        callback();
-                    }
-                })*/
-            });
-        }
-    });
-    $select_state = $('#select-areas').selectize({
-        onChange: function(value) {
-            /*if (!value.length) return;
-            select_city.disable();
-            select_city.clearOptions();
-            select_city.load(function(callback) {
-               /* xhr && xhr.abort();
-                xhr = $.ajax({
-                    url: 'http://www.corsproxy.com/api.sba.gov/geodata/primary_city_links_for_state_of/' + value + '.json',
-                    success: function(results) {
-                        select_city.enable();
-                        callback(results);
-                    },
-                    error: function() {
-                        callback();
-                    }
-                })*
-            });*/
-        }
-    });
+    
+	});
+   
 </script>
 </body>
 </html>

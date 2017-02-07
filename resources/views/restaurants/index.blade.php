@@ -12,7 +12,6 @@
         <div class="panel panel-default table-panel">
             <div class="panel-heading">Menu Restaurants</div>
             
-            
              @if (session('success'))
                 <div class="alert alert-success">
                     {{ session('success') }}

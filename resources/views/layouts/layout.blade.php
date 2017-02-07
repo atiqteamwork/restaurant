@@ -30,7 +30,7 @@
             <div class="col-md-12">@yield('content')</div>
         </div>
         <footer>
-            <div class="copyrights"> © Copyrights 2016 <a href="http://teamworktec.com/" target="_blank">Team Work</a> All Rights Reserved. </div>
+            <div class="copyrights"> © Copyrights {{date('Y')}} <a href="http://teamworktec.com/" target="_blank">Team Work</a> All Rights Reserved. </div>
         </footer>
     </div>
 </div>

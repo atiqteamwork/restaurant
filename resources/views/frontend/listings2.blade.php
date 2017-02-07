@@ -1,6 +1,7 @@
 @extends('layouts.main')
 @section('title', 'Menu of ' . $restaurants[0]->title)
 
+
 @section('content')
 <div class="outer_body no-padding">
     <div class="detail-bg parallax-window" data-parallax="scroll" data-image-src="assets_front/images/detail_page_bg.jpg">

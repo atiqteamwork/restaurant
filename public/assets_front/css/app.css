@@ -972,7 +972,7 @@ section {
 .cart-sidebar .cart-sticker .cart_detail:hover .minus {
   display: block !important;
   transition-duration: 0.5s;
-  z-index: 1000;
+  z-index: 10000;
 }
 /* line 851, ../sass/app.scss */
 .cart-sidebar .cart-sticker .cart_detail:hover p span {
@@ -1118,7 +1118,30 @@ section {
   color: #ba0909;
   background-color: transparent;
 }
-
+/* line 960, ../sass/app.scss */
+.btn-submit-v2 {
+  color: #ffffff;
+  background-color: #444;
+  border: 1px solid #444;
+  border-radius: 3px;
+  font-size: 16px;
+  font-family: "Open sans", sans-serif;
+  font-weight: 600;
+  transition-duration: .4s;
+  text-transform: uppercase;
+  padding: 12px 18px;
+}
+/* line 971, ../sass/app.scss */
+.btn-submit-v2:hover {
+  color: #444;
+  background-color: transparent;
+  transition-duration: .4s;
+}
+/* line 976, ../sass/app.scss */
+.btn-submit-v2:focus {
+  color: #fff;
+  background-color: transparent;
+}
 /* line 981, ../sass/app.scss */
 .btn-checkout {
   margin-bottom: 10px;
@@ -1233,6 +1256,17 @@ section {
   outline: none;
   box-shadow: none;
 }
+.checkout-form .search-res{
+	  border-radius: 2px;
+  border: 1px solid #e3e6e9;
+    color: #444444;
+	  font-family: "Open sans", sans-serif;
+  font-weight: 400;
+  height: 40px;
+    box-shadow: none;
+
+}
+	
 /* line 1082, ../sass/app.scss */
 .checkout-form  .form-group ::-webkit-input-placeholder {
   color: #a1b1bc;
@@ -1947,6 +1981,16 @@ b {
 .restaurent-list-box .detail .detail-res a {
   color: #33333f;
   text-decoration: none;
+    font-family: "Open sans", sans-serif;
+	font-weight:600;
+	text-transform:capitalize;
+}
+/* line 1709, ../sass/app.scss */
+.restaurent-list-box .detail .detail-res{
+  color: #33333f;
+  text-decoration: none;
+min-height: 104px;
+width:100%;
 }
 /* line 1712, ../sass/app.scss */
 .restaurent-list-box .detail .detail-res a h4 {
@@ -1970,6 +2014,31 @@ b {
   font-weight: 400;
   margin: 0 0 5px;
   text-transform: capitalize;
+}
+/* line 1736, ../sass/app.scss */
+.restaurent-list-box .detail .pull-right .btn-success{
+  color: #fff;
+  font-family: "Open sans", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  padding:8px 20px;
+  background-color: #d50905;
+  border-radius:2px;
+  border:1px solid #d50905 ;
+  text-transform:uppercase;
+    transition:all .3s;
+
+ 
+}
+
+/* line 1736, ../sass/app.scss */
+.restaurent-list-box .detail .pull-right .btn-success:hover{
+  color: #d50905;
+  background-color: #FFF;
+  transition:all .3s;
+    border:1px solid #d50905 ;
+
+ 
 }
 /* line 1736, ../sass/app.scss */
 .restaurent-list-box .detail .pull-right .star-rating {

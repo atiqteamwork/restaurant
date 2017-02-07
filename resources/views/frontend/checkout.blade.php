@@ -238,13 +238,18 @@
                             </tbody>
                         
                     </table>
-                    <a href="#" class="btn btn-submit update-cart">Update Cart</a>
+                    <div class="pull-right">
+                                        <a href="#" class="btn btn-submit-v2 update-cart">Update Cart</a>
+                                       <span>            <input type="submit" class="btn btn-submit" value="Process" >
+</span>
+
+                    </div>	
                     <p class="tempo"></p>
                     <div class="alert alert-danger" style="display:none"><strong>Alert!</strong> <span></span> <a href="#" class="resend-checkout-form btn btn-submit">Ok</a> </div>
                 </div>
             </div>
             <input type="hidden" name="net_amount" class="final-net-amount" value="{{$total}}" />
-            <input type="submit" class="btn btn-submit" value="Process" >
+            <!--<input type="submit" class="btn btn-submit" value="Process" >-->
             {{ Form::close() }} 
             <!-- ./ Form Ends Here --> 
             
