@@ -19,6 +19,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <h2>Order Placed Successfully. You will get confirmation email with order details.</h2>
+                    <h2>You order will be ready in 30-45 Minutes Depending on Order Type. </h2>
                 </div>
             </div>
         </div>
@@ -64,7 +65,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="g">Area </label>
-                               <p> {{$order->area}} </p>
+                               <p> {{$order->Area->area_name}} </p>
                             </div>
                         </div>
                         <div class="col-md-12">
@@ -76,13 +77,13 @@
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="city">City <span>*</span></label>
-                                <p>{{$order->city}}</p>
+                                <label for="city">City </label>
+                                <p>{{$order->City->city_name}}</p>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="country">Country <span>*</span></label>
+                                <label for="country">Country </label>
                                 <p>Pakistan</p>
                                </div>
                         </div>
@@ -91,7 +92,7 @@
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="email">Contact Info <span>*</span></label>
+                                <label for="email">Contact Info </label>
                                 <p>{{$order->email}}</p>
                                 <p>{{$order->phone}}</p>
                                 <p>{{$order->cell}}</p>
@@ -111,31 +112,31 @@
                     <div class="row shipping-addresss">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="shipping_first_name">First name<span>*</span></label>
+                                <label for="shipping_first_name">First name</label>
                                 <p>{{$order->shipping_first_name}}</p>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="shipping_last_name">Last name <span>*</span></label>
+                                <label for="shipping_last_name">Last name </label>
                                 <p>{{$order->shipping_last_name}} </p>
                            </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="shipping_company">Company Name <span>*</span></label>
+                                <label for="shipping_company">Company Name </label>
                                 <p>{{$order->shipping_company}} </p>
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="4">Area <span>*</span> </label>
-                                <p>{{$order->shipping_area}}</p>
+                                <label for="4">Area </label>
+                                <p>{{$order->Area->area_name}}</p>
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="shipping_address1">Address <span>*</span></label>
+                                <label for="shipping_address1">Address </label>
                                 <p>{{$order->shipping_address1}}</p>
                                 <p>{{$order->shipping_address2}}</p>
                                 
@@ -143,13 +144,13 @@
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="shipping_city">City <span>*</span></label>
-								<p>{{$order->shipping_city}}</p>
+                                <label for="shipping_city">City </label>
+								<p>{{$order->ShippingCity->city_name}}</p>
 							</div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="shipping_country">Country <span>*</span></label>
+                                <label for="shipping_country">Country </label>
                                 <p>Pakistan</p> </div>
                         </div>
                         <div class="col-md-6">
@@ -157,7 +158,7 @@
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="shipping_email">Contact Info <span>*</span></label>
+                                <label for="shipping_email">Contact Info </label>
                                 <p>{{$order->shipping_email}}</p>
                                 <p>{{$order->shipping_phone}}</p>
                                 <p>{{$order->shipping_cell}} </p>

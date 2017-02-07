@@ -185,9 +185,7 @@ class CartController extends Controller
         $cart = CartDetails::whereHas("Cart", function($query) use ($session_key) {
                             $query->where("session_key", $session_key)
 							->where('status', 'Active');
-                        })
-						
-						->get();
+                        })->get();
 		
 		//dd( $cart[0]->Cart[0]->area_id );
 
@@ -196,7 +194,7 @@ class CartController extends Controller
         } else {
 
 			$areas = Area::all();
-			$areas_data = [];
+			$areas_data = [''=>''];
 			foreach( $areas as $area ) { $areas_data[$area->id] = $area->area_name; }
 			
 			
@@ -220,8 +218,10 @@ class CartController extends Controller
      **/
     public function proceed_checkout( Request $request )
     {
+		//dd($request);
+		//$area_id = 0;
 		
-		//dd( $request );
+		//$area_id =  isset($request->is_shipping_different) ? $request->area	  : ;
 		
         $cart  = CartDetails::whereHas("Cart", function($query) use ($request) {
                             $query->where("id", $request->cart_id);
@@ -276,6 +276,7 @@ class CartController extends Controller
         $order->total_amount 	= $request->net_amount + $gst + $extra_charges;
         $order->order_type		= $cart[0]->Cart[0]->order_type;
 		$order->remember_token	= $request->_token;
+		$order->area_id			= $request->area_id;
 		
         $response1 = $order->save();
         $order_id =  $order->id;
@@ -315,7 +316,6 @@ class CartController extends Controller
 
         if( $response1 && $response2 )
         {
-			
 			$cart_update = Cart::find($request->cart_id);
 			$cart_update->status = 'Ordered';
 			$cart_update->save();
@@ -353,7 +353,7 @@ class CartController extends Controller
 			$data = ['order' => $order];
 			/****/
 			/**		Sending Email To User
-			/****/
+			/****
 			$from_email = 'admin@newsklic.com';
 			$from_name  = 'Restaurant Administrator';
 			
@@ -379,7 +379,7 @@ class CartController extends Controller
 			
 			/****/
 			/**		Sending Email To Admin
-			/****/
+			/****
 			$from_email = $order->email;
 			$from_name  = $order->first_name . " " . $order->last_name;
 			
@@ -406,7 +406,7 @@ class CartController extends Controller
 			
 			/****/
 			/**		Sending Email To Restaurant
-			/****/
+			/****
 			$from_email = $order->email;
 			$from_name  = $order->first_name . " " . $order->last_name;
 			

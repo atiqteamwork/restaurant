@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
 class Order extends Model
 {
 	
-	protected $with = ["Restaurant", 'OrderDetail', 'City'];
+	protected $with = ["Restaurant", 'OrderDetail', 'City', 'Area', 'ShippingCity'];
 	
 	/**
 	 *	
@@ -38,6 +38,23 @@ class Order extends Model
 	public function city()
     {
         return $this->belongsTo('App\City', "city", "id");
+    }
+	
+	/**
+	 *
+	 **/
+	public function shippingcity()
+    {
+        return $this->belongsTo('App\City', "shipping_city", "id");
+    }
+	
+	
+	/**
+	 *
+	 **/
+	public function area()
+    {
+        return $this->belongsTo('App\Area', "area_id", "id");
     }
 	
 	/**

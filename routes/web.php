@@ -87,23 +87,11 @@ Route::resource('admin/city/fetch_by_id', 'CityController@fetch_by_id');
 Route::resource('admin/city/del', 'CityController@delete_city');
 Route::resource('admin/city/update', 'CityController@update_city');
 
-/*
-
-Route::resource('admin/area/update_restaurant_areas', 'AreaController@update_restaurant_areas');
-
-*/
-
-
-
-
-
 
 /**
 *
 *	Restaurant Routes
 */
-
-
 Route::get('admin/restaurants', 'RestaurantController@index');
 Route::resource('admin/restaurant/new', 'RestaurantController@new_restaurant_page');
 Route::post('admin/restaurant/add_new', 'RestaurantController@add_new_restaurant');

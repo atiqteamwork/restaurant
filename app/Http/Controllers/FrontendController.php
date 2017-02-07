@@ -42,6 +42,7 @@ class FrontendController extends Controller
         
         return view("frontend.index")->with([
             'cities' => $cities_data,
+			'restaurants' => Restaurant::limit(30)->get(),
         ]);
     }
     
@@ -61,8 +62,7 @@ class FrontendController extends Controller
         $cart		 = CartDetails::whereHas("Cart", function($query) use ($session_key) {
                             $query->where("session_key", $session_key)
 							->where('status', 'Active');
-                        })
-						->get();
+                        })->get();
 		
         if( !empty( $cart ) && count( $cart ) > 0 )
         {

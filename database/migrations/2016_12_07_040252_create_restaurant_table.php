@@ -31,6 +31,7 @@ class CreateRestaurantTable extends Migration
 			$table->integer('city_id')->default("0");
 			$table->string('area_ids')->nullable();
 			$table->string('menu_categories')->nullable();
+			$table->integer('order_time')->default("30");
 			$table->string('outof_area_charges')->nullable();
 			$table->integer('gst')->default('16');
             $table->string('logo')->default('v-logo.png');

@@ -132,7 +132,7 @@ class RestaurantController extends Controller
 					Input::file('logo')->move($destinationPath, $logo_fileName); // uploading file to given path
 				  
 				} else {
-					return "Logo Could be Uploaded.";
+					return redirect()->back()->with("error", "Logo Could be Uploaded.");
 				}
 			}
 			
@@ -145,7 +145,7 @@ class RestaurantController extends Controller
 					Input::file('banner')->move($destinationPath, $banner_fileName); // uploading file to given path
 				  
 				} else {
-					return "File Could be Uploaded.";
+					return redirect()->back()->with("error", "Banner Could be Uploaded.");
 				}
 			}
 			
@@ -189,11 +189,11 @@ class RestaurantController extends Controller
 				}
 				
 				
-				return redirect()->back()->with("message", "Success");
+				return redirect()->back()->with("success", "New Restaurant Added");
 			
 				
             } else {
-                return $result;
+                return redirect()->back()->with("error", "An Error Occured");
             }
         }
         else
@@ -206,7 +206,8 @@ class RestaurantController extends Controller
                 $message_html .=  "<p>".$value[0]."</p>";
             }
 
-            return $message_html;
+			return redirect()->back()->with("error", $message_html);
+            //return $message_html;
         }
 
     }

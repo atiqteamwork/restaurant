@@ -33,7 +33,7 @@ class RestaurantDataSeeder extends Seeder
         $restaurant1->area_ids = "1,5,9,4";
         $restaurant1->outof_area_charges = "200";
         $restaurant1->contact_person = "Mr. Contact Person";
-		$restaurant1->logo = "v-logo.png";
+		$restaurant1->logo = "logo_20170207064719847.png";
         $restaurant1->save();
 
 
@@ -80,7 +80,7 @@ class RestaurantDataSeeder extends Seeder
         $restaurant4->area_ids = "4,2,6";
         $restaurant4->outof_area_charges = "125";
         $restaurant4->contact_person = "Customer Care";
-		$restaurant4->logo = "v-logo.png";
+		$restaurant4->logo = "logo_20170207064719847.png";
         $restaurant4->save();
 		
 		

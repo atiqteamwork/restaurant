@@ -189,7 +189,13 @@ class CommonController extends Controller
         
         foreach( $areaList as $area)
         {
-            $options .= "<option value='".$area->id."'>".$area->area_name."</option>";
+			if( isset( $request->area_id ) )
+			{
+				$options .= "<option value='".$area->id."' ".($request->area_id  == $area->id ? 'selected':'').">".$area->area_name."</option>";
+			} else {
+				$options .= "<option value='".$area->id."'>".$area->area_name."</option>";
+			}
+            
         }
         
         echo $options;
@@ -309,13 +315,27 @@ class CommonController extends Controller
 		
 		$restaurants = $restaurants_object->get();
 		
+		
+		$counter = 0;
+		$sub_cats = "";
+				
 		foreach( $restaurants as $restaurant) {
+			foreach( $restaurant->Menus as $menus ){
+				$sub_cats .= $menus->category_title .", ";
+				
+				/*if( $counter++ <= count($restaurant->Menus) )
+				{
+					$sub_cats .= ", ";
+				}*/
+					
+			}
+		
 			echo '<div class="col-md-4 col-sm-6 col-xs-12">
                 <div class="restaurent-list-box box_border">
                     <div class="res-logo"> <img src="'.getenv('APP_URL').'assets/images/restaurants/'.$restaurant->banner.'" alt="restaurent img">
                         <div class="overflow-outer">
                             <div class="overflow-inner">
-                                <div class="deliver-mint"><a href="#">delivers in minutes</a></div>
+                                <div class="deliver-mint"><a href="#">'.($restaurant->is_takeaway_only =="true"?'Takeaway ready in 30 minutes':'delivers in 30 minutes').'</a></div>
                                 <div class="tak-div"> <a href="javascript:;" class="tak-order"><i class="fa fa-check-circle"></i> Takeaway order</a> <br>
                                     <a href="javascript:;" class="del-order"><i class="fa '. ($restaurant->is_takeaway_only == 'false' ? 'fa-check-circle' : 'fa-times-circle').'"></i> deliver order</a> </div>
                                 <div class="next-btn"><a class="open_page" href="search/'.$restaurant->id.'/'.urlencode($restaurant->title). "+".urlencode($order_type).'/'.$area_id.'"><i class="fa fa-angle-right"></i></a></div>
@@ -325,7 +345,7 @@ class CommonController extends Controller
                     <div class="detail">
                         <div class="pull-left detail-res">
                             <h4><a class="open_page" href="search/'.$restaurant->id.'/'.urlencode($restaurant->title). "+".urlencode($order_type).'/'.$area_id.'">'.$restaurant->title.'</a></h4>
-                            <p>fried chicken,fast food</p>
+                            <p>'.$sub_cats.'</p>
                         </div>
                         <div class="pull-right"> 
                             <!--Rating section will be here--> 

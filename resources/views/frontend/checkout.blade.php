@@ -57,11 +57,11 @@
                     @endif </div>
                 <hr class="check-border">
                 <div class="row">
-                    <div class="col-md-6">
-                        <!--<div class="info-checkout"> <i class="fa fa-user"></i> register an account? </div>-->
+                    <div class="col-md-6"> 
+                        <!--<div class="info-checkout"> <i class="fa fa-user"></i> register an account? </div>--> 
                     </div>
-                    <div class="col-md-6">
-                        <!--<div class="info-checkout"> <i class="fa fa-unlock"></i> lost your password </div>-->
+                    <div class="col-md-6"> 
+                        <!--<div class="info-checkout"> <i class="fa fa-unlock"></i> lost your password </div>--> 
                     </div>
                 </div>
             </div>
@@ -75,7 +75,6 @@
             <input type="hidden" name="restaurant_id" id="restaurant_id" value="{{$cart[0]->Cart[0]->restaurant_id}}" />
             <input type="hidden" name="order_type" id="order_type" value="Takeaway" />
             <input type="hidden" id="_order_place" value="0" />
-            
             <div class="col-md-6">
                 <div class="checkout-form">
                     <h2>billing details</h2>
@@ -98,8 +97,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="g">Area <span>*</span> </label>
-                                {{Form::Select('area_id', $areas, $cart[0]->Cart[0]->area_id, ['class' => 'search-res form-control', 'id' => 'area', 'required' => 'required'])}}
-                            </div>
+                                {{Form::Select('area_id', [], $cart[0]->Cart[0]->area_id, ['class' => 'search-res form-control', 'id' => 'area', 'required' => 'required'])}} </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
@@ -163,8 +161,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="4">Area <span>*</span> </label>
-                                 {{Form::Select('shipping_area_id', $areas, $cart[0]->Cart[0]->area_id, ['class' => 'search-res form-control', 'id' => 'shipping_area'])}}
-                            </div>
+                                {{Form::Select('shipping_area_id', $areas, $cart[0]->Cart[0]->area_id, ['class' => 'search-res form-control', 'id' => 'shipping_area'])}} </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
@@ -243,10 +240,7 @@
                     </table>
                     <a href="#" class="btn btn-submit update-cart">Update Cart</a>
                     <p class="tempo"></p>
-                    <div class="alert alert-danger" style="display:none"><strong>Alert!</strong> <span></span>
-                    <a href="#" class="resend-checkout-form btn btn-submit">Ok</a>
-                    </div>
-
+                    <div class="alert alert-danger" style="display:none"><strong>Alert!</strong> <span></span> <a href="#" class="resend-checkout-form btn btn-submit">Ok</a> </div>
                 </div>
             </div>
             <input type="hidden" name="net_amount" class="final-net-amount" value="{{$total}}" />
@@ -317,6 +311,109 @@
 <script>
 
 	$(document).ready(function() {
+		
+		/**
+		 *	Get Area according to City on page load
+		 **/
+		var city_id = $("#city").val();		
+		$.ajax({
+			type: 'POST',
+			url: "{{url('c/get_city_areas')}}",
+			data:{
+				'city_id': city_id,
+				'area_id': '{{$cart[0]->Cart[0]->area_id}}',
+				'_token': '{{csrf_token()}}'
+			},
+			success: function (response) {
+				$("#area").html(response);
+			},
+			error:function () {
+				alert("error");
+			}
+		});
+		
+		
+		/**
+		 * Get Shipping Area on page load.
+		 **/
+		var city_id = $("#shipping_city").val();
+		
+		$.ajax({
+			type: 'POST',
+			url: "{{url('c/get_city_areas')}}",
+			data:{
+				'city_id': city_id,
+				'area_id': '{{$cart[0]->Cart[0]->area_id}}',
+				'_token': '{{csrf_token()}}'
+			},
+			success: function (response) {
+				$("#shipping_area").html(response);
+			},
+			error:function () {
+				alert("error");
+			}
+		});
+		
+		
+		/**
+		*	Get billing area on city change 
+		*/
+		$("#city").change(function() 
+		{
+			var city_id = $(this).val();
+			
+			$.ajax({
+				type: 'POST',
+				url: "{{url('c/get_city_areas')}}",
+				data:{
+					'city_id': city_id,
+					'area_id': '{{$cart[0]->Cart[0]->area_id}}',
+					'_token': '{{csrf_token()}}'
+				},
+				success: function (response) {
+					$("#area").html(response);
+				},
+				error:function () {
+					alert("error");
+				}
+			});
+        });
+		
+		
+		/**
+		*	get shipping area on city change
+		*/
+		$("#shipping_city").change(function() 
+		{
+			var city_id = $(this).val();
+			
+			$.ajax({
+				type: 'POST',
+				url: "{{url('c/get_city_areas')}}",
+				data:{
+					'city_id': city_id,
+					'area_id': '{{$cart[0]->Cart[0]->area_id}}',
+					'_token': '{{csrf_token()}}'
+				},
+				success: function (response) {
+					$("#shipping_area").html(response);
+				},
+				error:function () {
+					alert("error");
+				}
+			});
+        });
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		/**
 		 * Remove Cart Item
@@ -436,7 +533,9 @@
 		
 		
 		
-		
+		/**
+		 *	Update Cart
+		 **/
 		$(".update-cart").click(function() {
 			var type = "";
 			var id = "";
@@ -447,8 +546,6 @@
 				type = type + $(this).attr("data-type") + ",";
 				quantity = quantity + $(this).parent().find(".quantity-value").val() + ",";
             });
-			
-			
 			
 			$.ajax({
 				type: 'POST',
@@ -462,7 +559,6 @@
 					if( response == "Success" )
 					{
 						window.location.reload();
-							
 					} else {
 						//alert( response );
 						$(".tempo").html(response);
@@ -475,6 +571,7 @@
 			
 			return false;
         });
+		
 		
 		
 		
@@ -507,6 +604,7 @@
 		
 		$("#checkout_proceed").submit(function() {
 			var stat = false;
+			var do_order = 0;
 			area_id = $("#area").val();
 			
 			if( $("#is_shipping_different").is(":checked") )
@@ -534,20 +632,24 @@
 						$(".alert-danger").slideDown(500);
 						$("#order_type").val("Takeaway");
 						$("#_order_place").val(0);
-						
+						do_order = 0;
 					} else {
 						$("#order_type").val("Delivery");
 						$("#_order_place").val(1);
+						do_order = 1;
 					}
 				},
 				error:function() {
 					
 				}
 			});
+
 			
-			//alert( $("#_order_place").val() );
-			if( $("#_order_place").val() == 0 )
+			
+			if( do_order == 1 ) {
 				return false;
+			}
+				
             
         });
 		

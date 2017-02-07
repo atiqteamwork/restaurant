@@ -1,5 +1,5 @@
 if ($(document).ready(function() {
-        $(".search-res").select2({
+        /*$(".search-res").select2({
             placeholder: "Select/Type City...",
             allowClear: !0,
             maximumSelectionSize: 1,
@@ -17,7 +17,7 @@ if ($(document).ready(function() {
             allowClear: !0,
             maximumSelectionSize: 1,
 			
-        })
+        })*/
     }), function(e) {
         /*jQuery.scrollSpeed = function(i, n, o) {
             var t, a, l, r = e(document),

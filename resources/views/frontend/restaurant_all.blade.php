@@ -74,7 +74,7 @@
                     <div class="res-logo"> <img src="{{getenv('APP_URL')}}assets/images/restaurants/{{$restaurant->banner}}" alt="restaurent img">
                         <div class="overflow-outer">
                             <div class="overflow-inner">
-                                <div class="deliver-mint"><a href="#">delivers in minutes</a></div>
+                                <div class="deliver-mint"><a href="#">delivers in 30 minutes</a></div>
                                 <div class="tak-div"> <a href="javascript:;" class="tak-order"><i class="fa fa-check-circle"></i> Takeaway order</a> <br>
                                     <a href="javascript:;" class="del-order"><i class="fa {{$restaurant-> 	is_takeaway_only ? 'fa-check-circle' : 'fa-times-circle'}} "></i> deliver order</a> </div>
                                 <div class="next-btn"><a class="open_page" href="search/{{$restaurant->id}}/{{urlencode($restaurant->title). "+".urlencode($order_type)}}/{{$area_id}}"><i class="fa fa-angle-right"></i></a></div>

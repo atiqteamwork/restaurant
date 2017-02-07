@@ -12,20 +12,17 @@
         </div>
     </div>
     
-
     <!--heading-res-nam-->
     <div class="heading-line">
         <div class="container">
             <div class="row">
-                <div class="col-md-12">
-                @if( count( $area ) > 0 )
-	                @if( in_array( $area[0]->id, explode(",",$restaurants[0]->area_ids ) ) )
+                <div class="col-md-12"> @if( count( $area ) > 0 )
+                    @if( in_array( $area[0]->id, explode(",",$restaurants[0]->area_ids ) ) )
                     <h2>{{$restaurants[0]->title}} - {{$restaurants[0]->City->city_name}} can <span>deliver</span> to you at <span>{{$area[0]->area_name}}</span></h2>
                     @else
                     <h2>{{$restaurants[0]->title}} - {{$restaurants[0]->City->city_name}} cannot <span>deliver</span> to you at <span>{{$area[0]->area_name}}</span></h2>
                     @endif 
-               @endif     
-               </div>
+                    @endif </div>
             </div>
         </div>
     </div>
@@ -50,11 +47,8 @@
             </div>
             <!--detail sidebar end-->
             <div class="col-md-6">
-                <div class="main-detail"> 
-                
-                
-                @foreach($restaurants[0]->Deals as $deal )
-                <div class="detail_box">
+                <div class="main-detail"> @foreach($restaurants[0]->Deals as $deal )
+                    <div class="detail_box">
                         <div class="row">
                             <div class="col-md-8 col-sm-8">
                                 <h4>{{$deal->deal_title}}</h4>
@@ -64,18 +58,16 @@
                                 </div>
                             </div>
                             <div class="col-md-4 col-sm-4">
-                                <div class="cart-btn-box">
-                                    <a href="#" class="btn btn_cart" data-order="{{$order_type}}" data-type="deal" data-id="{{$deal->id}}">Rs. <span class="cart-price">{{$deal->price}}</span> <i class="fa fa-shopping-cart"></i></a>
-                                </div>
+                                <div class="cart-btn-box"> <a href="#" class="btn btn_cart" data-order="{{$order_type}}" data-type="deal" data-id="{{$deal->id}}">Rs. <span class="cart-price">{{$deal->price}}</span> <i class="fa fa-shopping-cart"></i></a> </div>
                             </div>
                         </div>
                     </div>
-                @endforeach
-                
-                
-                
-                
-                @if( !empty( $dish_ids ) ) 
+                    @endforeach
+                    
+                    
+                    
+                    
+                    @if( !empty( $dish_ids ) ) 
                     @foreach( $categories as $category )
                     @if( in_array( $category->id, $dish_ids) )
                     <section id="bahadur"> 
@@ -86,13 +78,11 @@
                         <!--end banner--> 
                         <!--detail_box-->
                         <div class="detail_box">
-                            <div class="row"> 
-                            @foreach($restaurants[0]->Dishes as $dish )
+                            <div class="row"> @foreach($restaurants[0]->Dishes as $dish )
                                 @if( $dish->category_id == $category->id )
                                 <div class="col-md-4 col-sm-6 col-xs-12">
                                     <div class="recipe_box"> <img src="{{url('/')}}/assets/images/dishes/{{$dish->picture}}" alt="recipe" class="img-responsive">
                                         <p>{{$dish->dish_title}}</p>
-                                        
                                         <a href="#" class="btn btn_cart" data-order="{{$order_type}}" data-type="dish" data-id="{{$dish->id}}">Rs. <span class="cart-price">{{$dish->price}}</span> <i class="fa fa-shopping-cart"></i></a> </div>
                                 </div>
                                 @endif
@@ -109,34 +99,29 @@
             <div class="col-md-3">
                 <div class="cart-sidebar">
                     <div class="cart-sticker">
-                        <h4>Estimated delivery time<span class="pull-right">45min</span></h4>
+                        <h4>Estimated delivery time<span class="pull-right">30 min</span></h4>
                     </div>
                     <div class="cart-sticker">
                         <h3>Your Order</h3>
-                        
                         <?php $total = 0 ?>
                         @foreach( $cart as $c )
-                        	<?php $total = ($c->price * $c->quantity) + $total ?>
-	                        <div class="cart_detail">
+                        <?php $total = ($c->price * $c->quantity) + $total ?>
+                        <div class="cart_detail">
                             <div class="overlay-shadow">
                                 <div class="overlay-inner">
                                     <div class="close_btn">
-                                    <input type="hidden" class="subtotal" data-quantity="{{$c->quantity}}" data-price="{{$c->price}}" value="<?php echo ($c->price * $c->quantity)?>" />
-                                    <a href="#" class="remove-cart-item" data-manual="{{$c->id}}" data-id="{{$c->item_type}}"><i class="fa fa-times-circle"></i></a> </div>
+                                        <input type="hidden" class="subtotal" data-quantity="{{$c->quantity}}" data-price="{{$c->price}}" value="<?php echo ($c->price * $c->quantity)?>" />
+                                        <a href="#" class="remove-cart-item" data-manual="{{$c->id}}" data-id="{{$c->item_type}}"><i class="fa fa-times-circle"></i></a> </div>
                                 </div>
                             </div>
                             <div class="plus"><a href="#" data-id="{{$c->id}}" class="change-quantity" data-type="plus"><span>+</span></a></div>
                             <div class="minus"><a href="#" data-id="{{$c->id}}" class="change-quantity" data-type="minus"><span>-</span></a> </div>
                             <div>
-                                <p> <span class="quantity-value">{{$c->quantity}} <small>x</small></span> 
-                                	{{( $c->item_type == "deal" ) ? $c->Deals[0]->deal_title : $c->Dishes[0]->dish_title}} <br>
+                                <p> <span class="quantity-value">{{$c->quantity}} <small>x</small></span> {{( $c->item_type == "deal" ) ? $c->Deals[0]->deal_title : $c->Dishes[0]->dish_title}} <br>
                                     {{( $c->item_type == "deal" ) ? "Deal" : "Dish" }}</p>
                             </div>
                         </div>
-                        
                         @endforeach
-                        
-                        
                         <h6> <span class="pull-left">subtotal</span> <span class="pull-right view-subtotal"> {{$total}} </span> </h6>
                         <h5><span class="pull-left">Delivery fee</span> <span class="pull-right">Free</span></h5>
                         <h2><span class="pull-left">Total</span> <span class="pull-right"><span>RS. </span><span class="view-total">{{$total}}</span></h2>
@@ -149,8 +134,52 @@
 </div>
 @stop
 
-@section('script')
+@section('script') 
 <script>
+
+
+
+/**
+ * Remove Cart Item
+ **/
+//$(".remove-cart-item").click(function() {
+$(document).on("click", ".remove-cart-item").click(function() {
+	var obj  = $(this);
+	var id   = $(obj).attr("data-manual");
+	var type = $(obj).attr("data-id");
+	
+	$.ajax({
+		type: 'POST',
+		url: "{{url('cart/item/delete')}}",
+		data:{
+			'id': id,
+			'type': type,
+			'_token': '{{csrf_token()}}'
+		},
+		success: function (response) {
+			if( response == "Success" )
+			{
+				var this_total = $(obj).prev().val();
+				var sub_total  = $(".view-subtotal").text() - this_total;
+				
+				$(".view-subtotal").text( sub_total );
+				$(".view-total").text( sub_total );
+				$(obj).parent().parent().parent().parent().fadeOut(200);
+					
+			} else {
+				alert( response );
+			}
+		},
+		error:function () {
+			
+		}
+	});
+	
+	return false;
+});
+
+
+
 
 	$(document).ready(function() {
         $(".btn_cart").click(function() {
@@ -179,6 +208,7 @@
 				success: function (response) {
 					$(response).insertBefore(".cart-sidebar .cart-sticker h6");
 					$(".view-subtotal").text( parseInt(current_subtotal) + parseInt( price ) );
+					$(".view-total").text( parseInt(current_total) + parseInt( price ) );
 					
 				},
 				error:function () {
@@ -189,45 +219,42 @@
 			return false;
 		});
 		
-		
-		
-		/**
-		 * Remove Cart Item
-		 **/
-		$(".remove-cart-item").click(function() {
-			var obj  = $(this);
-			var id   = $(obj).attr("data-manual");
-			var type = $(obj).attr("data-id");
-			
-			$.ajax({
-				type: 'POST',
-				url: "{{url('cart/item/delete')}}",
-				data:{
-					'id': id,
-					'type': type,
-					'_token': '{{csrf_token()}}'
-				},
-				success: function (response) {
-					if( response == "Success" )
-					{
-						var this_total = $(obj).prev().val();
-						var sub_total  = $(".view-subtotal").text() - this_total;
-						
-						$(".view-subtotal").text( sub_total );
-						$(".view-total").text( sub_total );
-						$(obj).parent().parent().parent().parent().fadeOut(200);
+			$(".remove-cart-item").click(function() {
+				var obj  = $(this);
+				var id   = $(obj).attr("data-manual");
+				var type = $(obj).attr("data-id");
+				
+				$.ajax({
+					type: 'POST',
+					url: "{{url('cart/item/delete')}}",
+					data:{
+						'id': id,
+						'type': type,
+						'_token': '{{csrf_token()}}'
+					},
+					success: function (response) {
+						if( response == "Success" )
+						{
+							var this_total = $(obj).prev().val();
+							var sub_total  = $(".view-subtotal").text() - this_total;
 							
-					} else {
-						alert( response );
+							$(".view-subtotal").text( sub_total );
+							$(".view-total").text( sub_total );
+							$(obj).parent().parent().parent().parent().fadeOut(200);
+								
+						} else {
+							alert( response );
+						}
+					},
+					error:function () {
+						
 					}
-				},
-				error:function () {
-					
-				}
+				});
+				
+				return false;
 			});
-			
-			return false;
-        });
+		
+		
     });
 	
 	
@@ -293,6 +320,5 @@
 	});
 	
 	
-</script>
-
+</script> 
 @stop

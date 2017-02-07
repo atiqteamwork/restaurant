@@ -65,17 +65,19 @@
 </footer>
 <!--javascript files-->
 <script src="assets_front/js/jquery.min.js"></script>
-<!--bootstrap-->
-<script src="assets_front/js/bootstrap.min.js"></script>
 <!--select 2-->
 <script src="node_modules/select2/dist/js/select2.js"></script>
+<!--bootstrap-->
+<script src="assets_front/js/bootstrap.min.js"></script>
 <!--javascript files-->
 <script src="assets_front/js/jquery.min.js"></script>
 <script src="node_modules/parallax/parallax.min.js"></script>
 <script src="node_modules/slick-slider/slick.min.js"></script>
 
+
 <!--app.js-->
 <script src="assets_front/dist/app.js"></script>
+
 
 
 

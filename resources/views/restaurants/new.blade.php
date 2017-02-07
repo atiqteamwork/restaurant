@@ -12,6 +12,20 @@
         <div class="panel panel-default">
             <div class="panel-heading">New Restaurant</div>
             <div class="panel-body">
+            
+            	 @if (session('status'))
+                <div class="alert alert-success">
+                    {{ session('status') }}
+                </div>
+            @endif
+            
+            
+             @if (session('error'))
+                <div class="alert alert-danger">
+                    {{ session('error') }}
+                </div>
+            @endif
+            
                 <div class="alert alert-danger" id="alertdanger" style="display:none"><strong>Alert!</strong> <span></span></div>
                 <div class="alert alert-success" style="display:none"><strong>Success!</strong> <span></span></div>
                 {{ Form::open( ['url' => 'admin/restaurant/add_new', 'files'=> true, 'id'=>'new_restaurant'] ) }}

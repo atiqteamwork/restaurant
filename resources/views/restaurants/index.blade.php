@@ -13,9 +13,9 @@
             <div class="panel-heading">Menu Restaurants</div>
             
             
-             @if (session('status'))
+             @if (session('success'))
                 <div class="alert alert-success">
-                    {{ session('status') }}
+                    {{ session('success') }}
                 </div>
             @endif
             
