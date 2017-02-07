@@ -6,7 +6,7 @@ use Auth;
 use App\Restaurant;
 use App\Deal;
 use App\MenuCategory;
-
+use App\RestaurantMenu;
 use Validator;
 
 use Illuminate\Http\Request;
@@ -109,7 +109,7 @@ class DealsController extends Controller
                         <a style='display:none !important;' href='#' class='btn btn-success btn-sm view_deal_button' data-id='".$deal->id."'>
                             <i class='fa fa-info' aria-hidden='true'></i>
                         </a>
-                        <a class='btn btn-primary btn-sm edit_deal_btn' data-id ='".$deal->id."'><i class='fa fa-edit' aria-hidden='true'></i></a>
+                        <a class='btn btn-primary btn-sm edit_deal_btn' data-rest='".$deal->restaurant_id."' data-id ='".$deal->id."'><i class='fa fa-edit' aria-hidden='true'></i></a>
                         <a href='#' class='btn btn-danger del_btn' data-id='".$deal->id."'><i class='fa fa-trash'></i></a>
                 </td></tr>";
             }
@@ -169,7 +169,7 @@ class DealsController extends Controller
 
         $deals_data 		= $deals->fetch_deal_byid( $request );	//	Fetch Deals
         $restaurant_data 	= Restaurant::all("id", "title");		//	Fetch Restaurants for Select box
-        $category_data 		= MenuCategory::all("id", "category_title");	//Fetch Categories for Select box
+        $category_data 		= RestaurantMenu::where("restaurant_id", $request->rest_id)->get();
 
         $restaurant_options = "";
         $category_options 	= "";
@@ -181,9 +181,8 @@ class DealsController extends Controller
                 $restaurant_options .= "<option value='".$restaruant->id."' ".($restaruant->id==$deals_data[0]->restaurant_id?'selected':'').">".$restaruant->title."</option>";
             }
 
-
-            foreach( $category_data as $category) {
-                $category_options .= "<option value='".$category->id."' ".($category->id==$deals_data[0]->category_id?'selected':'').">".$category->category_title."</option>";
+            foreach ($category_data as $item){
+                $category_options .= '<option value="'.$item->MenuCategory->id.'">'.$item->MenuCategory->category_title.'</option>';
             }
 
             // Prepare Html to send back for Edit Model
@@ -211,7 +210,7 @@ class DealsController extends Controller
           $returndata .= '	
 		  <div class="form-group">
             <label>Category</label>
-            <select name="category_id" class="form-control menu_list" id="category_id"></select>
+            <select name="category_id" class="form-control menu_list" id="category_id">"'.$category_options.'"</select>
           </div>
 		  	  
 		  	  

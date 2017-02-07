@@ -356,8 +356,7 @@ class DishesController extends Controller
     /**
     * Delete Dish
     */	
-    public function delete_dish(Request $request)
-    {
+    public function delete_dish(Request $request){
         $dish_result = Dish::destroy( $request->id );
         
         if( $dish_result == 1 ) {
@@ -368,15 +367,12 @@ class DishesController extends Controller
     }
 
     public function get_restaurant_menus(Request $request){
-     $menu_list = RestaurantMenu::where('restaurant_id', 1)->get();
+     $menu_list = RestaurantMenu::where('restaurant_id', $request->id)->get();
         $options ="";
-
         foreach ($menu_list as $item){
             $options .= '<option value="'.$item->MenuCategory->id.'">'.$item->MenuCategory->category_title.'</option>';
         }
-
         return $options;
-
     }
 
     

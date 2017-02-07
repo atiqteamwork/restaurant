@@ -287,7 +287,8 @@
 			$( '#DealListTable' ).on( 'click', '.edit_deal_btn', function () {
 				var dataString = {
 						'id': $(this).attr("data-id"),
-						'_token': $('input[name="_token"]').val()
+						'_token': $('input[name="_token"]').val(),
+                        'rest_id': $(this).attr("data-rest")
 					};
 				
                 $.ajax({
