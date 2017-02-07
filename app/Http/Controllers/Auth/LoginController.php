@@ -86,5 +86,16 @@ class LoginController extends Controller
             'password' => $request->get('password'),
         ];
     }
+	
+	
+	
+	protected function authenticated( $user )
+    {
+       if( Auth::user()->role_id <= 2 )
+	   		return redirect( url('/admin') );
+			
+		return redirect( url('/') );
+    }
+
 
 }

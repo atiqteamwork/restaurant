@@ -82,9 +82,11 @@ class OrdersController extends Controller
     public function fetch_order_by_restaurant(Request $request)
     {
         $orders = new Order();
-        $orders_data = $orders->fetch_orders_by_restaurants($request);
+        //$orders_data = $orders->fetch_orders_by_restaurants($request);
         
-        //dd($orders_data);
+		$orders_data = Order::where('restaurant_id', $request->id)->with("User")->get();
+		
+       // dd($orders_data);
         
         $return = '';
         
@@ -98,19 +100,18 @@ class OrdersController extends Controller
                     $label = "label-primary";
                 }
                 
-                                    
                 $return .= "<tr id='".$order->id."'>
                 <td>".$order->id."</td>
-                <td>".$order->user_full_name."</td>
+                <td>".$order->User->full_name."</td>
                 
-                <td>".$order->restaurant_title."</td>
+                <td>".$order->Restaurant->title."</td>
                 <td align='right'><strong>Net Amount: </strong> PKR ".$order->net_amount."<br><strong>G.S.T: </strong>PKR ".$order->gst."<br><strong>Total Amount: </strong> PKR ".$order->total_amount."</td>
                 <td><span class='label ".$label."'>".$order->status."</span></td>
                 <td>
                     <input type='hidden' name='_token' value='".csrf_token()."'>
                         <a href='#' class='btn btn-success btn-sm view_order_button' data-id='".$order->id."'><i class='fa fa-info' aria-hidden='true'></i></a>
                         <a class='btn btn-primary btn-sm edit_order_btn' data-id ='".$order->id."'><i class='fa fa-edit' aria-hidden='true'></i></a>
-                        <a href='#' class='btn btn-danger del_btn' data-id='".$order->id."'><i class='fa fa-trash'></i></a></td></tr>";
+                        <a href='#' class='btn btn-danger btn-sm del_btn' data-id='".$order->id."'><i class='fa fa-trash'></i></a></td></tr>";
             }
         }
         
@@ -144,13 +145,13 @@ class OrdersController extends Controller
                 <td>".$order->id."</td>
                 <td>".$order->user_full_name."</td>				
                 <td>".$order->restaurant_title."</td>
-                <td align='right'><strong>Net Amount: </strong> PKR ".$order->net_amount."<br><strong>G.S.T: </strong>".$order->gst."%<br><strong>Total Amount: </strong> PKR ".$order->total_amount."</td>
+                <td align='right'><strong>Net Amount: </strong> PKR ".$order->net_amount."<br><strong>G.S.T: </strong> PKR ".$order->gst."<br><strong>Total Amount: </strong> PKR ".$order->total_amount."</td>
                 <td><span class='label ".$label."'>".$order->status."</span></td>
                 <td>
                     <input type='hidden' name='_token' value='".csrf_token()."'>
                         <a href='#' class='btn btn-success btn-sm view_order_button' data-id='".$order->id."'><i class='fa fa-info' aria-hidden='true'></i></a>
                         <a class='btn btn-primary btn-sm edit_order_btn' data-id ='".$order->id."'><i class='fa fa-edit' aria-hidden='true'></i></a>
-                        <a href='#' class='btn btn-danger del_btn' data-id='".$order->id."'><i class='fa fa-trash'></i></a>
+                        <a href='#' class='btn btn-danger btn-sm del_btn' data-id='".$order->id."'><i class='fa fa-trash'></i></a>
                 </td></tr>";
             }
         } else {

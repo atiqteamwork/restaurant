@@ -29,18 +29,20 @@ class PagesController extends Controller
      */
     public function home(Request $request)
     {
-
         //echo URL::previous()."<br>".url('/login');
+		
         //exit;
 
         if( Auth::check() && URL::previous() != url('/login'))
         {
-            //if( Auth::user()->role_id > 2 )
-                return redirect(URL::previous());
+			if (strpos(URL::previous(), '_debugbar') !== false) {
+				return view('pages.home');
+			}
+			
+			return redirect(URL::previous());
         } 
         
         return view('pages.home');	
-        
         
     }
 

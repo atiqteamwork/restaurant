@@ -8,6 +8,7 @@ use App\Deal;
 use App\User;
 use App\Area;
 use App\Restaurant;
+use App\City;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -17,7 +18,7 @@ use Yajra\Datatables\Facades\Datatables;
 class CommonController extends Controller
 {
     /*
-    *
+    *	Parent Constructer
     */
     public function __construct()
     {
@@ -31,16 +32,12 @@ class CommonController extends Controller
     function get_dishes_by_restaurant(Request $request)
     {
         $dishes = Dish::all()->where('restaurant_id', $request->id);
-        $dishes_data = ""; //[""=> "Select Dish"];
+        $dishes_data = "";
 
-        foreach( $dishes as $dish ) {
-            $dishes_data .= "<option value='".$dish->id."'>".$dish->dish_title."</option>";
-        }
+        foreach( $dishes as $dish ) {$dishes_data .= "<option value='".$dish->id."'>".$dish->dish_title."</option>";}
         
         return $dishes_data;
     }
-    
-    
     
     
     /*
@@ -65,13 +62,11 @@ class CommonController extends Controller
         $arr_dishes = explode(",", $request->dishes);
         
         foreach( $dishes as $dish ) {
-            //$dishes_data[$dish->id] = $dish->dish_title;
-            $dishes_data .= "<option value='".$dish->id."' ".(in_array($dish->id, $arr_dishes)?"selected":"").">".$dish->dish_title."</option>";
+			$dishes_data .= "<option value='".$dish->id."' ".(in_array($dish->id, $arr_dishes)?"selected":"").">".$dish->dish_title."</option>";
         }
         
         return $dishes_data;
     }
-    
     
     
     
@@ -167,7 +162,7 @@ class CommonController extends Controller
     
     /**
     *
-    *	Get Areas of Restaurants
+    *	Get All Areas of Restaurants
     */
     public function get_restaurants_areas(Request $request)
     {
@@ -231,7 +226,6 @@ class CommonController extends Controller
                                 ->get();
         }
         
-        
         return view("frontend.restaurants")->with([
                 "restaurants" 	=> $restaurants,
                 'area_id'		=> $request->area,
@@ -239,5 +233,110 @@ class CommonController extends Controller
             ]);
         
     }
-    
+	
+	
+	/**
+	 *
+	 **/
+	public function is_restaurant_area(Request $request)
+	{
+		$restaurants = Restaurant::whereRaw("FIND_IN_SET(".$request->restaurant_id.", area_ids)")
+						->where("id", $request->restaurant_id)
+						->get();
+		
+		
+		if( count( $restaurants ) > 0 ){
+			return $restaurants[0]->title;
+		} else {
+			return "No";	
+		}
+		
+		
+	}
+	
+	
+	
+	/**
+	 * List Top Restaurants
+	 **/
+
+	public function top_restaurants(Request $request)
+	{
+		$restaurants = ""; //Restaurant::limit(0)->get();
+		
+		$cities = City::all();
+        $cities_data = [];
+        
+        foreach( $cities as $city ) {
+            $cities_data[$city->id] = $city->city_name;
+        }
+		
+		return view("frontend.restaurant_all")->with([
+				"restaurants" => $restaurants,
+				"cities"	=> $cities_data
+			]);
+	}
+	
+	
+	/**
+	 *	Get Restaurants by City
+	 *
+	 *	Return: HTML for All Restaurants Page
+	 **/
+	 public function get_restaurants_bycity(Request $request)
+	 {
+		$restaurants_object = Restaurant::query();
+		
+		if( isset( $request->city_id ) && $request->city_id > 0) {
+			$restaurants_object = $restaurants_object->where("city_id", $request->city_id);	
+		}
+		
+		if( isset( $request->area_id ) && $request->area_id > 0 ) {
+			$restaurants_object = $restaurants_object->whereRaw("FIND_IN_SET(".$request->area_id.",area_ids)");
+			
+			$area_id = $request->area_id;
+		} else {
+			$area_id = 0;	
+		}
+		
+		
+		if( isset( $request->type_id ) && $request->type_id != "true" ) {
+			$restaurants_object = $restaurants_object->where("is_takeaway_only", $request->type_id);
+			$order_type  = 'Delivery';
+		} else {
+			$order_type  = 'Takeaway';
+		}
+		
+		$restaurants = $restaurants_object->get();
+		
+		foreach( $restaurants as $restaurant) {
+			echo '<div class="col-md-4 col-sm-6 col-xs-12">
+                <div class="restaurent-list-box box_border">
+                    <div class="res-logo"> <img src="'.getenv('APP_URL').'assets/images/restaurants/'.$restaurant->banner.'" alt="restaurent img">
+                        <div class="overflow-outer">
+                            <div class="overflow-inner">
+                                <div class="deliver-mint"><a href="#">delivers in minutes</a></div>
+                                <div class="tak-div"> <a href="javascript:;" class="tak-order"><i class="fa fa-check-circle"></i> Takeaway order</a> <br>
+                                    <a href="javascript:;" class="del-order"><i class="fa '. ($restaurant->is_takeaway_only == 'false' ? 'fa-check-circle' : 'fa-times-circle').'"></i> deliver order</a> </div>
+                                <div class="next-btn"><a class="open_page" href="search/'.$restaurant->id.'/'.urlencode($restaurant->title). "+".urlencode($order_type).'/'.$area_id.'"><i class="fa fa-angle-right"></i></a></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="detail">
+                        <div class="pull-left detail-res">
+                            <h4><a class="open_page" href="search/'.$restaurant->id.'/'.urlencode($restaurant->title). "+".urlencode($order_type).'/'.$area_id.'">'.$restaurant->title.'</a></h4>
+                            <p>fried chicken,fast food</p>
+                        </div>
+                        <div class="pull-right"> 
+                            <!--Rating section will be here--> 
+                            <a href="search/'.$restaurant->id.'/'.urlencode($restaurant->title). "+".urlencode($order_type).'/'.$area_id.'" class="btn btn-sm btn-success open_page">Select</a> </div>
+                    </div>
+                </div>
+            </div>';
+		}
+		 
+	 }
+	
+	
+	
 }

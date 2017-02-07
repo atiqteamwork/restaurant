@@ -17,7 +17,7 @@ class Dish extends Model
 	
 	/**
 	 *
-	 **/
+	 **
 	public function restaurant()
     {
         return $this->belongsTo('App\Restaurant', 'restaurant_id');

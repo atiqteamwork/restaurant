@@ -36,15 +36,10 @@
                         <td>{{$user->phone}}</td>
                         <td>{{$user->cell}}</td>
                         <td><span class="label label-success"> {{$user->display_name}}</span></td>
-                        <td>@if($user->status=='Active') 
-                        		<span class="label label-primary">{{$user->status}}</span> 
-                            @else 
-                            	<span class="label label-danger"> {{$user->status}}</span> 
-                            @endif 
-                        </td>
+                        <td>@if($user->status=='Active') <span class="label label-primary">{{$user->status}}</span> @else <span class="label label-danger"> {{$user->status}}</span> @endif </td>
                         <td><input type="hidden" name="_token" value="{{ csrf_token() }}">
-                            <button class="btn btn-primary btn-sm edit_user_btn" type="submit" name="id" value="{{$user->u_id}}"><i class="fa fa-edit " aria-hidden="true"></i></button>
-                            @if( $user->role_id > Auth::user()->role_id) <a href="#" class="btn btn-danger del_user_btn" data-id="{{$user->u_id}}"><i class="fa fa-trash"></i></a> @endif </td>
+                            <button class="btn btn-primary btn-sm edit_user_btn" type="submit" name="id" value="{{$user->u_id}}"><i class="fa fa-edit" aria-hidden="true"></i></button>
+                            @if( $user->role_id > Auth::user()->role_id) <a href="#" class="btn btn-danger btn-sm del_user_btn" data-id="{{$user->u_id}}"><i class="fa fa-trash"></i></a> @endif </td>
                     </tr>
                     @endforeach
                         </tbody>
@@ -83,7 +78,7 @@
                     <div class="form-group"> {{Form::label('cell', 'Cell')}}
                         {{Form::Text('cell','', ['class' => 'form-control', 'placeholder'=>'Enter Cell'])}} </div>
                     <div class="form-group"> {{Form::label('role_id', 'Role')}}
-                    	<?php
+                        <?php
 							$roles = [["id"=> "1","title"=> "Adminsitrator"], ["id"=> "2", "title" => "Restaurant"],["id" => "3","title" => "Visitor"],];
 							$role_options = [];
 
@@ -92,7 +87,6 @@
 								$role_options[ $role["id"] ] = $role["title"];
 							};
 						?>
-                        
                         {{Form::select('role_id', $role_options,null ,['class' => 'form-control'])}} </div>
                     <div class="form-group restaurant-box" style="display:none;"> {{Form::label('restaurant_id', 'Restaurant')}}
                         {{Form::select('restaurant_id', $restaurants, null ,['class' => 'form-control'])}} </div>
@@ -152,8 +146,10 @@
 @stop
 
 
-@section('script')
-    <script>
+@section('script') 
+<!--jquery-->
+<script src="assets/plugins/jquery/jquery-2.2.4.min.js"></script>
+<script>
         $(document).ready(function () {
             $('#userlistdatatable').DataTable({
                 "paging": true,

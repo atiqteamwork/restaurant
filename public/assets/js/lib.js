@@ -8,7 +8,7 @@ document.writeln("<script src='assets/plugins/bootstrap/js/bootstrap.min.js'></s
 
 document.writeln("<script src='assets/plugins/bootstrap-switch-master/dist/js/bootstrap-switch.min.js'></script>");
 
-document.writeln("<script src='assets/plugins/angularjs/angular.js'></script>");
+ document.writeln("<script src='assets/plugins/angularjs/angular.js'></script>");
 
 document.writeln("<script src='assets/plugins/angularjs/angular-route.min.js'></script>");
 
@@ -16,9 +16,9 @@ document.writeln("<script src='assets/plugins/angularjs/ng-map.min.js'></script>
 
 document.writeln("<script src='assets/plugins/angularjs/angular-animate.min.js'></script>");
 
-document.writeln("<script src='../node_modules/amcharts/dist/amcharts.js'></script>");
+document.writeln("<script src='assets/node_modules/amcharts/dist/amcharts.js' async></script>");
 
-document.writeln("<script src='../node_modules/amcharts/dist/serial.js'></script>");
+document.writeln("<script src='assets/node_modules/amcharts/dist/serial.js'></script>");
 
 document.writeln("<script src='assets/plugins/jqwidgets/scripts/jqxcore.js'></script>");
 
@@ -62,7 +62,7 @@ document.writeln("<script src='assets/plugins/calendario/js/data.js'></script>")
 
 document.writeln("<script src='https://maps.googleapis.com/maps/api/js?key=AIzaSyAAZnaZBXLqNBRXjd-82km_NO7GUItyKek'></script>");
 
-document.writeln("<script src='../node_modules/lightbox2/dist/js/lightbox.min.js'></script>");
+document.writeln("<script src='assets/node_modules/lightbox2/dist/js/lightbox.min.js'></script>");
 
 document.writeln("<script src='assets/plugins/select2/dist/js/select2.js'></script>");
 
@@ -72,9 +72,9 @@ document.writeln("<script src='assets/plugins/formvalidation/dist/js/framework/b
 
 document.writeln("<script src='assets/plugins/drop-upload/dropupload.js'></script>");
 
-document.writeln("<script src='../node_modules/angular-chart.js/dist/Chart.min.js'></script>");
+document.writeln("<script src='assets/node_modules/angular-chart.js/dist/Chart.min.js'></script>");
 
-document.writeln("<script src='../node_modules/angular-chart.js/dist/angular-chart.js'></script>");
+document.writeln("<script src='assets/node_modules/angular-chart.js/dist/angular-chart.js'></script>");
 
 document.writeln("<script src='assets/plugins/angularjs/ng-google-chart.js'></script>");
 
@@ -84,8 +84,9 @@ document.writeln("<script src='assets/plugins/angular-mappy/build/angular-mappy.
 
 document.writeln("<script src='assets/plugins/angular-mappy/_mapdata.js'></script>");
 
-document.writeln("<script src='../node_modules/angular-loading-bar/build/loading-bar.js'></script>");
+document.writeln("<script src='assets/node_modules/angular-loading-bar/build/loading-bar.js'></script>");
 
-document.writeln("<script src='../angularScript.js'></script>");
+document.writeln("<script src='assets/js/angularScript.js'></script>");
 
-document.writeln("<script src='../custom.js'></script>");
+document.writeln("<script src='assets/js/custom.js'></script>");
+

@@ -22,15 +22,15 @@ class Restaurant extends Model
 	function get_restaurent_names()
 	{
 		$restaurantList = DB::table('restaurants')
-        ->select( ["id", "title", "address"] )
-        ->get();
+        		->select( ["id", "title", "address"] )
+	        ->get();
    
         return $restaurantList;
 	}
 	
 	
 	/**
-	 *
+	 *	Relation with Dishes Table
 	 **/
 	public function dishes()
     {
@@ -38,7 +38,7 @@ class Restaurant extends Model
     }
 	
 	/**
-	 *
+	 *	Relation with Deals Table
 	 **/
 	public function deals()
     {
@@ -46,7 +46,7 @@ class Restaurant extends Model
     }
 	
 	/**
-	 *
+	 *	Relation with City table
 	 **/
 	public function city()
     {
@@ -54,10 +54,20 @@ class Restaurant extends Model
     }
 	
 	/**
-	 *
+	 *	Relation with Menus/Category Relation
 	 **/
 	public function menus()
     {
         return $this->hasManyThrough('App\MenuCategory', 'App\RestaurantMenu', "restaurant_id", "id");
     }
+	
+	
+	/**
+	*	Relation with Orders Table
+	*/
+	
+	public function orders()
+	{
+		return $this->hasMany('App\Order', "restaurant_id", "id");
+	}
 }

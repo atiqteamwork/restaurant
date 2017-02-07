@@ -49,7 +49,7 @@ class FrontendController extends Controller
      * Search Dish Page
      **/
     public function search_dishes_page($id, $title, $area_id, Request $request)
-    {	
+    {			
         $session_key = app('App\Http\Controllers\SessionController')->get_session( $request );
         $session_key = app('App\Http\Controllers\SessionController')->get_session( $request );
         
@@ -59,9 +59,11 @@ class FrontendController extends Controller
         $restaurants = Restaurant::where("id", $id)->get();
         $categories  = MenuCategory::get();
         $cart		 = CartDetails::whereHas("Cart", function($query) use ($session_key) {
-                            $query->where("session_key", $session_key);
-                        })->get();
-        
+                            $query->where("session_key", $session_key)
+							->where('status', 'Active');
+                        })
+						->get();
+		
         if( !empty( $cart ) && count( $cart ) > 0 )
         {
             if( $cart[0]->Cart[0]->restaurant_id != $id ) {
@@ -75,9 +77,11 @@ class FrontendController extends Controller
                         })->get();
             }
         }
+		
+		
         
         $area = Area::where("id", $area_id)->get();
-        
+		
         $dishes_ids = [];
         $deals_ids  = [];
         
