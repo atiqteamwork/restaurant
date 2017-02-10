@@ -191,6 +191,7 @@ Route::resource('chat', 'ChatController');
 
 Route::post('checkout/login', '\App\Http\Controllers\Auth\LoginController@login');
 Route::post('/login', '\App\Http\Controllers\Auth\LoginController@login');
+
 Route::resource('restaurant/all', 'CommonController@top_restaurants');
 Route::resource('html/restaurants/get_by_city', 'CommonController@get_restaurants_bycity');
 

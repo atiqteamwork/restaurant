@@ -159,176 +159,97 @@
         $.ajax({
             type: "POST",
             url: "{{ url('get_restaurant_menus')}}",
-            data:{
-                id:id,
-                '_token': '{{csrf_token()}}'
-            },
-            success: function (data) {
-
-                $('.menu_list').html( data );
-            },
-            error:function () {
-                alert("fail");
-            }
+            data:{ id:id, '_token': '{{csrf_token()}}'},
+            success: function (data) { $('.menu_list').html( data ); },
+            error:function () { alert("fail"); }
         });
-
     });
 
 
-
-
-		$(document).ready(function () {
-			var r_default_id = $("#restaurants_list").val();
+	$(document).ready(function () {
+		var r_default_id = $("#restaurants_list").val();
+		
+		if( r_default_id > 0 ) {
+			var dataString = {'id': r_default_id, '_token': $('input[name="_token"]').val()};
 			
-			if( r_default_id > 0 ) {
-				var dataString = {'id': r_default_id, '_token': $('input[name="_token"]').val()};
-				
-				$.ajax({
-                    type: "POST",
-                    url: "{{ url('admin/restaurants/fetch_deal_by_restaurant')}}",
-                    data: dataString,
-                    success: function ( response ) {						
-						$("#DealListTable tbody").html( response );
-                    }
-                });		
+			$.ajax({
+				type: "POST",
+				url: "{{ url('admin/restaurants/fetch_deal_by_restaurant')}}",
+				data: dataString,
+				success: function ( response ) { $("#DealListTable tbody").html( response );}
+			});		
+		}
+		
+
+
+		$("#restaurants_list").on("change", function () {			
+			var dataString = {'id': $(this).val(), '_token': $('input[name="_token"]').val()};
+			
+			$.ajax({
+				type: "POST",
+				url: "{{ url('admin/restaurants/fetch_deal_by_restaurant')}}",
+				data: dataString,
+				success: function ( response ) {$("#DealListTable tbody").html( response );}
+			});
+		});
+			
+
+		/*** Will Show Model to Add new Deal ***/
+		$(".new-deal-click").click(function() {
+			$("#new_deal")[0].reset();
+			$(".alert").fadeOut(1);
+		});
+
+		
+		/**
+		* Trigger when Add new Restaurants button pressed.
+		*/
+		$("#new_deal").on('submit', function () {
+			var formData = new FormData( $("#new_deal")[0] );
+			
+			$form_go = false;
+			
+			var cat_id = $("#new_deal #category_id").val();
+			var res_id = $("#new_deal #restaurant_id").val();
+			
+			if( cat_id > 0 ) {
+				$form_go = true;
+			} else {
+				$("#new_deal #category_id").focus();
+				return false;	
 			}
 			
-
-
-			$("#restaurants_list").on("change", function () {			
-                var dataString = {'id': $(this).val(), '_token': $('input[name="_token"]').val()};
-				
-                $.ajax({
-                    type: "POST",
-                    url: "{{ url('admin/restaurants/fetch_deal_by_restaurant')}}",
-                    data: dataString,
-                    success: function ( response ) {						
-						$("#DealListTable tbody").html( response );
-                    }
-                });
-            });
-				
-
-			/*** Will Show Model to Add new Deal ***/
-			$(".new-deal-click").click(function() {
-				$("#new_deal")[0].reset();
-                $(".alert").fadeOut(1);
-            });
-
 			
-			/**
-            * Trigger when Add new Restaurants button pressed.
-            */
-            $("#new_deal").on('submit', function () {
-				var formData = new FormData( $("#new_deal")[0] );
-				
-				$form_go = false;
-				
-				var cat_id = $("#new_deal #category_id").val();
-				var res_id = $("#new_deal #restaurant_id").val();
-				
-				if( cat_id > 0 ) {
-					$form_go = true;
-				} else {
-					$("#new_deal #category_id").focus();
-					return false;	
-				}
-				
-				
-				if( res_id > 0 ) {
-					$form_go = true;
-				} else {
-					$("#new_deal #restaurant_id").focus();	
-					return false;
-				}
-				
-				
-				
-				if( $form_go ) {
-					$.ajax({
-						type: "POST",
-						url: "{{ url('admin/restaurant-deal/add_new')}}",
-						data: formData,
-						contentType: false,
-						processData: false,
-						/*headers: {
-							'X-CSRF-Token': $('input[name="_token"]').val(),
-						},*/
-						success: function (response) {
-							if (response == 'Success') {
-								$(".alert-success span").html( "New Deal Added Successfully." );
-								$(".alert-success").fadeIn(400);
-								
-								var mover = setInterval( function(){
-									
-									window.location.reload();
-									clearInterval( mover );
-									
-									$("#new_deal")[0].reset();
-								}, 1000);
-							} else {
-								$(".alert-danger span").text( response );
-								$(".alert-danger").fadeIn(400);
-							}
-						}
-					});
-				}
-				
-                return false;
-            });
-			
-			
-			
-			
-			
-			
-			/**
-            *	Fetch Restaurants Data and Put into Edit Model
-            */
-			$( '#DealListTable' ).on( 'click', '.edit_deal_btn', function () {
-				var dataString = {
-						'id': $(this).attr("data-id"),
-						'_token': $('input[name="_token"]').val(),
-                        'rest_id': $(this).attr("data-rest")
-					};
-				
-                $.ajax({
-                    type: "POST",
-                    url: "{{ url('admin/restaurant-deal/fetch_deal_byid')}}",
-                    data: dataString,
-                    success: function (data) {
-						$(".alert").fadeOut(1);
-                        $('#editRestaurantsdata').html(data);
-                        $('#editRestaurants').modal("show");
-                    }
-                });
-				
+			if( res_id > 0 ) {
+				$form_go = true;
+			} else {
+				$("#new_deal #restaurant_id").focus();	
 				return false;
-			});
+			}
 			
 			
 			
-			/**
-            *	Trigger when update Restaurants is pressed.
-            */
-            $("#update_Deal").on('submit', function (e) {
-				var formData = new FormData( $("#update_Deal")[0] );
-				
+			if( $form_go ) {
 				$.ajax({
 					type: "POST",
-					url: "{{url('admin/restaurant-deal/update')}}",
-					//data: $(this).serialize(),
+					url: "{{ url('admin/restaurant-deal/add_new')}}",
 					data: formData,
 					contentType: false,
 					processData: false,
+					/*headers: {
+						'X-CSRF-Token': $('input[name="_token"]').val(),
+					},*/
 					success: function (response) {
 						if (response == 'Success') {
-							$(".alert-success span").html( "Deal Updated Successfully." );
+							$(".alert-success span").html( "New Deal Added Successfully." );
 							$(".alert-success").fadeIn(400);
 							
 							var mover = setInterval( function(){
+								
 								window.location.reload();
-								clearInterval( mover );		
+								clearInterval( mover );
+								
+								$("#new_deal")[0].reset();
 							}, 1000);
 						} else {
 							$(".alert-danger span").text( response );
@@ -336,61 +257,122 @@
 						}
 					}
 				});
-				
-                return false;
-            });
+			}
 			
+			return false;
+		});
+		
+		
+		
+		
+		
+		
+		/**
+		*	Fetch Restaurants Data and Put into Edit Model
+		*/
+		$( '#DealListTable' ).on( 'click', '.edit_deal_btn', function () {
+			var dataString = {
+					'id': $(this).attr("data-id"),
+					'_token': $('input[name="_token"]').val(),
+					'rest_id': $(this).attr("data-rest")
+				};
 			
+			$.ajax({
+				type: "POST",
+				url: "{{ url('admin/restaurant-deal/fetch_deal_byid')}}",
+				data: dataString,
+				success: function (data) {
+					$(".alert").fadeOut(1);
+					$('#editRestaurantsdata').html(data);
+					$('#editRestaurants').modal("show");
+				}
+			});
 			
-			/**
-            * Trigger when Delete Button is pressed. Will show Del Model
-            */
-			$( '#DealListTable' ).on( 'click', '.del_btn', function () {
-                var id = $(this).attr('data-id');
-				$('#_deal_id').val(id);
-				$('#del_modal').modal('show');
-				
-				return false;
-            });
+			return false;
+		});
+		
+		
+		
+		/**
+		*	Trigger when update Restaurants is pressed.
+		*/
+		$("#update_Deal").on('submit', function (e) {
+			var formData = new FormData( $("#update_Deal")[0] );
 			
-			
-			
-			/**
-             * Trigger when Delete button from model is pressed
-             */
-			$( '#del_modal' ).on( 'click', '#delete_deal', function () {
-                var id = $('#_deal_id').val();
-								
-                $.ajax({
-                    type: 'POST',
-                    url: "{{url('admin/restaurant-deal/del')}}",
-                    data:{
-                        'id':id,
-                        '_token': '{{csrf_token()}}'
-                    },
-                    success: function (response) {
-						if (response == 'Success') {
-							$(".alert-success span").html( "Deal Deleted Successfully." );
-							$(".alert-success").fadeIn(400);
-							
-							$('#DealListTable tr').each(function() {
-								if ($(this).attr('id') == id) {
-									$(this).remove();
-								}else{}
-							});
-							
-						} else {
-							$(".alert-danger span").html( response );
-							$(".alert-danger").fadeIn(400);
-						}
+			$.ajax({
+				type: "POST",
+				url: "{{url('admin/restaurant-deal/update')}}",
+				//data: $(this).serialize(),
+				data: formData,
+				contentType: false,
+				processData: false,
+				success: function (response) {
+					if (response == 'Success') {
+						$(".alert-success span").html( "Deal Updated Successfully." );
+						$(".alert-success").fadeIn(400);
 						
-                    },
-                    error:function () {
-                        
-                    }
-                });
-            });
+						var mover = setInterval( function(){
+							window.location.reload();
+							clearInterval( mover );		
+						}, 1000);
+					} else {
+						$(".alert-danger span").text( response );
+						$(".alert-danger").fadeIn(400);
+					}
+				}
+			});
 			
-        });
-    </script> 
+			return false;
+		});
+		
+		
+		
+		/**
+		* Trigger when Delete Button is pressed. Will show Del Model
+		*/
+		$( '#DealListTable' ).on( 'click', '.del_btn', function () {
+			var id = $(this).attr('data-id');
+			$('#_deal_id').val(id);
+			$('#del_modal').modal('show');
+			
+			return false;
+		});
+		
+		
+		
+		/**
+		 * Trigger when Delete button from model is pressed
+		 */
+		$( '#del_modal' ).on( 'click', '#delete_deal', function () {
+			var id = $('#_deal_id').val();
+							
+			$.ajax({
+				type: 'POST',
+				url: "{{url('admin/restaurant-deal/del')}}",
+				data:{ 'id':id, '_token': '{{csrf_token()}}' },
+				success: function (response) {
+					if (response == 'Success') {
+						$(".alert-success span").html( "Deal Deleted Successfully." );
+						$(".alert-success").fadeIn(400);
+						
+						$('#DealListTable tr').each(function() {
+							if ($(this).attr('id') == id) {
+								$(this).remove();
+							}else{}
+						});
+						
+					} else {
+						$(".alert-danger span").html( response );
+						$(".alert-danger").fadeIn(400);
+					}
+					
+				},
+				error:function () {
+					
+				}
+			});
+		});
+		
+	});
+</script> 
 @stop

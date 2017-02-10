@@ -82,6 +82,7 @@ class CommonController extends Controller
         foreach($deals as $deal) {
             $deals_data .= "<option value='".$deal->id."' ".(in_array($deal->id, $arr_deals)?"selected":"").">".$deal->deal_title."</option>";
         }
+		
         return $deals_data;
     }
     
@@ -177,16 +178,15 @@ class CommonController extends Controller
         echo $options;
     }
     
+	
     /**
     *
     *	Get Areas of City
     */
     public function get_city_areas(Request $request)
     {
-        //$area_list = new Area();
         $areaList = Area::where("city_id", $request->city_id)->get(); 
         $options = "";
-        
         
 		if( !empty( $areaList ) && count ( $areaList ) > 0 ){
 			foreach( $areaList as $area)
@@ -214,13 +214,13 @@ class CommonController extends Controller
     public function search_dishes_page(Request $request)
     {
         $dishes = Dish::where("restaurant_id", $request->restaurants)->get();
-        $deals = Deal::where("restaurant_id", $request->restaurants)->get();
+        $deals  = Deal::where("restaurant_id", $request->restaurants)->get();
         
         return view("frontend.listings")->with("dishes", $dishes)->with("deals", $deals);
-        
-        
     }
     
+	
+	
     /**
     *
     */
@@ -242,7 +242,6 @@ class CommonController extends Controller
                 'area_id'		=> $request->area,
                 'order_type'	=> ($request->type =="false") ? "Delivery" : "Takeaway",
             ]);
-        
     }
 	
 	
@@ -252,16 +251,13 @@ class CommonController extends Controller
 	public function is_restaurant_area(Request $request)
 	{
 		$restaurants = Restaurant::whereRaw("FIND_IN_SET(".$request->restaurant_id.", area_ids)")
-						->where("id", $request->restaurant_id)
-						->get();
-		
+						->where("id", $request->restaurant_id)->get();
 		
 		if( count( $restaurants ) > 0 ){
 			return $restaurants[0]->title;
 		} else {
-			return "No";	
+			return "No";
 		}
-		
 		
 	}
 	
@@ -275,18 +271,19 @@ class CommonController extends Controller
 	{
 		$restaurants = ""; //Restaurant::limit(0)->get();
 		
-		$cities = City::all();
+		$cities = City::where("status", "active")->get();
         $cities_data = [];
         
-        foreach( $cities as $city ) {
-            $cities_data[$city->id] = $city->city_name;
-        }
+        foreach( $cities as $city ) { $cities_data[$city->id] = $city->city_name; }
 		
 		return view("frontend.restaurant_all")->with([
 				"restaurants" => $restaurants,
 				"cities"	=> $cities_data
 			]);
 	}
+	
+	
+	
 	
 	
 	/**
@@ -303,61 +300,64 @@ class CommonController extends Controller
 		}
 		
 		if( isset( $request->area_id ) && $request->area_id > 0 ) {
+			//return $request->area_id;
 			$restaurants_object = $restaurants_object->whereRaw("FIND_IN_SET(".$request->area_id.",area_ids)");
 			
 			$area_id = $request->area_id;
 		} else {
+			//return 0;
 			$area_id = 0;	
 		}
 		
-		
-		if( isset( $request->type_id ) && $request->type_id != "true" ) {
-			$restaurants_object = $restaurants_object->where("is_takeaway_only", $request->type_id);
+	
+		if( isset( $request->type_id ) && $request->type_id == "false" ) 
+		{		
+			$restaurants_object = $restaurants_object->where("is_takeaway_only", "false");
 			$order_type  = 'Delivery';
 		} else {
+			//return $request->type_id;
 			$order_type  = 'Takeaway';
 		}
 		
 		$restaurants = $restaurants_object->get();
 		
+		//dd( $restaurants );
 		
 		$counter = 0;
 		$sub_cats = "";
-				
-		foreach( $restaurants as $restaurant) {
-			foreach( $restaurant->Menus as $menus ){
-				$sub_cats .= $menus->category_title .", ";
-				
-				/*if( $counter++ <= count($restaurant->Menus) )
-				{
-					$sub_cats .= ", ";
-				}*/
-					
-			}
 		
-			echo '<div class="col-md-4 col-sm-6 col-xs-12">
-                <div class="restaurent-list-box box_border">
-                    <div class="res-logo"> <img src="'.getenv('APP_URL').'assets/images/restaurants/'.$restaurant->banner.'" alt="restaurent img">
-                        <div class="overflow-outer">
-                            <div class="overflow-inner">
-                                <div class="deliver-mint"><a href="#">'.($restaurant->is_takeaway_only =="true"?'Takeaway ready in 30 minutes':'delivers in 30 minutes').'</a></div>
-                                <div class="tak-div"> <a href="javascript:;" class="tak-order"><i class="fa fa-check-circle"></i> Takeaway order</a> <br>
-                                    <a href="javascript:;" class="del-order"><i class="fa '. ($restaurant->is_takeaway_only == 'false' ? 'fa-check-circle' : 'fa-times-circle').'"></i> deliver order</a> </div>
-                                <div class="next-btn"><a class="open_page" href="search/'.$restaurant->id.'/'.urlencode($restaurant->title). "+".urlencode($order_type).'/'.$area_id.'"><i class="fa fa-angle-right"></i></a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="detail">
-                        <div class="pull-left detail-res">
-                            <h4><a class="open_page" href="search/'.$restaurant->id.'/'.urlencode($restaurant->title). "+".urlencode($order_type).'/'.$area_id.'">'.$restaurant->title.'</a></h4>
-                            <p>'.$sub_cats.'</p>
-                        </div>
-                        <div class="pull-right"> 
-                            <!--Rating section will be here--> 
-                            <a href="search/'.$restaurant->id.'/'.urlencode($restaurant->title). "+".urlencode($order_type).'/'.$area_id.'" class="btn btn-sm btn-success open_page">Select</a> </div>
-                    </div>
-                </div>
-            </div>';
+		if( !empty( $restaurants ) && count( $restaurants ) > 0 ) {
+			foreach( $restaurants as $restaurant) {
+				foreach( $restaurant->Menus as $menus ){
+					$sub_cats .= $menus->category_title .", ";
+				}
+			
+				echo '<div class="col-md-4 col-sm-6 col-xs-12">
+					<div class="restaurent-list-box box_border">
+						<div class="res-logo"> <img src="'.getenv('APP_URL').'assets/images/restaurants/'.$restaurant->banner.'" alt="restaurent img">
+							<div class="overflow-outer">
+								<div class="overflow-inner">
+									<div class="deliver-mint"><a href="#">'.($restaurant->is_takeaway_only =="true"?'Takeaway ready in 30 minutes':'delivers in 30 minutes').'</a></div>
+									<div class="tak-div"> <a href="javascript:;" class="tak-order"><i class="fa fa-check-circle"></i> Takeaway order</a> <br>
+										<a href="javascript:;" class="del-order"><i class="fa '. ($restaurant->is_takeaway_only == 'false' ? 'fa-check-circle' : 'fa-times-circle').'"></i> deliver order</a> </div>
+									<div class="next-btn"><a class="open_page" href="search/'.$restaurant->id.'/'.urlencode($restaurant->title). "+".urlencode($order_type).'/'.$area_id.'"><i class="fa fa-angle-right"></i></a></div>
+								</div>
+							</div>
+						</div>
+						<div class="detail">
+							<div class="pull-left detail-res">
+								<h4><a class="open_page" href="search/'.$restaurant->id.'/'.urlencode($restaurant->title). "+".urlencode($order_type).'/'.$area_id.'">'.$restaurant->title.'</a></h4>
+								<p>'.$sub_cats.'</p>
+							</div>
+							<div class="pull-right"> 
+								<!--Rating section will be here--> 
+								<a href="search/'.$restaurant->id.'/'.urlencode($restaurant->title). "+".urlencode($order_type).'/'.$area_id.'" class="btn btn-sm btn-success open_page">Select</a> </div>
+						</div>
+					</div>
+				</div>';
+			}
+		} else {
+			echo '<div class="col-md-4 col-sm-6 col-xs-12"><h3>No Restaurant Found</h3></div>';	
 		}
 		 
 	 }

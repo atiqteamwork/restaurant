@@ -27,7 +27,7 @@
                     @foreach($areaList as $area)
                     <tr id="{{$area->id}}">
                         <td>{{$area->area_name}}</td>
-                        <td>{{$area->city_name}}</td>
+                        <td>{{$area->City->city_name}}</td>
                         <td> @if($area->status=='Active') <span class="label label-primary">{{$area->status}}</span> @else <span class="label label-danger"> {{$area->status}}</span> @endif </td>
                         <td><input type="hidden" name="_token" value="{{ csrf_token() }}">
                             <button class="btn btn-primary btn-sm edit_area_btn" type="submit" name="id" value="{{$area->id}}"><i class="fa fa-edit " aria-hidden="true"></i></button>

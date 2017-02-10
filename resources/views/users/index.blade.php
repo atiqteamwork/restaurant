@@ -13,7 +13,7 @@
             <div class="panel-heading">Users</div>
             <div class="panel-body">
                 <button type="button" class="btn btn-primary" style="float:right" data-toggle="modal" data-target="#addnewuser">Add New</button>
-                <table id="userlistdatatable" class="table table-bordered table-striped">
+                <table id="userlistdatatable" class="table table-bordered table-striped data-table">
                     <thead>
                         <tr>
                             <th>Name</th>
@@ -52,7 +52,7 @@
 
 <!-- New User Modal Start -->
 <div id="addnewuser" class="modal fade"
-         role="dialog"> {!! Form::open(array('url' => 'users/new','id'=>'new_user')) !!}
+         role="dialog"> {{ Form::open(array('url' => 'users/new','id'=>'new_user')) }}
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -97,12 +97,12 @@
                 <button type="submit" class="btn btn-primary">Save</button>
             </div>
         </div>
-        {!! Form::close() !!} </div>
+        {{ Form::close() }} </div>
 </div>
 <!--  New User Modal end--> 
 
 <!-- Edit User Modal Start -->
-<div id="edituser" class="modal fade" role="dialog"> {!! Form::open(array('url' => '/users/update-user', 'id'=>'update_user')) !!}
+<div id="edituser" class="modal fade" role="dialog"> {{ Form::open(array('url' => '/users/update-user', 'id'=>'update_user')) }}
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -120,7 +120,7 @@
                 <button type="submit" class="btn btn-primary">Save</button>
             </div>
         </div>
-        {!! Form::close() !!} </div>
+        {{ Form::close() }} </div>
 </div>
 <!--  New User Modal end-->
 
@@ -150,224 +150,196 @@
 <!--jquery-->
 <script src="assets/plugins/jquery/jquery-2.2.4.min.js"></script>
 <script>
-        $(document).ready(function () {
-            $('#userlistdatatable').DataTable({
-                "paging": true,
-                "lengthChange": false,
-                "searching": false,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false
-            });
+	$(document).ready(function () {
+
+		var role_id = $("#role_id").val();
+			
+		if( role_id > 1 && role_id != 0) {
+			$(".restaurant-box").fadeIn( 200 );
+		} else {
+			$(".restaurant-box").fadeOut( 200 );
+		}
+
+		$("#addnewuser").click(function() {
+			$(".alert").fadeOut(1);
+			//$("#new_user")[0].reset();
+		});
+
+		
+		/**
+		*	Fetch User Data and Put into Edit Model
+		*/
+		$(".edit_user_btn").on("click", function () {			
+			var dataString = {'id': $(this).val(), '_token': $('input[name="_token"]').val()};
+
+			$.ajax({
+				type: "POST",
+				url: "{{ url('admin/users/get_user_byid')}}",
+				data: dataString,
+				cache: false,
+				success: function (data) {
+					$('#edituserdata').html(data);
+					$('#edituser').modal('toggle');
+				}
+			});
+		});
 
 
-			var role_id = $("#role_id").val();
-				
+		/**
+		* Trigger when Add new User button pressed.
+		*/
+		$("#new_user").on('submit', function (e) {
+			$.ajax({
+				type: "POST",
+				url: $(this).attr("action"),
+				data: $(this).serialize(),
+				success: function (response) {											
+					if (response == 'Success') {
+						$(".alert-success span").html( "New User Created" );
+						$(".alert-success").fadeIn(400);
+						$(".alert-danger").fadeOut(10);
+						
+						var mover = setInterval(function(){
+							$("#new_user")[0].reset();
+							window.location.reload();
+						}, 2500);
+					} else {
+						$(".alert-danger span").html( response );
+						$(".alert.alert-danger").fadeIn(400);
+					}
+				}
+			});
+			
+			
+			return false;
+		});
+
+
+		/**
+		 * New User Ajax call back
+		 */
+		function onsuccess(response, status) {
+			if (response == 'Email already registered')
+				$('#email_message').html(response);
+
+			if (response == 'Please fill all the required feilds') { }
+			if (response == 'success') { window.location.reload(); }
+		}
+
+
+		/**
+		*	Trigger when update User is pressed.
+		*/
+		$("#update_user").on('submit', function (e) {
+			/*var options = {
+				url: $(this).attr("action"),
+				success: onUpdateSuccessCallback,
+			};
+
+			$(this).ajaxSubmit(options);*/
+			
+			
+			$.ajax({
+				type: "POST",
+				url: $(this).attr("action"),
+				data: $(this).serialize(),
+				success: function (response) {
+					if (response == 'Success') {
+						$(".alert-success span").html( "User Updated Successfully." );
+						$(".alert-success").fadeIn(400);
+						$(".alert-danger").fadeOut(10);
+						
+						var mover = setInterval(function(){
+							$("#new_user")[0].reset();
+							window.location.reload();
+						}, 2500);
+					} else {
+						alert(response);
+						$(".alert-danger span").html( response );
+						$(".alert.alert-danger").fadeIn(400);
+					}
+				}
+			});
+			
+			return false;
+		});
+
+
+		/**
+		*	Callback function for User Update
+		*/
+		function onUpdateSuccessCallback(response, status) {
+			alert(response);
+			/*if (response == 'Email already registered')
+				$('#email_message').html(response);
+
+			if (response == 'Please fill all the required feilds') {
+			}*/
+			if (response == 'Success') {
+				window.location.reload();
+			}
+		}
+		
+		
+		
+		$("#role_id").change(function() {
+			var role_id = $(this).val();
+			
 			if( role_id > 1 && role_id != 0) {
 				$(".restaurant-box").fadeIn( 200 );
 			} else {
 				$(".restaurant-box").fadeOut( 200 );
 			}
+		});
 
-			$("#addnewuser").click(function() {
-				$(".alert").fadeOut(1);
-                //$("#new_user")[0].reset();
-            });
+
+		/**
+		* Trigger when Delete Button is pressed. Will show Del Model
+		*/
+		$(".del_user_btn").on('click',function () {
+			var user_id = $(this).attr('data-id');
+								
+			$('#_user_id').val(user_id);
+			$('#del_user').modal('show');
 			
-            /**
-            *	Fetch User Data and Put into Edit Model
-            */
-            $(".edit_user_btn").on("click", function () {
-				//alert( "test" )
-				//alert($(this).val());
-				
-                var dataString = {'id': $(this).val(), '_token': $('input[name="_token"]').val()};
-
-                $.ajax({
-                    type: "POST",
-                    url: "{{ url('admin/users/get_user_byid')}}",
-                    data: dataString,
-                    cache: false,
-                    success: function (data) {
-                        $('#edituserdata').html(data);
-                        $('#edituser').modal('toggle');
-                    }
-                });
-            });
+			return false;
+		});
 
 
-            /**
-            * Trigger when Add new User button pressed.
-            */
-            $("#new_user").on('submit', function (e) {
-				
-				$.ajax({
-                    type: "POST",
-                    url: $(this).attr("action"),
-                    data: $(this).serialize(),
-                    success: function (response) {
-												
-                        if (response == 'Success') {
-							//window.location.reload();
-							$(".alert-success span").html( "New User Created" );
-							$(".alert-success").fadeIn(400);
-							$(".alert-danger").fadeOut(10);
-							
-							var mover = setInterval(function(){
-								$("#new_user")[0].reset();
-								window.location.reload();
-							}, 2500);
-						} else {
-							//alert(response);
-							$(".alert-danger span").html( response );
-							$(".alert.alert-danger").fadeIn(400);
-						}
-                    }
-                });
-				
-				
-
-                return false;
-            });
-
-
-            /**
-             * New User Ajax call back
-             */
-            function onsuccess(response, status) {
-                if (response == 'Email already registered')
-                    $('#email_message').html(response);
-
-                if (response == 'Please fill all the required feilds') {
-                }
-                if (response == 'success') {
-                    window.location.reload();
-
-                }
-            }
-
-
-            /**
-            *	Trigger when update User is pressed.
-            */
-            $("#update_user").on('submit', function (e) {
-                /*var options = {
-                    url: $(this).attr("action"),
-                    success: onUpdateSuccessCallback,
-                };
-
-                $(this).ajaxSubmit(options);*/
-				
-				
-				$.ajax({
-                    type: "POST",
-                    url: $(this).attr("action"),
-                    data: $(this).serialize(),
-                    success: function (response) {
-                        if (response == 'Success') {
-							$(".alert-success span").html( "User Updated Successfully." );
-							$(".alert-success").fadeIn(400);
-							$(".alert-danger").fadeOut(10);
-							
-							var mover = setInterval(function(){
-								$("#new_user")[0].reset();
-								window.location.reload();
-							}, 2500);
-						} else {
-							alert(response);
-							$(".alert-danger span").html( response );
-							$(".alert.alert-danger").fadeIn(400);
-						}
-                    }
-                });
-				
-				
-				
-                return false;
-            });
-
-
-            /**
-            *	Callback function for User Update
-            */
-            function onUpdateSuccessCallback(response, status) {
-                alert(response);
-                /*if (response == 'Email already registered')
-                    $('#email_message').html(response);
-
-                if (response == 'Please fill all the required feilds') {
-                }*/
-                if (response == 'Success') {
-                    window.location.reload();
-                }
-            }
+		/**
+		 * Trigger when Delete button from model is pressed
+		 */
+		$('#delete_user').on('click',function () {
+			var user_id = $('#_user_id').val();		
 			
-			
-			
-			$("#role_id").change(function(){
-				
-				var role_id = $(this).val();
-				
-				if( role_id > 1 && role_id != 0) {
-					$(".restaurant-box").fadeIn( 200 );
-				} else {
-					$(".restaurant-box").fadeOut( 200 );
+
+			$.ajax({
+				type: 'POST',
+				url: "{{url('/users/del')}}",
+				data:{ 'user_id':user_id, '_token': '{{csrf_token()}}' },
+				success: function (response) {
+					if (response == 'Success') {
+						$(".alert-success span").html( "User Delete Successfully." );
+						$(".alert-success").fadeIn(400);
+						
+						$('#userlistdatatable tr').each(function() {
+							if ($(this).attr('id') == user_id) {
+								$(this).remove();
+							}else{}
+						});
+
+					} else {
+						$(".alert-danger span").html( response );
+						$(".alert-danger").fadeIn(400);
+					}
+					
+				},
+				error:function () {
+					
 				}
 			});
-
-
-			/**
-            * Trigger when Delete Button is pressed. Will show Del Model
-            */
-            $(".del_user_btn").on('click',function () {
-                var user_id = $(this).attr('data-id');
-									
-				$('#_user_id').val(user_id);
-				$('#del_user').modal('show');
-				
-				return false;
-            });
-
-			/**
-             * Trigger when Delete button from model is pressed
-             */
-            $('#delete_user').on('click',function () {
-                var user_id = $('#_user_id').val();		
-				
-
-                $.ajax({
-                    type: 'POST',
-                    url: "{{url('/users/del')}}",
-                    data:{
-                        'user_id':user_id,
-                        '_token': '{{csrf_token()}}'
-                    },
-                    success: function (response) {
-						
-						
-						
-						if (response == 'Success') {
-							$(".alert-success span").html( "User Delete Successfully." );
-							$(".alert-success").fadeIn(400);
-							
-							$('#userlistdatatable tr').each(function() {
-								if ($(this).attr('id') == user_id) {
-									$(this).remove();
-								}else{}
-							});
-
-						} else {
-							$(".alert-danger span").html( response );
-							$(".alert-danger").fadeIn(400);
-						}
-						
-                    },
-                    error:function () {
-                        
-                    }
-                });
-            });
-        });
-		
-    </script> 
+		});
+	});
+	
+</script> 
 @stop

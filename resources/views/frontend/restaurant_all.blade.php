@@ -61,38 +61,39 @@
             
             <!--restaurent-list-box--> 
             @if( !empty( $restaurants ) && count($restaurants) > 0 )
-            @if( !isset( $order_type ) )
-            <?php $order_type = "Takeaway"; ?>
-            @endif
+            	@if( !isset( $order_type ) )
+           			<?php $order_type = "Takeaway"; ?>
+            	@endif
             
-            @if( !isset( $area_id ) )
-            <?php $area_id = 0 ?>
-            @endif
-            @foreach( $restaurants as $restaurant )
-            <div class="col-md-4 col-sm-6 col-xs-12">
-                <div class="restaurent-list-box box_border">
-                    <div class="res-logo"> <img src="{{getenv('APP_URL')}}assets/images/restaurants/{{$restaurant->banner}}" alt="restaurent img">
-                        <div class="overflow-outer">
-                            <div class="overflow-inner">
-                                <div class="deliver-mint"><a href="#">delivers in 30 minutes</a></div>
-                                <div class="tak-div"> <a href="javascript:;" class="tak-order"><i class="fa fa-check-circle"></i> Takeaway order</a> <br>
-                                    <a href="javascript:;" class="del-order"><i class="fa {{$restaurant-> 	is_takeaway_only ? 'fa-check-circle' : 'fa-times-circle'}} "></i> deliver order</a> </div>
-                                <div class="next-btn"><a class="open_page" href="search/{{$restaurant->id}}/{{urlencode($restaurant->title). "+".urlencode($order_type)}}/{{$area_id}}"><i class="fa fa-angle-right"></i></a></div>
+                @if( !isset( $area_id ) )
+                	<?php $area_id = 0 ?>
+                @endif
+                
+                @foreach( $restaurants as $restaurant )
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                        <div class="restaurent-list-box box_border">
+                            <div class="res-logo"> <img src="{{getenv('APP_URL')}}assets/images/restaurants/{{$restaurant->banner}}" alt="restaurent img">
+                                <div class="overflow-outer">
+                                    <div class="overflow-inner">
+                                        <div class="deliver-mint"><a href="#">delivers in 30 minutes</a></div>
+                                        <div class="tak-div"> <a href="javascript:;" class="tak-order"><i class="fa fa-check-circle"></i> Takeaway order</a> <br>
+                                            <a href="javascript:;" class="del-order"><i class="fa {{$restaurant-> 	is_takeaway_only ? 'fa-check-circle' : 'fa-times-circle'}} "></i> deliver order</a> </div>
+                                        <div class="next-btn"><a class="open_page" href="search/{{$restaurant->id}}/{{urlencode($restaurant->title). "+".urlencode($order_type)}}/{{$area_id}}"><i class="fa fa-angle-right"></i></a></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="detail">
+                                <div class="pull-left detail-res">
+                                    <h4><a class="open_page" href="search/{{$restaurant->id}}/{{urlencode($restaurant->title). "+".urlencode($order_type)}}/{{$area_id}}">{{$restaurant->title}}</a></h4>
+                                    <p>fried chicken,fast food</p>
+                                </div>
+                                <div class="pull-right"> 
+                                    <!--Rating section will be here--> 
+                                    <a href="search/{{$restaurant->id}}/{{urlencode($restaurant->title). "+".urlencode($order_type)}}/{{$area_id}}" class="btn btn-sm btn-success open_page">Select</a> </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="detail">
-                        <div class="pull-left detail-res">
-                            <h4><a class="open_page" href="search/{{$restaurant->id}}/{{urlencode($restaurant->title). "+".urlencode($order_type)}}/{{$area_id}}">{{$restaurant->title}}</a></h4>
-                            <p>fried chicken,fast food</p>
-                        </div>
-                        <div class="pull-right"> 
-                            <!--Rating section will be here--> 
-                            <a href="search/{{$restaurant->id}}/{{urlencode($restaurant->title). "+".urlencode($order_type)}}/{{$area_id}}" class="btn btn-sm btn-success open_page">Select</a> </div>
-                    </div>
                 </div>
-            </div>
-            @endforeach
+                @endforeach
             
             @endif 
             <!--end restaurent-list-box--> 
@@ -132,6 +133,38 @@
  
  	$(document).ready(function() 
 	{
+		
+		var city_id = $("#city").val();
+						
+		$.ajax({
+			type: 'POST',
+			url: "{{url('c/get_city_areas')}}",
+			data:{
+				'city_id': city_id,
+				'_token': '{{csrf_token()}}'
+			},
+			success: function (response) {
+				$("#select-areas").html(response);
+				
+				var city_id = $("#city").val();
+				var area_id = $("#select-areas").val();
+				var type_id = $("#type").val();
+				
+				show_restaurants(city_id, area_id, type_id);
+				
+			},
+			error:function () {
+				
+			}
+		});
+		
+		
+		
+		
+		
+		
+		
+		
 		/**
 		*	Check for Filters on Pageload or Refresh
 		*/
@@ -167,6 +200,12 @@
 				},
 				success: function (response) {
 					$("#select-areas").html(response);
+					
+					var city_id = $("#city").val();
+					var area_id = $("#select-areas").val();
+					var type_id = $("#type").val();
+					
+					show_restaurants(city_id, area_id, type_id);
 				},
 				error:function () {
 					
@@ -180,6 +219,7 @@
 			var city_id = $("#city").val();
 			var area_id = $("#select-areas").val();
 			var type_id = $("#type").val();
+			
 			show_restaurants(city_id, area_id, type_id);
         });
     });
@@ -192,6 +232,7 @@
 	 */
 	function show_restaurants(city_id, area_id, type_id)
 	{	
+		//alert( area_id );
 		if (typeof city_id === "undefined" || city_id == null) { city_id = 0; }
 		if (typeof area_id === "undefined" || area_id == null) { area_id = 0; }
 		if (typeof type_id === "undefined" || type_id == null) { type_id = false; }

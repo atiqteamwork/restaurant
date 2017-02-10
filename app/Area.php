@@ -15,6 +15,13 @@ use Illuminate\Database\Eloquent\Model;
 class Area extends Model
 {
     
+	protected $with = ["City"];
+	
+	public function city(){
+        return $this->belongsTo('App\City');
+    }
+	
+	
 	/**
 	*	Model Method to Get All Areas
 	*/

@@ -112,101 +112,99 @@
 <!--jquery--> 
 <script src="assets/plugins/jquery/jquery-2.2.4.min.js"></script> 
 <script>
-        $(document).ready(function () {
-			$(".new-category-click").click(function() {
-                $(".alert").fadeOut(1);
-            });
-		
-            /**
-            *	Fetch City Data and Put into Edit Model
-            */
-            $(".edit_city_btn").click( function () {
-                var dataString = {'id': $(this).val(), '_token': $('input[name="_token"]').val()};
-				
-                $.ajax({
-                    type: "POST",
-                    url: "{{ url('admin/city/fetch_by_id')}}",
-                    data: dataString,
-                    success: function (data) {
-						$(".alert").fadeOut(1);
-                        $('#editcitydata').html(data);
-                        $('#editcity').modal("show");
-                    }
-                });
-				
-				return false;
-            });
+	$(document).ready(function () {
+		$(".new-category-click").click(function(){  $(".alert").fadeOut(1); });
+	
+		/**
+		*	Fetch City Data and Put into Edit Model
+		*/
+		$(".edit_city_btn").click( function () {
+			var dataString = {'id': $(this).val(), '_token': $('input[name="_token"]').val()};
+			
+			$.ajax({
+				type: "POST",
+				url: "{{ url('admin/city/fetch_by_id')}}",
+				data: dataString,
+				success: function (data) {
+					$(".alert").fadeOut(1);
+					$('#editcitydata').html(data);
+					$('#editcity').modal("show");
+				}
+			});
+			
+			return false;
+		});
 
 
-            /**
-            * Trigger when Add new City button pressed.
-            */
-            $("#new_city").on('submit', function () {
+		/**
+		* Trigger when Add new City button pressed.
+		*/
+		$("#new_city").on('submit', function () {
+			$.ajax({
+				type: "POST",
+				url: $(this).attr("action"),
+				data: $(this).serialize(),
+				success: function (response) {
+					if (response == 'Success') {
+						$(".alert-success span").html( "New City Added Successfully." );
+						$(".alert-success").fadeIn(400);
+						
+						var mover = setInterval( function(){
+							window.location.reload();
+							clearInterval( mover );		
+						}, 1000);
+					} else {
+						$(".alert-danger span").html( response );
+						$(".alert-danger").fadeIn(400);
+					}
+				}
+			});
+			
+			return false;
+		});
+
+
+		/**
+		*	Trigger when update City is pressed.
+		*/
+		$("#update_city").on('submit', function (e) {
+			
+			var old_title = $("#old_title").val();
+			var new_title = $("#update_cate #category_title").val();
+			
+			var old_status = $("#old_status").val();
+			var new_status = $("#update_cate #status").val();
+			
+			if( new_title == old_title && old_status == new_status ) {
+				$(".alert span").text( "You have'nt changed anything." );
+				$(".alert").fadeIn(400);
+				
+			} else {
 				$.ajax({
-                    type: "POST",
-                    url: $(this).attr("action"),
-                    data: $(this).serialize(),
-                    success: function (response) {
-                        if (response == 'Success') {
-							$(".alert-success span").html( "New City Added Successfully." );
+					type: "POST",
+					url: $(this).attr("action"),
+					data: $(this).serialize(),
+					success: function (response) {
+						if (response == 'Success') {
+							$(".alert-success span").html( "City Updated Successfully." );
 							$(".alert-success").fadeIn(400);
 							
 							var mover = setInterval( function(){
 								window.location.reload();
 								clearInterval( mover );		
 							}, 1000);
+							
 						} else {
-							$(".alert-danger span").html( response );
-							$(".alert-danger").fadeIn(400);
+							$(".alert span").text( response );
+							$(".alert").fadeIn(400);	
 						}
-                    }
-                });
-				
-                return false;
-            });
+					}
+				});
+			}
 
+			return false;
+		});
 
-            /**
-            *	Trigger when update City is pressed.
-            */
-            $("#update_city").on('submit', function (e) {
-				
-				var old_title = $("#old_title").val();
-				var new_title = $("#update_cate #category_title").val();
-				
-				var old_status = $("#old_status").val();
-				var new_status = $("#update_cate #status").val();
-				
-				if( new_title == old_title && old_status == new_status ) {
-					$(".alert span").text( "You have'nt changed anything." );
-					$(".alert").fadeIn(400);
-				} else {
-					$.ajax({
-						type: "POST",
-						url: $(this).attr("action"),
-						data: $(this).serialize(),
-						success: function (response) {
-							if (response == 'Success') {
-								
-								$(".alert-success span").html( "City Updated Successfully." );
-								$(".alert-success").fadeIn(400);
-								
-								var mover = setInterval( function(){
-									window.location.reload();
-									clearInterval( mover );		
-								}, 1000);
-								
-							} else {
-								$(".alert span").text( response );
-								$(".alert").fadeIn(400);	
-							}
-						}
-					});
-				}
-
-                return false;
-            });
-
-        });
-    </script> 
+	});
+</script> 
 @stop

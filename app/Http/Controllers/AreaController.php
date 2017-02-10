@@ -40,11 +40,11 @@ class AreaController extends Controller
 
         if( $this->user_role == 1 )
         {
-            $area_list = new Area();
-            $areaList = $area_list->get_all_area($request);
+            $areaList = Area::get();
+			
             return view('area.index')->with([
                 'areaList' => $areaList,
-                'cities'	=> $cities_data,
+                'cities'   => $cities_data,
                 ]);
 
 
@@ -66,9 +66,9 @@ class AreaController extends Controller
 
 
             return view('area.rindex')->with([
-                    'allareas' => $allareas_data,
+                    'allareas'       => $allareas_data,
                     'areas_selected' => $areas_selected,
-                    'cities'	=> $cities_data,
+                    'cities'         => $cities_data,
                     ]);
         }
 
@@ -88,8 +88,6 @@ class AreaController extends Controller
         foreach( $cities as $city ) {
             $city_option .= "<option value='".$city->id."' ".($area_result->city_id == $city->id ? 'selected' :'').">".$city->city_name."</option>";
         }
-
-
 
 
         $returndata = '<div class="box-body">
@@ -166,9 +164,9 @@ class AreaController extends Controller
     /**
     *
     */
-    public function delete_area()
+    public function delete_area(Request $request)
     {
-        $area_result = Area::destroy( $_POST["area_id"] );
+        $area_result = Area::destroy( $request->area_id );
 
         if( $area_result == 1 ) {
             return "Success";	
