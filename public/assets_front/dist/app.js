@@ -1,4 +1,4 @@
-if ($(document).ready(function() {
+/*if ($(document).ready(function() {
         /*$(".search-res").select2({
             placeholder: "Select/Type City...",
             allowClear: !0,
@@ -17,7 +17,7 @@ if ($(document).ready(function() {
             allowClear: !0,
             maximumSelectionSize: 1,
 			
-        })*/
+        })*
     }), function(e) {
         /*jQuery.scrollSpeed = function(i, n, o) {
             var t, a, l, r = e(document),
@@ -45,7 +45,7 @@ if ($(document).ready(function() {
             })
         }, jQuery.easing.default = function(e, i, n, o, t) {
             return -o * ((i = i / t - 1) * i * i * i - 1) + n
-        }*/
+        }*
     }(jQuery), $(function() {
         //jQuery.scrollSpeed(50, 700)
     }), $(window).width() > 992) {

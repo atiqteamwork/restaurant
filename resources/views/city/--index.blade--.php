@@ -154,7 +154,7 @@
 							var mover = setInterval( function(){
 								window.location.reload();
 								clearInterval( mover );		
-							}, 1000);
+							}, 2000);
 						} else {
 							$(".alert-danger span").html( response );
 							$(".alert-danger").fadeIn(400);
@@ -194,7 +194,7 @@
 								var mover = setInterval( function(){
 									window.location.reload();
 									clearInterval( mover );		
-								}, 1000);
+								}, 2000);
 								
 							} else {
 								$(".alert span").text( response );

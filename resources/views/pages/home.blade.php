@@ -28,7 +28,7 @@
 
     <!--navigation bar-->
     
-@include("partials.sidebar");
+@include("partials.sidebar")
     <!--right side content-->
     <div class="main-content">
         <div class="row" id="floating-header">

@@ -10,7 +10,7 @@
             </li> -->
             
             
-            
+            <!-- Administrator Panel Sidebar -->
             @if( isset( Auth::user()->role_id) && Auth::user()->role_id == 1 )
                 <li> <a href="{{url('admin/cities')}}"> <i class="fa fa-location-arrow icon"></i> Cities </a> </li>
                 <li> <a href="{{url('admin/areas')}}"> <i class="fa fa-location-arrow icon"></i> Areas </a> </li>
@@ -28,7 +28,26 @@
                 </ul>
             </li>
                 <li> <a href="{{url('admin/orders')}}"> <i class="fa fa-bars icon"></i> Orders </a> </li>
+                
+                
+                
+                
+                <li> <a href="#ui-elements2" onClick="return false" class="drop-link" data-toggle="collapse" aria-expanded="false"> <i class="fa fa-gears icon"></i> Settings <i class="fa fa-chevron-down arrow"></i> </a>
+                <ul id="ui-elements2" class="list-unstyled collapse sidebar-menu submenu">
+                        <li> <a href="{{url('admin/setting/front-page-image')}}"> <i class="fa fa-circle-o-notch icon"></i> Frontpage Image</a> </li>
+                        <li> <a href="{{url('admin/setting/admin-email')}}"> <i class="fa fa-circle-o-notch icon"></i> Admin Email </a> </li>
+                </ul>
+            </li>
+                
+                
+                
+                
+                
+                
+                
             @endif
+             <!-- ./ Administrator Panel Sidebar -->
+            
             
             
             @if( isset( Auth::user()->role_id) && Auth::user()->role_id == 2 )

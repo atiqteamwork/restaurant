@@ -13,9 +13,9 @@
             <div class="panel-heading">New Restaurant</div>
             <div class="panel-body">
             
-           	@if (session('status'))
+           	@if (session('success'))
                 <div class="alert alert-success">
-                    {{ session('status') }}
+                    {{ session('success') }}
                 </div>
             @endif
             
@@ -24,6 +24,8 @@
                     {{ session('error') }}
                 </div>
             @endif
+            
+            
             
                 <div class="alert alert-danger" id="alertdanger" style="display:none"><strong>Alert!</strong> <span></span></div>
                 <div class="alert alert-success" style="display:none"><strong>Success!</strong> <span></span></div>
@@ -35,7 +37,6 @@
                         <div class="form-group"> {{Form::Select('city_id', $cities, null ,['class' => 'form-control select2', 'id' => 'cities'])}} </div>
                     </div>
                 </div>
-                
                 
                 <div class="row">
                     <div class="col-sm-offset-1 col-sm-2"> {{Form::label('logo', 'Logo')}} </div>
@@ -51,14 +52,13 @@
                     </div>
                 </div>
                 
-                
-                
                 <div class="row">
                     <div class="col-sm-offset-1 col-sm-2"> {{Form::label('title', 'Restaurant Name:', ["class" => "text-right"])}} </div>
                     <div class="col-sm-8">
-                        <div class="form-group"> {{Form::Text('title','', ['class' => 'form-control', 'placeholder'=>'Enter Restaurant Name/Title', 'required'=>'required'])}} </div>
+                        <div class="form-group"> {{Form::Text('title',old('title'), ['class' => 'form-control', 'placeholder'=>'Enter Restaurant Name/Title', 'required'=>'required'])}} </div>
                     </div>
                 </div>
+                
                 <div class="row">
                     <div class="col-sm-offset-1 col-sm-2"> {{Form::label('description', 'Description:', ["class" => "text-right"])}} </div>
                     <div class="col-sm-8">

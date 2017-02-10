@@ -3,15 +3,15 @@
         <div class="top-widgets orangeBG">
             <div class="action-icons">
                 <ul class=" list-unstyled noPadding noMargin">
-                    <li class="">
+                    <!--<li class="">
                         <a href="#" onclick="return false" data-toggle="dropdown" >
                             <i class="fa fa-tasks">
-                                <span class="redBG">9</span>
+                                <span class="redBG">0</span>
                             </i>
                         </a>
                         <ul class="list-unstyled dropdown-menu action-dropdown noMargin">
                             <li class="drop-header redBG">
-                                <span>9 new tasks</span>
+                                <span>0 new tasks</span>
                             </li>
                             <li><a href="#" onclick="return false">New Applicatin Release</a></li>
                             <li><a class="unread" href="#" onclick="return false">Update contacts</a></li>
@@ -20,16 +20,16 @@
                             <li><a class="unread" href="#" onclick="return false">Generate Salary Slips</a></li>
                             <li><a href="#" onclick="return false">Remove bugs from project</a></li>
                         </ul>
-                    </li>
-                    <li>
+                    </li>-->
+                    <!--<li>
                         <a href="#" onclick="return false" data-toggle="dropdown" >
                             <i class="fa fa-envelope-o">
-                                <span class="blueBG">4</span>
+                                <span class="blueBG">0</span>
                             </i>
                         </a>
                         <ul class="dropdown-menu action-dropdown list-unstyled email-drop noMargin">
                             <li class="drop-header blueBG">
-                                <span>4 new messages</span>
+                                <span>0 new messages</span>
                             </li>
                             <li>
                                 <a href="#" onclick="return false">
@@ -78,16 +78,16 @@
                             </li>
 
                         </ul>
-                    </li>
+                    </li>-->
                     <li>
                         <a href="#" onclick="return false" data-toggle="dropdown">
                             <i class="fa fa-bell-o">
-                                <span class="greenBG">2</span>
+                                <span class="greenBG">0</span>
                             </i>
                         </a>
                         <ul class="list-unstyled dropdown-menu action-dropdown noMargin">
                             <li class="drop-header greenBG">
-                                <span>2 new alerts</span>
+                                <span>0 new alerts</span>
                             </li>
                             <li><a href="#" onclick="return false">New Applicatin Release</a></li>
                             <li><a class="unread" href="#" onclick="return false">Update contacts</a></li>
@@ -106,12 +106,12 @@
     <div class="col-sm-4 hidden-xs">
         <div class="top-widgets redBG">
             <div class="search-top-widget">
-                <form role="search">
+                <!--<form role="search">
                     <div class="input-group noMargin">
                         <input type="text" class="form-control" placeholder="Search">
                         <a href="javascript:;" class="input-group-addon"><i class="fa fa-search"></i> </a>
                     </div>
-                </form>
+                </form>-->
             </div>
         </div>
     </div>
@@ -120,10 +120,10 @@
             <div class="profile-widget">
                 <a href="#" onclick="return false" data-toggle="dropdown">
                     <i class="fa fa-user user-pic"></i>
-                    <i class="user-name">Jhon Doe</i>
+                    <i class="user-name">{{Auth::user()->full_name}}</i>
                     <i class="fa fa-gear user-setting"></i>
                 </a>
-                <ul class="list-unstyled dropdown-menu user-setting-drop action-dropdown noMargin">
+                <!--<ul class="list-unstyled dropdown-menu user-setting-drop action-dropdown noMargin">
                     <li class="drop-header orangeBG">
                         <span>User Setting</span>
                     </li>
@@ -135,7 +135,7 @@
                     <li role="separator" class="divider"></li>
                     <li><a class="unread" href=""><i class="fa fa-sign-out"></i> Log Out</a></li>
                     <li><a href="javascript:;"><i class="fa fa-lock"></i> Lock Screen</a></li>
-                </ul>
+                </ul>-->
 
             </div>
 

@@ -126,12 +126,18 @@
                                 {{Form::Text('phone', Auth::check() ? Auth::user()->phone : '', ['class' => 'form-control margin-btm', 'placeholder'=>'Phone Number', 'required'=>'required', 'id'=> 'phone'])}}
                                 {{Form::Text('cell', Auth::check() ? Auth::user()->cell : '', ['class' => 'form-control', 'placeholder'=>'Cell Number (Optional)', 'id'=> 'cell'])}} </div>
                         </div>
-                        <div class="col-md-12">
+                        
+                        @if( !Auth::check() )
+                        
+	                        <div class="col-md-12">
                             <div class="checkbox">
-                                <input type="checkbox" id="c2" name="cc" checked/>
-                                <label for="c2"><span></span>Create An Account?</label>
+                                <input type="checkbox" id="create_new_account" name="create_new_account" checked />
+                                <label for="create_new_account"><span></span>Create An Account?</label>
                             </div>
                         </div>
+                        
+                        @endif
+                        
                     </div>
                 </div>
             </div>

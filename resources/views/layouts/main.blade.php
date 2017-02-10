@@ -113,13 +113,13 @@ $(document).ready(function() {
 		
 		$("iframe").each(function(index, element) {
 			var obj = $(this);
-			$(obj).contents().find("body").find("#popoutChat").hide(1);
+			//$(obj).contents().find("body").find("#popoutChat").hide(1);
 			
-			var html = $(obj).contents().find("body").find(".thin").next("b").text();
+			//var html = $(obj).contents().find("body").find(".thin").next("b").text();
 			
-			if( html == "tawk.to" ) { html = "Teamwork"; }
+			//if( html == "tawk.to" ) { html = "Teamwork"; }
 			
-			$(obj).contents().find("body").find(".thin").next("b").text(html);
+			//$(obj).contents().find("body").find(".thin").next("b").text(html);
 			
 		});	
 	}, 10);

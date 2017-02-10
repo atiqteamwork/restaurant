@@ -7,11 +7,15 @@ use Auth;
 use App\Area;
 use App\Cart;
 use App\CartDetails;
+
 use App\Order;
 use App\OrderDetail;
+
 use App\Restaurant;
+
 use App\Dish;
 use App\Deal;
+
 use App\City;
 
 use Carbon\Carbon;
@@ -104,16 +108,18 @@ class CartController extends Controller
             $item_name = $product->dish_title;
         }
 
-        $html = '<div class="cart_detail">
+        $html = '<div class="cart_detail" data-id="'.($cartDetails->item_type == "deal" ? $cartDetails->Deals[0]->id : $cartDetails->Dishes[0]->id).'" data-type="'.($cartDetails->item_type == "deal" ? "deal" : "dish").'">
                     <div class="overlay-shadow">
                         <div class="overlay-inner">
-                            <div class="close_btn"><a href="#" class="remove-cart-item" data-manual="'.$request->id.'" data-id="'.$request->type.'"><i class="fa fa-times-circle"></i></a> </div>
+                            <div class="close_btn">
+							<input type="hidden" class="subtotal" data-quantity="'.$cartDetails->quantity.'" data-price="'.$cartDetails->price.'" value="'.($cartDetails->price * $cartDetails->quantity).'" />
+							<a href="#" class="remove-cart-item" data-manual="'.$cartDetails->id.'" data-id="'.$request->type.'"><i class="fa fa-times-circle"></i></a> </div>
                         </div>
                     </div>
-                    <div class="plus"><a href="#" data-id="{{$c->id}}" class="change-quantity" data-type="plus"><span>+</span></a></div>
-                    <div class="minus"><a href="#" data-id="{{$c->id}}" class="change-quantity" data-type="minus"><span>-</span></a> </div>
+                    <div class="plus"><a href="#" data-id="'.$cartDetails->id.'" class="change-quantity" data-type="plus"><span>+</span></a></div>
+                    <div class="minus"><a href="#" data-id="'.$cartDetails->id.'" class="change-quantity" data-type="minus"><span>-</span></a> </div>
                     <div>
-                        <p> <span>1 <small>x</small></span> 
+                        <p> <span class="quantity-value">1 <small>x</small></span> 
                             '.$item_name.' <br>
                             '.strtoupper($request->type).'</p>
                     </div>
@@ -137,7 +143,7 @@ class CartController extends Controller
     public function delete_item( Request $request )
     {
         $response = CartDetails::destroy( $request->id );
-
+		
         if( $response == 1 )
         {
             return "Success";
@@ -152,13 +158,17 @@ class CartController extends Controller
      **/
     public function change_quantity(Request $request)
     {
+		
         $item  = CartDetails::find( $request->id );
         $prev_quantity  = $item->quantity;
+				
+		//
 
         if($request->action == "plus")
         {
             $prev_quantity += 1;
         } else {
+			if( $prev_quantity <= 1 ) {return "No Changes";}
             $prev_quantity -= 1;
         }
 
@@ -354,11 +364,11 @@ class CartController extends Controller
 			$data = ['order' => $order];
 			/****/
 			/**		Sending Email To User
-			/****
+			/****/
 			$from_email = 'admin@newsklic.com';
 			$from_name  = 'Restaurant Administrator';
 			
-			$to_email	= "offshore.jump@gmail.com"; //$order->email;
+			$to_email	= $order->email;
 			$to_name  = $order->first_name . " " . $order->last_name;
 			
 			Mail::send('mail.user', $data, function($message) use ($from_email, $from_name, $to_email, $to_name)
@@ -379,12 +389,12 @@ class CartController extends Controller
 			
 			
 			/****/
-			/**		Sending Email To Admin
-			/****
+			/**		Sending Email To Admin of website
+			/****/
 			$from_email = $order->email;
 			$from_name  = $order->first_name . " " . $order->last_name;
 			
-			$to_email	= 'atiq@teamwork.com.pk';	//Administrator Email
+			$to_email	= get_admin_email(); //'atiq@teamwork.com.pk';	//Administrator Email
 			$to_name  = 'Administrator';
 			
 			Mail::send('mail.user', $data, function($message) use ($from_email, $from_name, $to_email, $to_name)
@@ -407,11 +417,11 @@ class CartController extends Controller
 			
 			/****/
 			/**		Sending Email To Restaurant
-			/****
+			/****/
 			$from_email = $order->email;
 			$from_name  = $order->first_name . " " . $order->last_name;
 			
-			$to_email	= 'atiq@teamwork.com.pk';	//Administrator Email
+			$to_email	= 'awais@teamwork.com.pk';	//Administrator Email
 			$to_name  = 'Administrator';
 			
 			Mail::send('mail.user', $data, function($message) use ($from_email, $from_name, $to_email, $to_name)

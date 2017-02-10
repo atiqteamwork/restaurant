@@ -237,8 +237,6 @@
 <script src="assets/plugins/jquery/jquery-2.2.4.min.js"></script>
 <script>
 
-
-
 /*
 *
 *	On change of Restaurant Filter
@@ -280,7 +278,49 @@ $(document).on('submit', "#search_filter",function () {
 	return false;
 });
 
-			
+
+$( document ).on( 'click', '.view_order_button', function () {
+	
+	//alert( $(this).attr("data-id") );
+	
+	var dataString = {
+		'id': $(this).attr("data-id"), 
+		'_token': $('input[name="_token"]').val(),
+		'is_view':"1",
+	};
+	
+	$.ajax({
+		type: "POST",
+		url: "{{ url('admin/orders/view_order_byid')}}",
+		data: dataString,
+		success: function (data) {
+			$(".alert").fadeOut(1);
+			$('#viewRestaurantsdata').html(data);
+			$('#viewRestaurants').modal("show");
+		}
+	});
+	
+	return false;
+	
+});
+	
+/**
+*	Fetch Restaurants Data and Put into Edit Model
+*/
+$( document ).on( 'click', '.edit_order_btn', function () {
+	var id = $(this).attr("data-id");
+	
+	/*var dataString = {
+			'id': $(this).attr("data-id"),
+			'_token': $('input[name="_token"]').val()
+		};*/
+	
+	$("#edit_order_form #__order_id").val( id );
+	
+	$("#edit_order_form").submit();
+	
+	return false;
+});		
 
 
 		$(document).ready(function () {

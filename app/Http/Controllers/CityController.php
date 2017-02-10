@@ -50,21 +50,15 @@ class CityController extends Controller
     */
     public function new_city(Request $request)
     {
-		
-		
-		$input = [
-            "city_name" 	=> $request->city_name,
-        ];
+		$input = [ "city_name" => $request->city_name,];
 
-
-        $rules = [
-            'city_name' 		=> 'unique:cities,city_name|required|min:3',
-        ];
+        $rules = [ 'city_name' => 'unique:cities,city_name|required|min:3', ];
 
         $messages =  [
             'city_name.required' => 'Enter Restaurant Name.',
             'city_name.unique' 	 => 'City Name Already Exists',
         ];
+
 
         $validate = Validator::make($input,$rules, $messages);
 
@@ -75,10 +69,11 @@ class CityController extends Controller
 			$response = $city->save();
 	
 			if( $response == 1 ) {
-				return "Success";
+				return "Success"; //return redirect()->back()->with("status", "New City Added Successfully.");
 			} else {
 				return $response;
 			}
+			
 		} else {
 			$messages = $validate->messages();
             $messages = json_decode( $messages );
@@ -104,7 +99,6 @@ class CityController extends Controller
     public function fetch_by_id(Request $request)
     {
         $city_result = City::find( $request->id );
-		
 		
         $returndata = '<div class="box-body">
           <input  type="hidden" name="id" id="id" value="' . $city_result->id . '"/>

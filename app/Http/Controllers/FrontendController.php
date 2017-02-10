@@ -33,6 +33,30 @@ class FrontendController extends Controller
     */
     public function index(Request $request)
     {	
+        $cities = City::where("status", "active")->get();
+        $cities_data = [];
+        
+		if( !empty( $cities ) && count( $cities ) > 0 ) {
+			foreach( $cities as $city ) {
+				$cities_data[$city->id] = $city->city_name;
+			}
+		} else {
+			$cities_data["0"] = "No City Found";
+		}
+		
+        return view("frontend.index")->with([
+            'cities' => $cities_data,
+			'restaurants' => Restaurant::limit(30)->get(),
+        ]);
+    }
+	
+	
+	
+	 /*
+    *
+    */
+    public function index2(Request $request)
+    {	
         $cities = City::all();
         $cities_data = [];
         
@@ -40,11 +64,14 @@ class FrontendController extends Controller
             $cities_data[$city->id] = $city->city_name;
         }
         
-        return view("frontend.index")->with([
+        return view("frontend.index_new")->with([
             'cities' => $cities_data,
 			'restaurants' => Restaurant::limit(30)->get(),
         ]);
     }
+	
+	
+	
     
     /**
      * Search Dish Page

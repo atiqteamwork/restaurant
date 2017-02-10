@@ -265,7 +265,7 @@
 									clearInterval( mover );
 									
 									$("#new_deal")[0].reset();
-								}, 2000);
+								}, 1000);
 							} else {
 								$(".alert-danger span").text( response );
 								$(".alert-danger").fadeIn(400);
@@ -329,7 +329,7 @@
 							var mover = setInterval( function(){
 								window.location.reload();
 								clearInterval( mover );		
-							}, 2000);
+							}, 1000);
 						} else {
 							$(".alert-danger span").text( response );
 							$(".alert-danger").fadeIn(400);

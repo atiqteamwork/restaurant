@@ -39,8 +39,6 @@ class RestaurantController extends Controller
     {
         $restaurant_list = Restaurant::all();
 		
-		//dd( $restaurant_list );
-
         $cities = City::all();
         $cities_data = [""=> "Select City"];
         foreach( $cities as $city ) {
@@ -126,31 +124,36 @@ class RestaurantController extends Controller
 			if (Input::hasFile('logo'))
 			{
 				if (Input::file('logo')->isValid()) {
-					$destinationPath = 'assets/images/restaurants'; // upload path
-					$extension = Input::file('logo')->getClientOriginalExtension(); // getting image extension
-					$logo_fileName = "logo_".date("YmdHis").rand(111,999).'.'.$extension; // renameing image
-					Input::file('logo')->move($destinationPath, $logo_fileName); // uploading file to given path
+					$destinationPath = 'assets/images/restaurants';
+					$extension = Input::file('logo')->getClientOriginalExtension();
+					$logo_fileName = "logo_".date("YmdHis").rand(111,999).'.'.$extension;
+					Input::file('logo')->move($destinationPath, $logo_fileName);
 				  
 				} else {
-					return redirect()->back()->with("error", "Logo Could be Uploaded.");
+					return redirect()->back()
+						->with("error", "Logo Could be Uploaded.")
+						->withInput(Input::all());
 				}
 			}
 			
 			if (Input::hasFile('banner'))
 			{
 				if (Input::file('banner')->isValid()) {
-					$destinationPath = 'assets/images/restaurants'; // upload path
-					$extension = Input::file('banner')->getClientOriginalExtension(); // getting image extension
-					$banner_fileName = "banner_".date("YmdHis").rand(111,999).'.'.$extension; // renameing image
-					Input::file('banner')->move($destinationPath, $banner_fileName); // uploading file to given path
+					$destinationPath = 'assets/images/restaurants';
+					$extension = Input::file('banner')->getClientOriginalExtension();
+					$banner_fileName = "banner_".date("YmdHis").rand(111,999).'.'.$extension; 
+					Input::file('banner')->move($destinationPath, $banner_fileName);
 				  
 				} else {
-					return redirect()->back()->with("error", "Banner Could be Uploaded.");
+					return redirect()->back()
+						->with("error", "Banner Could be Uploaded.")
+						->withInput(Input::all());
 				}
 			}
 			
 			
             $areas = implode(",", $request->area_ids);
+			$menu_categories = implode(",", $request->menu_categories);
             $restaurant = new Restaurant;
 
             $restaurant->city_id		= $request->city_id;
@@ -170,6 +173,7 @@ class RestaurantController extends Controller
             $restaurant->close_time 	= date("H:i:s", strtotime($request->close_time));
             $restaurant->is_takeaway_only = $request->is_takeaway_only;
             $restaurant->area_ids = $areas;
+			$restaurant->menu_categories = $menu_categories;
             $restaurant->outof_area_charges	= $request->outof_area_charges;
 
             $result = $restaurant->save();
@@ -193,7 +197,7 @@ class RestaurantController extends Controller
 			
 				
             } else {
-                return redirect()->back()->with("error", "An Error Occured");
+                return redirect()->back()->with("error", "An Error Occured")->withInput(Input::all());
             }
         }
         else
@@ -207,8 +211,7 @@ class RestaurantController extends Controller
             }
 
 
-			return redirect()->back()->with("error", $message_html);
-            //return $message_html;
+			return redirect()->back()->with("error", $message_html)->withInput(Input::all());
         }
 
     }
@@ -272,12 +275,21 @@ class RestaurantController extends Controller
     public function fetch_by_id(Request $request)
     {
         $restaurant = Restaurant::find($request->id);
-
+		$areas = Area::whereIn("id", explode(",",$restaurant->area_ids))->get();
+		
+		$restaurant_areas = "";
+		
+		foreach( $areas as $area )
+		{
+			$restaurant_areas .= "<span>".$area->area_name."</span>, ";
+		}
+		
         if( isset( $request->is_view ) ) {
             $returndata = '<div class="box-body">
             <table class="table table-bordered table-striped">
-                <tr><th>City</th><td>Faisalabad</td></tr>
                 <tr><th>Restaurant Name</th><td>'.$restaurant->title.'</td></tr>
+				<tr><th>City</th><td>Faisalabad</td></tr>
+				<tr><th>Areas</th><td>'.$restaurant_areas.'</td></tr>
                 <tr><th>Description</th><td>'.$restaurant->description.'</td></tr>
                 <tr><th>Email Address</th><td>'.$restaurant->email.'</td></tr>
                 <tr><th>Address</th><td>'.$restaurant->address.'</td></tr>
@@ -289,7 +301,7 @@ class RestaurantController extends Controller
                 <tr><th>Contact Email</th><td>'.$restaurant->contact_email.'</td></tr>
                 <tr><th>Opening Time</th><td>'.date("h:i:s a", strtotime($restaurant->open_time)).'</td></tr>
                 <tr><th>Closing Time</th><td>'.date("h:i:s a", strtotime($restaurant->close_time)).'</td></tr>
-                <tr><th>Restaurant Type</th><td></td></tr>
+                <tr><th>Restaurant Type</th><td>'.($restaurant->is_takeaway_only = 'true' ? 'Takeaway' : 'Delivery + Takeaway').'</td></tr>
             </table>
         </div>';
 

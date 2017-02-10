@@ -1,7 +1,6 @@
 @extends('layouts.main')
 @section('title', 'Menu of ' . $restaurants[0]->title)
 
-
 @section('content')
 <div class="outer_body no-padding">
     <div class="detail-bg parallax-window" data-parallax="scroll" data-image-src="assets_front/images/detail_page_bg.jpg">
@@ -38,10 +37,20 @@
                     <nav class="navbar" id="sidebar_nav">
                         <h4>limited time offer</h4>
                         <ul class="nav">
-                            <li><a href="#bahadur" class="page-scroll">2 bahadur meal</a></li>
-                            <li><a href="#food-dep" class="page-scroll">2 food</a></li>
-                            <li class="head-tag"><a href="javascript:;">Sandwiches</a></li>
-                            <li><a href="#" class="page-scroll">2 bahadur meal</a></li>
+                            <!--<li><a href="#bahadur" class="page-scroll">2 bahadur meal</a></li>-->
+                            <li><a href="#" class="page-scroll">Special Offers</a></li>
+                            	@foreach( $restaurants[0]->Deals as $deal )
+                            		<li class="head-tag"><a class="anchor-click" href="#deal_id_{{$deal->id}}">{{$deal->deal_title}}</a></li>
+                                @endforeach
+                            
+                            	@foreach( $categories as $category )
+		                   			@if( in_array( $category->id, $dish_ids) )
+                                    	
+                                    @endif
+                                @endforeach
+                            
+                            
+                            <!--<li><a href="#" class="page-scroll">2 bahadur meal</a></li>-->
                         </ul>
                     </nav>
                 </div>
@@ -52,7 +61,7 @@
                     <div class="detail_box">
                         <div class="row">
                             <div class="col-md-8 col-sm-8">
-                                <h4>{{$deal->deal_title}}</h4>
+                                <h4 id="deal_id_{{$deal->id}}">{{$deal->deal_title}}</h4>
                                 <div class="small-detail">
                                     <h5> Exclusive Deal</h5>
                                     <p>{{$deal->description}}</p>
@@ -69,12 +78,12 @@
                     
                     
                     @if( !empty( $dish_ids ) ) 
-                    @foreach( $categories as $category )
-                    @if( in_array( $category->id, $dish_ids) )
-                    <section id="bahadur"> 
+                    	@foreach( $categories as $category )
+                   			@if( in_array( $category->id, $dish_ids) )
+                    			<section id="bahadur"> 
                         <!--food-banner-->
                         <div class="food-banner"> <img src="assets_front/images/food-banner.jpg" alt="banner" class="img-responsive">
-                            <h3>{{$category->category_title}}</h3>
+                            <h3 id="category_id_{{$category->id}}">{{$category->category_title}}</h3>
                         </div>
                         <!--end banner--> 
                         <!--detail_box-->
@@ -82,7 +91,7 @@
                             <div class="row"> @foreach($restaurants[0]->Dishes as $dish )
                                 @if( $dish->category_id == $category->id )
                                 <div class="col-md-4 col-sm-6 col-xs-12">
-                                    <div class="recipe_box"> <img src="{{url('/')}}/assets/images/dishes/{{$dish->picture}}" alt="recipe" class="img-responsive">
+                                    <div class="recipe_box" id="dish_id_{{$dish->id}}"> <img src="{{url('/')}}/assets/images/dishes/{{$dish->picture}}" alt="recipe" class="img-responsive">
                                         <p>{{$dish->dish_title}}</p>
                                         <a href="#" class="btn btn_cart" data-order="{{$order_type}}" data-type="dish" data-id="{{$dish->id}}">Rs. <span class="cart-price">{{$dish->price}}</span> <i class="fa fa-shopping-cart"></i></a> </div>
                                 </div>
@@ -91,10 +100,10 @@
                         </div>
                         <!--detail_box end--> 
                     </section>
-                    @endif
-                    @endforeach	
+	    	                @endif
+    	                @endforeach	
                     @else
-                    <h3>No Dishes or Deals Found</h3>
+            	        <h3>No Dishes or Deals Found</h3>
                     @endif </div>
             </div>
             <div class="col-md-3">
@@ -107,7 +116,7 @@
                         <?php $total = 0 ?>
                         @foreach( $cart as $c )
                         <?php $total = ($c->price * $c->quantity) + $total ?>
-                        <div class="cart_detail">
+                        <div class="cart_detail" data-id="{{($c->item_type == 'deal' ? $c->Deals[0]->id : $c->Dishes[0]->id)}}" data-type="{{($c->item_type == 'deal' ? "deal" : "dish")}}">
                             <div class="overlay-shadow">
                                 <div class="overlay-inner">
                                     <div class="close_btn">
@@ -181,16 +190,158 @@ $(document).on("click", ".remove-cart-item").click(function() {
 
 
 
+/**
+ *	Change Quantity of Items Plus/Minus
+ **/
+//$(".change-quantity").click(function(){
+$(document).on("click",".change-quantity", function(){
+	
+	var obj    = $(this);
+	var action = $(obj).attr("data-type");
+	var id     = $(obj).attr("data-id");
+
+	$.ajax({
+		type: 'POST',
+		url: "{{url('cart/item/changequantity')}}",
+		data:{
+			'id': id,
+			'action': action,
+			'_token': '{{csrf_token()}}'
+		},
+		success: function (response) 
+		{
+			if( response != "Error!" )
+			{	
+				if( response == "No Changes") return false;
+				
+				var prev = 0;
+				var current_subtotal = $(".view-subtotal").text().trim();
+				var current_total = $(".view-total").text().trim();
+				
+				
+				
+				if( action  == "plus" )
+				{
+					prev = parseInt(response) - 1;
+				} else {
+					prev = parseInt(response) + 1;
+				}
+				
+				
+				$(obj).parent().parent().find(".quantity-value" ).html( response+" <small>x</small>");
+				var price = ( $(obj).parent().parent().find(".subtotal").val() / ( prev ) );
+				$(obj).parent().parent().find(".subtotal").val( price * response );
+							
+				if( action  == "plus" )
+				{
+					current_subtotal =  parseInt(current_subtotal) + parseInt(price);
+					current_total    = parseInt(current_total) + parseInt(price);	
+				} else {
+					current_subtotal = parseInt(current_subtotal) - parseInt(price);
+					current_total    = parseInt(current_total) - parseInt(price);
+				}					
+				
+				
+				
+				
+				$(".view-subtotal").text( current_subtotal );
+				$(".view-total").text( current_total );
+				
+			} else {
+				alert( "Some Error" );
+			}
+		}, error:function () {
+			alert("Error");
+		}
+	});
+	
+	
+	return false;	
+});
+
+
+
+
+//$(".remove-cart-item").click(function() {
+$(document).on("click",".remove-cart-item", function() {	
+	var obj  = $(this);
+	var id   = $(obj).attr("data-manual");
+	var type = $(obj).attr("data-id");
+		
+	$.ajax({
+		type: 'POST',
+		url: "{{url('cart/item/delete')}}",
+		data:{
+			'id': id,
+			'type': type,
+			'_token': '{{csrf_token()}}'
+		},
+		success: function (response) {
+			if( response == "Success" )
+			{
+				var this_total = $(obj).prev().val();
+				var sub_total  = $(".view-subtotal").text() - this_total;
+				
+				$(".view-subtotal").text( sub_total );
+				$(".view-total").text( sub_total );
+				$(obj).parent().parent().parent().parent().fadeOut(200);
+					
+			} else {
+				alert( response );
+			}
+		},
+		error:function () {
+			
+		}
+	});
+	
+	return false;
+});
+
+//Smooth Scroll
+$(".anchor-click").click(function() 
+{
+	var obj = (this);
+	
+	$('html, body').animate({
+		scrollTop: ( $( $(obj).attr("href") ).offset().top - 52)
+	}, 500);
+	
+	return false;
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	$(document).ready(function() {
+		/**
+		 *	Add to Cart Button
+		 **/
+		 
         $(".btn_cart").click(function() {
 			var obj    = $(this);
 			
-			var id     = $(obj).attr("data-id");
-			var type   = $(obj).attr("data-type");
-			var restid = "{{$restaurants[0]->id}}";
-			var price  = $(obj).find(".cart-price").text();
-			var order_type = $(obj).attr("data-order");
+			var id     		= $(obj).attr("data-id");
+			var type   		= $(obj).attr("data-type");
+			var restid 		= "{{$restaurants[0]->id}}";
+			var price  		= $(obj).find(".cart-price").text();
+			var order_type 	= $(obj).attr("data-order");
 			
 			var current_subtotal = $(".view-subtotal").text().trim();
 			var current_total    = $(".view-total").text().trim();
@@ -206,8 +357,33 @@ $(document).on("click", ".remove-cart-item").click(function() {
 					'order_type': order_type,
 					'_token': '{{csrf_token()}}',
 				},
-				success: function (response) {
-					$(response).insertBefore(".cart-sidebar .cart-sticker h6");
+				success: function (response) 
+				{
+					var counter = 0;
+					var tcount = $(".cart_detail").length;
+					
+					$(".cart_detail").each(function(index, element) {
+                        var sub_obj = $(this);
+												
+						var i_id = $(sub_obj).attr("data-id");
+						var i_type = $(sub_obj).attr("data-type");
+						
+						if( (id == i_id) && (type == i_type) )
+						{
+							var prev_quantity = $(sub_obj).find(".quantity-value").text();
+								prev_quantity = parseInt(prev_quantity.replace(" x", ""));
+								
+								$(sub_obj).find(".quantity-value").html( (prev_quantity + 1) + " <small>x</small>" );
+								
+						} else {
+							counter++;
+						}
+                    });
+					
+					if(counter == tcount) {
+						$(response).insertBefore(".cart-sidebar .cart-sticker h6");
+					}
+					
 					$(".view-subtotal").text( parseInt(current_subtotal) + parseInt( price ) );
 					$(".view-total").text( parseInt(current_total) + parseInt( price ) );
 					
@@ -255,70 +431,80 @@ $(document).on("click", ".remove-cart-item").click(function() {
 				return false;
 			});
 		
+			//Smooth Scroll
+			$(".anchor-click").click(function() 
+			{
+				var obj = (this);
+				
+                $('html, body').animate({
+					scrollTop: ( $( $(obj).attr("href") ).offset().top - 52)
+				}, 500);
+				
+				return false;
+            });
 		
     });
 	
 	
-	
-	/**
-	 *
-	 **/
-	$(".change-quantity").click(function(){
-		var obj    = $(this);
-		var action = $(obj).attr("data-type");
-		var id     = $(obj).attr("data-id");		
+$(".change-quantity").click(function(){
+	var obj    = $(this);
+	var action = $(obj).attr("data-type");
+	var id     = $(obj).attr("data-id");		
+			
+	$.ajax({
+		type: 'POST',
+		url: "{{url('cart/item/changequantity')}}",
+		data:{
+			'id': id,
+			'action': action,
+			'_token': '{{csrf_token()}}'
+		},
+		success: function (response) {
+			if( response != "Error!" )
+			{	
+				if( response == "No Changes") return false;
 				
-		$.ajax({
-			type: 'POST',
-			url: "{{url('cart/item/changequantity')}}",
-			data:{
-				'id': id,
-				'action': action,
-				'_token': '{{csrf_token()}}'
-			},
-			success: function (response) {
-				if( response != "Error!" )
-				{	
-					var prev = 0;
-					var current_subtotal = $(".view-subtotal").text().trim();
-					var current_total = $(".view-total").text().trim();
-					
-					if( action  == "plus" )
-					{
-						prev = parseInt(response) - 1;
-					} else {
-						prev = parseInt(response) + 1;
-					}
-					
-					$(obj).parent().parent().find(".quantity-value" ).html( response + " <small>x</small>");
-					var price = ( $(obj).parent().parent().find(".subtotal").val() / ( prev ) );
-					$(obj).parent().parent().find(".subtotal").val( price * response );
-					
-					if( action  == "plus" )
-					{
-						current_subtotal =  parseInt(current_subtotal) + parseInt(price);
-						current_total    = parseInt(current_total) + parseInt(price);	
-					} else {
-						current_subtotal = parseInt(current_subtotal) - parseInt(price);
-						current_total    = parseInt(current_total) - parseInt(price);
-					}					
-					
-					
-					$(".view-subtotal").text( current_subtotal );
-					$(".view-total").text( current_total );
-					
+				var prev = 0;
+				var current_subtotal = $(".view-subtotal").text().trim();
+				var current_total = $(".view-total").text().trim();
+				
+				if( action  == "plus" )
+				{
+					prev = parseInt(response) - 1;
 				} else {
-					alert( response );
+					prev = parseInt(response) + 1;
 				}
-			},
-			error:function () {
 				
+				$(obj).parent().parent().find(".quantity-value" ).html( response+" <small>x</small>");
+				var price = ( $(obj).parent().parent().find(".subtotal").val() / ( prev ) );
+				$(obj).parent().parent().find(".subtotal").val( price * response );
+				
+				if( action  == "plus" )
+				{
+					current_subtotal =  parseInt(current_subtotal) + parseInt(price);
+					current_total    = parseInt(current_total) + parseInt(price);	
+				} else {
+					current_subtotal = parseInt(current_subtotal) - parseInt(price);
+					current_total    = parseInt(current_total) - parseInt(price);
+				}					
+				
+				
+				$(".view-subtotal").text( current_subtotal );
+				$(".view-total").text( current_total );
+				
+			} else {
+				alert( response );
 			}
-		});
-		
-		
-		return false;	
+		},
+		error:function () {
+			
+		}
 	});
+	
+	
+	return false;	
+});
+	
 	
 	
 </script> 

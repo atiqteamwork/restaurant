@@ -37,45 +37,39 @@
             
             <!--restaurent-list-box--> 
             @if( !empty( $restaurants ) && count($restaurants) > 0 )
-            	
-            @foreach( $restaurants as $restaurant )
-            <div class="col-md-4 col-sm-6 col-xs-12">
-                <div class="restaurent-list-box box_border">
-                    <div class="res-logo"> <img src="{{getenv('APP_URL')}}assets/images/restaurants/{{$restaurant->banner}}" alt="restaurent img">
-                        <div class="overflow-outer">
-                            <div class="overflow-inner">
-                                <div class="deliver-mint"><a href="#">delivers in 30 minutes</a></div>
-                                <div class="tak-div"> <a href="javascript:;" class="tak-order"><i class="fa fa-check-circle"></i> Takeaway order</a> <br>
-                                    <a href="javascript:;" class="del-order"><i class="fa {{$restaurant-> 	is_takeaway_only ? 'fa-check-circle' : 'fa-times-circle'}} "></i> deliver order</a> </div>
-                                <div class="next-btn"><a href="search/{{$restaurant->id}}/{{urlencode($restaurant->title). "+".urlencode($order_type)}}/{{$area_id}}"><i class="fa fa-angle-right"></i></a></div>
+                @foreach( $restaurants as $restaurant )
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <div class="restaurent-list-box box_border">
+                        <div class="res-logo"> <img src="{{getenv('APP_URL')}}assets/images/restaurants/{{$restaurant->banner}}" alt="restaurent img">
+                            <div class="overflow-outer">
+                                <div class="overflow-inner">
+                                    <div class="deliver-mint"><a href="#">delivers in 30 minutes</a></div>
+                                    <div class="tak-div"> <a href="javascript:;" class="tak-order"><i class="fa fa-check-circle"></i> Takeaway order</a> <br>
+                                        <a href="javascript:;" class="del-order"><i class="fa {{$restaurant->is_takeaway_only == "false" ? 'fa-check-circle' : 'fa-times-circle'}} "></i> deliver order</a> </div>
+                                    <div class="next-btn"><a href="search/{{$restaurant->id}}/{{urlencode($restaurant->title). "+".urlencode($order_type)}}/{{$area_id}}"><i class="fa fa-angle-right"></i></a></div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="detail">
-                        <div class="pull-left detail-res">
-                            <h4><a href="search/{{$restaurant->id}}/{{urlencode($restaurant->title). "+".urlencode($order_type)}}/{{$area_id}}">{{$restaurant->title}}</a></h4>
-                            <p> 
-                            	@foreach( $restaurant->Menus as $menus )
-                                	{{$menus->category_title}},
-                                @endforeach
-                                
-                                @foreach( $restaurant->Menus as $menus )
-                                	{{$menus->category_title}},
-                                @endforeach
-                                @foreach( $restaurant->Menus as $menus )
-                                	{{$menus->category_title}},
-                                @endforeach
-                            
-                             </p>
+                        <div class="detail">
+                            <div class="pull-left detail-res">
+                                <h4><a href="search/{{$restaurant->id}}/{{urlencode($restaurant->title). "+".urlencode($order_type)}}/{{$area_id}}">{{$restaurant->title}}</a></h4>
+                                <p> 
+                                    @foreach( $restaurant->Menus as $menus )
+                                        {{$menus->category_title}},
+                                    @endforeach
+                                 </p>
+                            </div>
+                            <div class="pull-right">
+                                <!--Rating section will be here--> 
+                                <a href="search/{{$restaurant->id}}/{{urlencode($restaurant->title). "+".urlencode($order_type)}}/{{$area_id}}" class="btn btn-sm btn-success">Select</a> </div>
                         </div>
-                        <div class="pull-right"> 
-                            <!--Rating section will be here--> 
-                            <a href="search/{{$restaurant->id}}/{{urlencode($restaurant->title). "+".urlencode($order_type)}}/{{$area_id}}" class="btn btn-sm btn-success">Select</a> </div>
                     </div>
                 </div>
-            </div>
-            @endforeach
-
+                @endforeach
+			@else
+            	<div class="col-md-12 col-sm-12 col-xs-12">
+	            	<h3>No Restaurant Found </h3>
+                </div>
             @endif 
             <!--end restaurent-list-box--> 
             

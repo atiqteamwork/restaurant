@@ -36,18 +36,24 @@
                 <tr style="background-color: #ffffff;">         
                     <td  style="text-align: left; padding:12px; border: 1px solid #dddddd;">To</td>
                     
-                    <td  style="text-align: left; padding:12px; border: 1px solid #dddddd;">{{$order->first_name . ' '. $order->last_name}}</td>
+                    <td  style="text-align: left; padding:12px; border: 1px solid #dddddd;">{{($order->shipping_location == 'Shipping') ? $order->shipping_first_name . ' '. $order->shipping_last_name : $order->first_name . ' '. $order->last_name}}</td>
                 </tr>
                 <tr style="background-color: #ffffff;">
                     <td  style="text-align: left; padding:12px; border: 1px solid #dddddd;">Address</td>
                     
-                    <td  style="text-align: left; padding:12px; border: 1px solid #dddddd;">{{$order->address1}}<br>{{$order->address2}}</td>
+                    <td  style="text-align: left; padding:12px; border: 1px solid #dddddd;">{{($order->shipping_location == 'Shipping')? $order->shipping_address1 :$order->address1}}</td>
+                </tr>
+                
+                <tr style="background-color: #ffffff;">
+                    <td  style="text-align: left; padding:12px; border: 1px solid #dddddd;"></td>
+                    
+                    <td  style="text-align: left; padding:12px; border: 1px solid #dddddd;">{{($order->shipping_location == 'Shipping')? $order->shipping_address2 :  $order->address2}}</td>
                 </tr>
                 
                 <tr style="background-color: #ffffff;">
                     <td  style="text-align: left; padding:12px; border: 1px solid #dddddd;">City</td>
                     
-                    <td  style="text-align: left; padding:12px; border: 1px solid #dddddd;">{{$order->City->city_name}}</td>
+                    <td  style="text-align: left; padding:12px; border: 1px solid #dddddd;">{{($order->shipping_location == 'Shipping')? $order->City->city_name :$order->City->city_name}}</td>
                 </tr>
                 
                 <tr style="background-color: #ffffff;">
@@ -59,17 +65,17 @@
                 <tr style="background-color: #ffffff;">
                     <td  style="text-align: left; padding:12px; border: 1px solid #dddddd;">Phone</td>
                     
-                    <td  style="text-align: left; padding:12px; border: 1px solid #dddddd;">{{$order->phone}}</td>
+                    <td  style="text-align: left; padding:12px; border: 1px solid #dddddd;">{{($order->shipping_location == 'Shipping')?$order->shipping_phone:$order->phone}}</td>
                 </tr>
                 <tr style="background-color: #ffffff;">
                     <td  style="text-align: left; padding:12px; border: 1px solid #dddddd;">Cell</td>
                     
-                    <td  style="text-align: left; padding:12px; border: 1px solid #dddddd;">{{$order->cell}}</td>
+                    <td  style="text-align: left; padding:12px; border: 1px solid #dddddd;">{{($order->shipping_location == 'Shipping')? $order->shipping_cell :$order->cell}}</td>
                 </tr>
                 <tr style="background-color: #ffffff;">
                     <td  style="text-align: left; padding:12px; border: 1px solid #dddddd;">Email</td>
                     
-                    <td  style="text-align: left; padding:12px; border: 1px solid #dddddd;">{{$order->email}}</td>
+                    <td  style="text-align: left; padding:12px; border: 1px solid #dddddd;">{{($order->shipping_location == 'Shipping')? $order->shipping_email :$order->email}}</td>
                 </tr>
                 
             </table>
@@ -106,7 +112,7 @@
                     <td  style="text-align: right; padding:12px; border: 1px solid #dddddd;">{{$od->quantity}}</td>
                     <td  style="text-align: right; padding:12px; border: 1px solid #dddddd;"><?php echo $od->price * $od->quantity; ?></td>
                     
-                    <?php $total = ($od->price * $od->quantity); ?>
+                    <?php $total +=  ($od->price * $od->quantity); ?>
                 </tr>
                 
                 @endforeach
@@ -115,9 +121,27 @@
                 <tr style="background-color: #efefef;">
                     <td  style="text-align: left; padding:12px; border: 1px solid #dddddd;"></td>
                     
-                    <th  style="text-align: left; padding:12px; border: 1px solid #dddddd;" colspan="2">Total</th>
+                    <th  style="text-align: left; padding:12px; border: 1px solid #dddddd;" colspan="2">Order Total</th>
                     
                     <th  style="text-align: right; padding:12px; border: 1px solid #dddddd;" colspan="2">{{$total}}</th>
+                    
+                </tr>
+                
+                <tr style="background-color: #efefef;">
+                    <td  style="text-align: left; padding:12px; border: 1px solid #dddddd;"></td>
+                    
+                    <th  style="text-align: left; padding:12px; border: 1px solid #dddddd;" colspan="2">G.S.T</th>
+                    
+                    <th  style="text-align: right; padding:12px; border: 1px solid #dddddd;" colspan="2"><?php $gst = round(($order->Restaurant["gst"] / 100) * $total); echo $gst; $net_total = $total + $gst?></th>
+                    
+                </tr>
+                
+                <tr style="background-color: #efefef;">
+                    <td  style="text-align: left; padding:12px; border: 1px solid #dddddd;"></td>
+                    
+                    <th  style="text-align: left; padding:12px; border: 1px solid #dddddd;" colspan="2">Total</th>
+                    
+                    <th  style="text-align: right; padding:12px; border: 1px solid #dddddd;" colspan="2">{{$net_total}}</th>
                     
                 </tr>
                 

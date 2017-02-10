@@ -15,6 +15,8 @@ Route::get('/admin', 'PagesController@home');
 Route::get('/home/', 'PagesController@home');
 Route::get('/', 'FrontendController@index');
 
+Route::get('/landing', 'FrontendController@index2');
+
 
 /**
  * User Routs
@@ -100,41 +102,22 @@ Route::resource('admin/restaurants/update', 'RestaurantController@update_restaur
 Route::resource('admin/restaurant/del', 'RestaurantController@delete_restaurant');
 
 
+
+/**
+*
+*	Restaurant Routes
+*/
+Route::get('admin/setting/front-page-image', 'SettingController@front_page_image');
+Route::resource('admin/settings/update-frontpage-image', 'SettingController@update_frontpage_image');
+Route::get('admin/setting/admin-email', 'SettingController@admin_email');
+Route::resource('admin/settings/update-admin-email', 'SettingController@update_admin_email');
+
 /**
 *
 *	Restaurant Menus
 */
 
 Route::get('admin/restaurant-menus', 'DishesController@index');
-
-/*Route::get('restaurant-menus', function(Auth $auth){
-	
-	if( $auth::user()->role_id == 1 ) {
-		echo "test";
-		redirect('DishesController@index');
-	}
-});*/
-
-
-
-
-/*Route::group(['middleware' => 'auth'], function() 
-{
-	Route::auth();
-	
-    Route::group(['middleware' => ['role:admin']], function() {
-		Route::get('restaurant-menus', "DishesController@index");
-    });
-	
-	Route::group(['middleware' => ['role:restaurant'], 'prefix' => 'restaurant'], function() {
-		Route::get('restaurant-menus', "DishesController@testrestaurant");
-    });
-	
-	Route::group(['middleware' => ['role:visitor'], 'prefix' => 'visitor'], function() {
-		Route::get('restaurant-menus', "DishesController@testvisitor");
-
-    });
-});*/
 
 
 Route::resource('admin/restaurants/fetch_dish_by_restaurant', 'DishesController@fetch_dish_by_restaurant');
@@ -197,46 +180,23 @@ Route::resource('cart/check/delivery_area/', 'CommonController@is_restaurant_are
 Route::resource('cart/add', 'CartController@addto_main_cart');
 Route::resource('cart/view', 'CartController@view_cart');
 Route::post('cart/item/delete', 'CartController@delete_item');
-Route::post('cart/item/changequantity', 'CartController@change_quantity');
+Route::resource('cart/item/changequantity', 'CartController@change_quantity');
 Route::post('cart/checkout/update', 'CartController@update_checkout');
 Route::get('/checkout', 'CartController@checkout');
 
 Route::resource('/checkout/proceed', 'CartController@proceed_checkout');
 
-/*Route::post( 'checkout/login', [
-	'as' => 'checkout/login', 
-	'uses' => 'UsersController@login'
-]);*/
 Route::resource('chat', 'ChatController');
 
 
 Route::post('checkout/login', '\App\Http\Controllers\Auth\LoginController@login');
 Route::post('/login', '\App\Http\Controllers\Auth\LoginController@login');
-/*Route::post('/login', function() {
-	
-	//dd( Auth::user() );
-	
-/*	if( Auth::user()->role_id <= 10 ) {
-		echo "TEST"; exit;
-	}	*
-});*/ //'\App\Http\Controllers\Auth\LoginController@login');
-
-
 Route::resource('restaurant/all', 'CommonController@top_restaurants');
 Route::resource('html/restaurants/get_by_city', 'CommonController@get_restaurants_bycity');
 
 
 Route::get('visitor/orders', 'VisitorController@index');
 Route::resource('visitor/orders/search_filter', 'VisitorController@search_filter');
-
-/*Route::resource('admin/orders/fetch_order_by_restaurant', 'OrdersController@fetch_order_by_restaurant');
-Route::resource('admin/orders/view_order_byid', 'OrdersController@view_order_byid');
-Route::resource('admin/orders/new', 'OrdersController@new_order_page');
-Route::resource('admin/orders/add_new', 'OrdersController@add_new_order');
-Route::resource('admin/orders/edit', 'OrdersController@edit_page');
-Route::resource('admin/orders/update_order', 'OrdersController@update_order');
-Route::resource('admin/orders/del', 'OrdersController@delete_order');*/
-
 Route::resource('order_completed', 'CartController@order_completed');
 
 

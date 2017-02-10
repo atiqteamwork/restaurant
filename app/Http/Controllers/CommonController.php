@@ -183,21 +183,26 @@ class CommonController extends Controller
     */
     public function get_city_areas(Request $request)
     {
-        $area_list = new Area();
+        //$area_list = new Area();
         $areaList = Area::where("city_id", $request->city_id)->get(); 
         $options = "";
         
-        foreach( $areaList as $area)
-        {
-			if( isset( $request->area_id ) )
-			{
-				$options .= "<option value='".$area->id."' ".($request->area_id  == $area->id ? 'selected':'').">".$area->area_name."</option>";
-			} else {
-				$options .= "<option value='".$area->id."'>".$area->area_name."</option>";
-			}
-            
-        }
         
+		if( !empty( $areaList ) && count ( $areaList ) > 0 ){
+			foreach( $areaList as $area)
+			{
+				if( isset( $request->area_id ) )
+				{
+					$options .= "<option value='".$area->id."' ".($request->area_id  == $area->id ? 'selected':'').">".$area->area_name."</option>";
+				} else {
+					$options .= "<option value='".$area->id."'>".$area->area_name."</option>";
+				}
+				
+			}
+		} else {
+			$options = "<option value='0'>No Area Found</option>";
+		}
+		
         echo $options;
     }
     

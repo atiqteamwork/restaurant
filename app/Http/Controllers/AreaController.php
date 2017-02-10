@@ -144,9 +144,15 @@ class AreaController extends Controller
     public function update_area(Request $request)
     {
         $area = Area::find( $request->id );
-        $area->area_name = $request->area_name;
-        $area->city_id = $request->city_id;
-        $area->status = $request->status;
+		
+		if( $request->status == $area->status )
+		{
+			$area->area_name = $request->area_name;
+	        $area->city_id = $request->city_id;
+		} else {
+			$area->status = $request->status;
+		}
+		
         $area_result = $area->save();
 
         if( $area_result == 1 ) {

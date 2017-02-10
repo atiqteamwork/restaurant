@@ -169,28 +169,34 @@ class OrdersController extends Controller
     */
     public function view_order_byid(Request $request)
     {
-        $orders = new Order();
-        $order_list = $orders->get_orders_byid($request);
+        //$orders = new Order();
+        $order_list = Order::where('id', 1)->get(); // $orders->get_orders_byid($request);
         $return = "";		
-        
+		
+		//dd($order_list);
+		
         if( !empty( $order_list ) ) {
 
             $return = '<div class="row">
                 <div class="col-md-6">
                     <h4>Order Shipping Details</h4>
-                    <p><strong>Name: </strong>'.$order_list[0]->full_name.'<br>
-                        <strong>Address: </strong>'.$order_list[0]->order_address.'<br>
-                        <strong>Phone: </strong>'.$order_list[0]->order_phone.'<br>
-                        <strong>Cell: </strong>'.$order_list[0]->order_cell.'<br>
-                        <strong>Email: </strong>'.$order_list[0]->order_email.'</p>
+                    <p><strong>Name: </strong>'.
+						(($order_list[0]->shipping_location == "Billing")?
+							$order_list[0]->first_name. ' ' . $order_list[0]->last_name : 
+							$order_list[0]->shipping_first_name. ' ' . $order_list[0]->shipping_last_name). '<br>
+                        <strong>Address: </strong>'.(($order_list[0]->shipping_location == "Billing")?$order_list[0]->address1 : $order_list[0]->shipping_address1).'<br>
+						<strong></strong>'.(($order_list[0]->shipping_location == "Billing")?$order_list[0]->address2 : $order_list[0]->shipping_address2).'<br>
+                        <strong>Phone: </strong>'.(($order_list[0]->shipping_location == "Billing")? $order_list[0]->phone : $order_list[0]->shipping_phone).'<br>
+                        <strong>Cell: </strong>'.(($order_list[0]->shipping_location == "Billing")?  $order_list[0]->cell: $order_list[0]->shipping_cell).'<br>
+                        <strong>Email: </strong>'.(($order_list[0]->shipping_location == "Billing")? $order_list[0]->email : $order_list[0]->shipping_email).'</p>
                 </div>
                 <div class="col-md-6">
                     <h4>Restaurant Details</h4>
-                    <p><strong>Restaurant Name: </strong>'.$order_list[0]->restaurant_title.'<br>
-                        <strong>Address: </strong>'.$order_list[0]->restaurant_address.'<br>
-                        <strong>Phone: </strong>'.$order_list[0]->restaurant_phone.'<br>
-                        <strong>Cell: </strong>'.$order_list[0]->restaurant_cell.'<br>
-                        <strong>Email: </strong>'.$order_list[0]->restaurant_email.'</p>
+                    <p><strong>Restaurant Name: </strong>'.$order_list[0]->Restaurant->title.'<br>
+                        <strong>Address: </strong>'.$order_list[0]->Restaurant->address.'<br>
+                        <strong>Phone: </strong>'.$order_list[0]->Restaurant->phone_primary.'<br>
+                        <strong>Cell: </strong>'.$order_list[0]->Restaurant->cell.'<br>
+                        <strong>Email: </strong>'.$order_list[0]->Restaurant->email.'</p>
                 </div>
              </div>
              <hr>
@@ -217,14 +223,14 @@ class OrdersController extends Controller
             
             $item_total = 0;
             
-            foreach($order_list as $order) {				
+            foreach($order_list[0]->OrderDetail as $details) {				
                 $return .= '<tr>
-                            <td>'.(!empty($order->dish_title)?$order->dish_title:$order->deal_title).'</td>
-                            <td>'.$order->price.'</td>
-                            <td>'.$order->quantity.'</td>
-                            <td>'.($order->price * $order->quantity).'</td>
+                            <td>'.(($details->dish_id != 0)?$details->Dishes[0]->dish_title:$details->Deals[0]->deal_title).'</td>
+                            <td>'.$details->price.'</td>
+                            <td>'.$details->quantity.'</td>
+                            <td>'.($details->price * $details->quantity).'</td>
                         </tr>';
-                $item_total += ($order->price * $order->quantity);
+                $item_total += ($details->price * $details->quantity);
             }
             
             if( $item_total > 1000 ) 

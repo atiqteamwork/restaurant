@@ -19,26 +19,10 @@
 </head>
 <body>
 <!--start navigation bar-->
-<nav class="navbar navbar-default">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-            <a class="navbar-brand" href="index.html"><img src="assets_front/images/res_logo.png" alt="logo"></a> <span class="toggle-order-now hidden-lg hidden-md"> <a href="#" class="btn btn_order_now">ORDER NOW</a> </span> </div>
-        <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">About</a></li>
-                <li><a href="#">Team</a></li>
-                <li><a href="#">Careers</a></li>
-                <li><a href="#">Press</a></li>
-                <li><a href="#">Contact</a></li>
-                <li class="visible-lg visible-md"><a href="#" class="btn btn_order_now">ORDER NOW</a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
+@include("partials.mainnav")
 <!--nav end--> 
 <!--wrapper bg-->
-<div class="wrapper_bg parallax-window" data-parallax="scroll" data-image-src="assets_front/images/index_bg.jpg">
+<div class="wrapper_bg parallax-window" data-parallax="scroll" data-image-src="{{frontpage_image_path()}}">
     <div class="wrapper-box">
         <h2>order <span>takeaway</span> or delivery now</h2>
         <p>Ridiculus sociosqu cursus neque cursus curae ante scelerisque vehicula.
@@ -49,7 +33,12 @@
                     <div class="col-md-offset-2 col-md-8 col-sm-12 col-xs-12 col-md-offset-2"> {{ Form::open(array('url' => '/restaurants/find','id'=>'searchrestaurants')) }}
                         <div class="row">
                             <div class="col-md-4 col-sm-12 no-padding">
-                                <div class="select-res"> {{Form::Select('city', $cities, null, ['class' => 'search-res form-control', 'id' => 'select-city', 'required' => 'required'])}} 
+                                <div class="select-res"> 
+                                
+                                {{Form::Select('city', $cities, null, ['class' => 'search-res form-control', 'id' => 'select-city', 'required' => 'required'])}}
+                                
+                                
+                                
                                     <!--<select id="select-restaurent" placeholder="Select/type city...">
                                     <option value="">Select/type city...</option>
                                     <option value="AL">Alabama</option>
@@ -317,7 +306,6 @@ $.ajax({
 		'_token': '{{csrf_token()}}'
 	},
 	success: function (response) {
-		//alert(response);
 		$("#select-area").html(response);
 	},
 	error:function () {
